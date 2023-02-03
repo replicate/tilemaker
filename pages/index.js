@@ -30,24 +30,18 @@ export default function Home() {
   const [error, setError] = useState(null);
   const example = examples[Math.floor(Math.random() * examples.length)];
   const [prompt, setPrompt] = useState(example.prompt);
-  const [imageArray, setImageArray] = useState(Array(9).fill(false));
+  const [cols, setCols] = useState("");
+  const [rows, setRows] = useState("");
+  const [total, setTotal] = useState(0);
 
-  //   const handleRender = (index) => {
-  //     setTimeout(() => {
-  //       imageArray[index] = true;
-  //       setImageArray(imageArray);
-  //     }, 3000);
-  //   };
-
-  //   useEffect(() => {
-  //     imageArray.map((value, index) => {
-  //       setTimeout(() => {
-  //         handleRender(index);
-  //       }, 1000);
-  //     });
-
-  //     console.log(imageArray);
-  //   }, []);
+  useEffect(() => {
+    var cols = Math.min(Math.round(window.innerWidth / 256), 12);
+    var rows = Math.min(Math.round(window.innerHeight / 256), 12) + 1;
+    setTotal(cols * rows);
+    setCols(`grid-cols-${cols}`);
+    setRows(`grid-rows-${rows}`);
+    console.log(cols, rows);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -84,29 +78,25 @@ export default function Home() {
   };
 
   return (
-    <div
-      className="min-h-screen relative"
-      //   style={{
-      //     backgroundImage: `url(${example.image})`,
-      //     backgroundRepeat: "repeat",
-      //   }}
-    >
+    <div className="relative">
       <Head>
-        <title>Replicate + Next.js</title>
+        <title>Wallpaper Creator</title>
       </Head>
 
-      <div className="grid grid-cols-3 grid-rows-3">
-        {imageArray.map((value, index) => (
-          <>
-            <img
-              id={index}
-              className="animate-drop"
-              style={{ animationDelay: `${index * 0.1}s` }}
-              src={example.image}
-              alt=""
-            />
-          </>
-        ))}
+      <div className={`grid ${rows} ${cols}`}>
+        {Array(total)
+          .fill(1)
+          .map((_value, index) => (
+            <>
+              <img
+                id={index}
+                className="animate-drop"
+                style={{ animationDelay: `${index * 0.1}s` }}
+                src={example.image}
+                alt=""
+              />
+            </>
+          ))}
       </div>
 
       <form className="max-w-sm mx-auto absolute top-4" onSubmit={handleSubmit}>
