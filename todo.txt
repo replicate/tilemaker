@@ -1,5 +1,8 @@
-- reset git and push a new repo
+- [x] reset git and push a new repo
 
+- entrypoint to using the replicate API, so it's key there's an obvious CTA
+- works on mobile
+- prefilled text, instant demo with minimal thought
 - loading indicator
 - download button
 - page starts with a tile and a placeholder prompt

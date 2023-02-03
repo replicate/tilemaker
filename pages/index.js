@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 
@@ -30,6 +30,24 @@ export default function Home() {
   const [error, setError] = useState(null);
   const example = examples[Math.floor(Math.random() * examples.length)];
   const [prompt, setPrompt] = useState(example.prompt);
+  const [imageArray, setImageArray] = useState(Array(9).fill(false));
+
+  //   const handleRender = (index) => {
+  //     setTimeout(() => {
+  //       imageArray[index] = true;
+  //       setImageArray(imageArray);
+  //     }, 3000);
+  //   };
+
+  //   useEffect(() => {
+  //     imageArray.map((value, index) => {
+  //       setTimeout(() => {
+  //         handleRender(index);
+  //       }, 1000);
+  //     });
+
+  //     console.log(imageArray);
+  //   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,17 +85,31 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen"
-      style={{
-        backgroundImage: `url(${example.image})`,
-        backgroundRepeat: "repeat",
-      }}
+      className="min-h-screen relative"
+      //   style={{
+      //     backgroundImage: `url(${example.image})`,
+      //     backgroundRepeat: "repeat",
+      //   }}
     >
       <Head>
         <title>Replicate + Next.js</title>
       </Head>
 
-      <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
+      <div className="grid grid-cols-3 grid-rows-3">
+        {imageArray.map((value, index) => (
+          <>
+            <img
+              id={index}
+              className="animate-drop"
+              style={{ animationDelay: `${index * 0.1}s` }}
+              src={example.image}
+              alt=""
+            />
+          </>
+        ))}
+      </div>
+
+      <form className="max-w-sm mx-auto absolute top-4" onSubmit={handleSubmit}>
         <div>
           <label
             htmlFor="name"
