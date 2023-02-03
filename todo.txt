@@ -1,0 +1,10 @@
+- reset git and push a new repo
+
+- loading indicator
+- download button
+- page starts with a tile and a placeholder prompt
+- make it look like an OS
+
+stretch:
+- gallery of buttons
+- fading border
