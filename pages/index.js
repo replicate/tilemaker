@@ -26,13 +26,15 @@ const examples = [
 ];
 
 export default function Home() {
+  const example = examples[Math.floor(Math.random() * examples.length)];
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
-  const example = examples[Math.floor(Math.random() * examples.length)];
-  const [prompt, setPrompt] = useState(example.prompt);
+  const [prompt, setPrompt] = useState(null);
   const [cols, setCols] = useState("");
   const [rows, setRows] = useState("");
   const [total, setTotal] = useState(0);
+  const [wallpaper, setWallpaper] = useState(example.image);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     var cols = Math.min(Math.round(window.innerWidth / 256), 12);
@@ -45,6 +47,8 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const response = await fetch("/api/predictions", {
       method: "POST",
       headers: {
@@ -60,6 +64,7 @@ export default function Home() {
       return;
     }
     setPrediction(prediction);
+    setLoading(true);
 
     while (
       prediction.status !== "succeeded" &&
@@ -74,7 +79,26 @@ export default function Home() {
       }
       console.log({ prediction });
       setPrediction(prediction);
+
+      if (prediction.status === "succeeded") {
+        resetWallpaper(prediction.output);
+        setLoading(false);
+      }
     }
+  };
+
+  const resetWallpaper = (image) => {
+    const tiles = document.getElementsByClassName("tile");
+    for (let i = 0; i < tiles.length; i++) {
+      tiles[i].classList.remove("animate-drop");
+    }
+
+    setTimeout(() => {
+      for (let i = 0; i < tiles.length; i++) {
+        tiles[i].classList.add("animate-drop");
+      }
+      setWallpaper(image);
+    }, 10);
   };
 
   return (
@@ -90,9 +114,9 @@ export default function Home() {
             <>
               <img
                 id={index}
-                className="animate-drop"
+                className="tile animate-drop"
                 style={{ animationDelay: `${index * 0.1}s` }}
-                src={example.image}
+                src={wallpaper}
                 alt=""
               />
             </>
@@ -108,43 +132,48 @@ export default function Home() {
           <div className="mt-1 border-gray-300 focus-within:border-indigo-600">
             <input
               type="text"
-              name="name"
+              name="prompt"
               id="name"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
               className="block w-full rounded-lg bg-gray-50 focus:border-indigo-600 focus:ring-0 sm:text-sm"
               placeholder="Enter your wallpaper prompt"
             />
           </div>
         </div>
 
+        <button
+          type="button"
+          onClick={() => {
+            resetWallpaper(
+              examples[Math.floor(Math.random() * examples.length)].image
+            );
+          }}
+        >
+          Set Wallpaper
+        </button>
+
         <div className="mt-4 text-center">
-          <button
-            type="submit"
-            className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Create your wallpaper
-          </button>
+          {loading ? (
+            <button
+              type="submit"
+              disabled
+              className="inline-flex animate-pulse items-center rounded-md border border-transparent bg-indigo-300 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Creating your wallpaper...
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Create your wallpaper
+            </button>
+          )}
         </div>
       </form>
 
       {error && <div>{error}</div>}
 
-      {prediction && (
-        <div>
-          {prediction.output && (
-            <div className={styles.imageWrapper}>
-              <Image
-                fill
-                src={prediction.output[prediction.output.length - 1]}
-                alt="output"
-                sizes="100%"
-              />
-            </div>
-          )}
-          <p>status: {prediction.status}</p>
-        </div>
-      )}
+      {prediction && <p>status: {prediction.status}</p>}
     </div>
   );
 }
