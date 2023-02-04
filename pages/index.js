@@ -37,12 +37,14 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    var cols = Math.min(Math.round(window.innerWidth / 256), 12);
-    var rows = Math.min(Math.round(window.innerHeight / 256), 12) + 1;
+    // var cols = Math.min(Math.round(window.innerWidth / 256), 12);
+    // var rows = Math.min(Math.round(window.innerHeight / 256), 12) + 1;
+    var cols = 4;
+    var rows = 3;
     setTotal(cols * rows);
     setCols(`grid-cols-${cols}`);
     setRows(`grid-rows-${rows}`);
-    console.log(cols, rows);
+    console.log(cols, rows, total);
   }, []);
 
   const handleSubmit = async (e) => {
@@ -103,89 +105,74 @@ export default function Home() {
     }, 10);
   };
 
-  const download = async (imageSrc) => {
-    /**
-     * It's surprisingly diffucult to download an image using JS (default behavior for a <a> download tag is to open a new
-     * tab with the image. Took the below from this guide: https://dev.to/sbodi10/download-images-using-javascript-51a9
-     */
-    var image = await fetch(imageSrc);
+  const stitchImages = async (imageUrl) => {
+    const image = await fetch(imageUrl);
     const imageBlob = await image.blob();
     const imageURL = URL.createObjectURL(imageBlob);
-    const imageUrls = [imageURL, imageURL];
 
-    var images = [];
+    var myCanvas = document.getElementById("canvas");
+    var ctx = myCanvas.getContext("2d");
+    ctx.canvas.width = 2000;
+    ctx.canvas.height = 1000;
 
-    for (var i = 0; i < imageUrls.length; i++) {
-      var myImage = new Image();
-      myImage.src = imageUrls[i];
-      images.push(myImage);
-    }
+    var img = new Image();
+    img.src = imageURL;
 
-    var canvas = document.createElement("canvas");
-    var ctx = canvas.getContext("2d");
-    var x = 0;
+    img.addEventListener("load", (e) => {
+      ctx.drawImage(img, 0, 0); // Or at whatever offset you like
+      ctx.drawImage(img, 0, 512); // Or at whatever offset you like
+      ctx.drawImage(img, 512, 0); // Or at whatever offset you like
+      ctx.drawImage(img, 512, 512); // Or at whatever offset you like
+    });
 
-    // set the width and height of the canvas to the combined width and height of all images
-    canvas.width = 1024;
-    canvas.height = 1024;
+    ctx.fillStyle = "green";
+    ctx.fillRect(100, 100, 100, 100);
 
-    // draw each image on the canvas
-    for (var i = 0; i < images.length; i++) {
-      ctx.drawImage(images[i], x, 0);
-      x += images[i].width;
-    }
+    return myCanvas.toDataURL("image/png");
+  };
 
-    // convert the canvas to an image
-    var image = new Image();
-    image.src = canvas.toDataURL();
+  const download = async (image) => {
+    stitchImages(image);
 
-    FileSaver.saveAs(image.src, "my-wallpaper.png");
-
-    // mergeImages([imageURL, imageURL]).then((b64) => {
-    //   FileSaver.saveAs(context, "my-wallpaper.png");
-    // });
-
-    // const image = await fetch(imageSrc);
-    // const imageBlog = await image.blob();
-    // const imageURL = URL.createObjectURL(imageBlog);
-
-    // const link = document.createElement("a");
-    // link.href = imageURL;
-    // link.download = "my-wallpaper.png";
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
+    // I couldn't figure out the async/await version of this
+    // so I just used a setTimeout to wait for the canvas to be drawn
+    setTimeout(() => {
+      var myCanvas = document.getElementById("canvas");
+      const dataUrl = myCanvas.toDataURL("image/png");
+      FileSaver.saveAs(dataUrl, "wallpaper.png");
+    }, 100);
   };
 
   return (
     <div
       className="relative min-h-screen"
-      style={{
-        backgroundImage: `url(${example.image})`,
-        backgroundRepeat: "repeat",
-        backgroundSize: "256px",
-      }}
+      //   style={{
+      //     backgroundImage: `url(${example.image})`,
+      //     backgroundRepeat: "repeat",
+      //     backgroundSize: "256px",
+      //   }}
     >
       <Head>
         <title>Wallpaper Creator</title>
       </Head>
 
-      <canvas class="result"></canvas>
-
-      <div className={`hidden grid ${rows} ${cols}`}>
+      <div className={`grid ${rows} ${cols}`}>
         {Array(total)
           .fill(1)
           .map((_value, index) => (
-            <>
-              <img
-                id={index}
-                className="tile animate-drop"
-                style={{ animationDelay: `${index * 0.1}s` }}
-                src={wallpaper}
-                alt=""
-              />
-            </>
+            <img
+              key={`tile-${index}`}
+              id={index}
+              className="tile animate-drop"
+              style={{ animationDelay: `${index * 0.1}s` }}
+              src={wallpaper}
+              alt=""
+            />
           ))}
+      </div>
+
+      <div className="fixed top-0 left-0">
+        <canvas id="canvas" className="fixed top-0 left-0"></canvas>
       </div>
 
       <form className="max-w-sm mx-auto absolute top-4" onSubmit={handleSubmit}>
@@ -218,6 +205,7 @@ export default function Home() {
 
         <button
           type="button"
+          className="bg-red-500 p-4"
           onClick={() => {
             download(wallpaper);
           }}
