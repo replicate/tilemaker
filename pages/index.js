@@ -186,7 +186,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen bg-blue-900">
         <Head>
           <title>Wallpaper Creator</title>
         </Head>
@@ -199,9 +199,6 @@ export default function Home() {
             >
               Built on Replicate™
             </a>
-          </div>
-          <div class="title-bar-controls">
-            <button aria-label="Close"></button>
           </div>
         </div>
 
@@ -318,7 +315,7 @@ export function Form({
           <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
+        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-32">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
