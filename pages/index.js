@@ -570,9 +570,9 @@ export function About({ open, setOpen }) {
 
                   <p>
                     This website is built with Next.js and hosted on Vercel, and
-                    uses Replicate's API to run the material stable diffusion
-                    model. The source code is publicly available on GitHub. Pull
-                    requests welcome!
+                    uses Replicate&apos;s API to run the material stable
+                    diffusion model. The source code is publicly available on
+                    GitHub. Pull requests welcome!
                   </p>
 
                   <p>
