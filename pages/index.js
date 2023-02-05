@@ -332,7 +332,6 @@ export default function Home() {
 
         <About open={aboutOpen} setOpen={setAboutOpen} />
         <Save
-          deviceEmoji={deviceEmoji}
           open={saveOpen}
           setOpen={setSaveOpen}
           wallpaper={wallpaper}
@@ -600,7 +599,7 @@ export function About({ open, setOpen }) {
   );
 }
 
-export function Save({ open, setOpen, wallpaper, download, deviceEmoji }) {
+export function Save({ open, setOpen, wallpaper, download }) {
   return (
     <Transition.Root show={open} as={Fragment} appear>
       <Dialog
@@ -646,15 +645,9 @@ export function Save({ open, setOpen, wallpaper, download, deviceEmoji }) {
                 <fieldset class="space-y-3">
                   <p>Save your wallpaper for free! Just pick a resolution.</p>
 
-                  {/* <img className="h-20 w-20" src={wallpaper} alt="" /> */}
-                  <div className="grid grid-cols-4 text-center">
+                  <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-y-12 sm:gap-0 text-center">
                     <div>
-                      <span className="text-6xl">
-                        {deviceEmoji(
-                          window.screen.width * devicePixelRatio,
-                          window.screen.height * devicePixelRatio
-                        )}
-                      </span>
+                      <span className="text-6xl">⬇️</span>
                       <p className="mt-2">Current Device</p>
                       <div className="mt-2">
                         <button
