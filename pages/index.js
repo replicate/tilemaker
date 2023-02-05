@@ -2,7 +2,11 @@ import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
 import FileSaver from "file-saver";
 import useSound from "use-sound";
-import { ArrowPathIcon, PlusIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowPathIcon,
+  ArrowDownTrayIcon,
+  PlusIcon,
+} from "@heroicons/react/20/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import "xp.css/dist/XP.css";
 
@@ -289,6 +293,8 @@ export function Form({
   resetWallpaper,
   prompt,
   setPrompt,
+  download,
+  wallpaper,
 }) {
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
@@ -329,77 +335,110 @@ export function Form({
                   <button aria-label="Close" className=""></button>
                 </div>
               </div>
+              <div className="window-body">
+                <menu role="tablist" className="pt-2 " aria-label="Sample Tabs">
+                  <button role="tab" aria-selected="true" aria-controls="tab-A">
+                    Tab A
+                  </button>
+                  <button role="tab" aria-controls="tab-B">
+                    Tab B
+                  </button>
+                  <button role="tab" aria-controls="tab-C">
+                    Tab C
+                  </button>
+                </menu>
 
-              <form onSubmit={handleSubmit} class="p-4">
-                <Combobox>
-                  <div className="relative">
-                    <p>
-                      Welcome! This app uses{" "}
-                      <a href="https://replicate.com/tommoore515/material_stable_diffusion">
-                        material stable diffusion
-                      </a>{" "}
-                      to create wallpapers from a description. Try it out by
-                      describing your next wallpaper:
-                    </p>
+                <article role="tabpanel" hidden id="tab-B">
+                  <h3>More...</h3>
+                  <p>This tab contains a GroupBox</p>
+                </article>
 
-                    <pre className="mt-4 px-2 py-2 rounded-sm">
-                      <textarea
-                        required={true}
-                        name="prompt"
-                        rows="3"
-                        value={prompt}
-                        onChange={(e) => setPrompt(e.target.value)}
-                        placeholder={example.prompt}
-                        style={{ resize: "none" }}
-                        className="rounded-sm bg-transparent w-full ring-0 focus-within:ring-0"
-                      />
-                    </pre>
-                  </div>
-                </Combobox>
+                <article role="tabpanel" id="tab-A">
+                  <h3>Welcome!</h3>
 
-                <div className="mt-4 pt-4">
-                  {loading ? (
-                    <div>
-                      <progress
-                        className="w-full"
-                        max="100"
-                        value={status}
-                      ></progress>
+                  <form onSubmit={handleSubmit} class="">
+                    <fieldset>
+                      <Combobox>
+                        <div className="mt-4">
+                          <p>
+                            Welcome! This app uses{" "}
+                            <a href="https://replicate.com/tommoore515/material_stable_diffusion">
+                              material stable diffusion
+                            </a>{" "}
+                            to create wallpapers from a description. Try it out
+                            by describing your next wallpaper:
+                          </p>
 
-                      {status ? (
-                        <div>
-                          {status}%
-                          <span className="animate-pulse">
-                            {" "}
-                            Creating your wallpaper...
-                          </span>
+                          <textarea
+                            required={true}
+                            name="prompt"
+                            rows="3"
+                            value={prompt}
+                            onChange={(e) => setPrompt(e.target.value)}
+                            placeholder={example.prompt}
+                            style={{ resize: "none" }}
+                            className="rounded-sm bg-black text-white px-2 mt-2 w-full ring-0 focus-within:ring-0"
+                          />
                         </div>
-                      ) : (
-                        <span className="animate-pulse">Booting up...</span>
-                      )}
-                    </div>
-                  ) : (
-                    <div class="text-right">
-                      <button
-                        type="button"
-                        onClick={() => handleInspire()}
-                        className="inline-flex mr-3 py-1 items-center"
-                      >
-                        <ArrowPathIcon className="h-5 w-5 mr-3" /> See an
-                        example
-                      </button>
+                      </Combobox>
 
-                      <button
-                        type="submit"
-                        className="inline-flex items-center py-1"
-                      >
-                        <PlusIcon className="h-5 w-5 mr-3" />
-                        Create new wallpaper
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </form>
+                      <div className="mt-4 pt-4">
+                        {loading ? (
+                          <div>
+                            <progress
+                              className="w-full"
+                              max="100"
+                              value={status}
+                            ></progress>
+
+                            {status ? (
+                              <div>
+                                {status}%
+                                <span className="animate-pulse">
+                                  {" "}
+                                  Creating your wallpaper...
+                                </span>
+                              </div>
+                            ) : (
+                              <span className="animate-pulse">
+                                Booting up...
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          <div class="text-right">
+                            <button
+                              type="button"
+                              onClick={() => handleInspire()}
+                              className="inline-flex mr-3 py-1 items-center"
+                            >
+                              <ArrowPathIcon className="h-5 w-5 mr-3" /> See an
+                              example
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => download(wallpaper)}
+                              className="inline-flex mr-3 py-1 items-center"
+                            >
+                              <ArrowDownTrayIcon className="h-5 w-5 mr-3" />{" "}
+                              Save wallpaper
+                            </button>
+
+                            <button
+                              type="submit"
+                              className="inline-flex items-center py-1"
+                            >
+                              <PlusIcon className="h-5 w-5 mr-3" />
+                              Create new wallpaper
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </fieldset>
+                  </form>
+                </article>
+              </div>
             </Dialog.Panel>
           </Transition.Child>
         </div>
