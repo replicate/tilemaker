@@ -9,6 +9,10 @@ Todos
 - [x] make sure github links are all setup
 - [?] it's key there's an obvious CTA
 - [?] prefilled text, instant demo with minimal thought
+- [ ] add more examples!
+
+stretch
+- [] down the line add a way to see others wallpapers
 
 launch
 - [] get a domain!
