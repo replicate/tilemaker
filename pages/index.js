@@ -239,13 +239,20 @@ export default function Home() {
             </a>
           </div>
 
-          <div class="title-bar-text hidden sm:inline-flex">
+          <div class="title-bar-text hidden sm:inline-flex"></div>
+
+          <div className="title-bar-controls">
             <a
               href="https://github.com/replicate/wallpaper"
-              className="text-blue-100 hover:text-white"
+              className="text-blue-100 hover:text-white mr-3"
             >
               Code <ArrowUpRightIcon className="inline-flex h-3 w-3" />
             </a>
+            <button
+              onClick={() => (window.location.href = "https://replicate.com")}
+              aria-label="Close"
+              className=""
+            ></button>
           </div>
         </div>
 
