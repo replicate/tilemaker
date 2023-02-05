@@ -241,7 +241,7 @@ export default function Home() {
 
           <div class="title-bar-text hidden sm:inline-flex">
             <a
-              href="INSERT_GITHUB_LINK_HERE"
+              href="https://github.com/replicate/wallpaper"
               className="text-blue-100 hover:text-white"
             >
               Code <ArrowUpRightIcon className="inline-flex h-3 w-3" />
@@ -560,7 +560,9 @@ export function About({ open, setOpen }) {
                 <fieldset class="space-y-3">
                   <p>
                     Wallpaper Creator is an{" "}
-                    <a href="INSERT_GITHUB_LINK_HERE">open-source project</a>{" "}
+                    <a href="https://github.com/replicate/wallpaper">
+                      open-source project
+                    </a>{" "}
                     that provides an interface for creating tileable images.
                   </p>
 

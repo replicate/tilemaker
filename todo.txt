@@ -17,9 +17,6 @@ launch
         - wallpapercreator.ai
         - wallpapercreator3000
         - wallpaperXP
-        -
-
-
 - [] open source the repo
 
 questions
