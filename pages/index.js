@@ -412,8 +412,11 @@ export function Form({
                             onClick={() => download(wallpaper)}
                             className="inline-flex mr-3 py-1 items-center"
                           >
-                            <ArrowDownTrayIcon className="h-5 w-5 mr-3" /> Save
-                            wallpaper
+                            <ArrowDownTrayIcon className="h-5 w-5 mr-3" />
+                            Save{" "}
+                            <span className="hidden pl-0.5 sm:inline-block">
+                              wallpaper
+                            </span>
                           </button>
 
                           <div>
@@ -430,7 +433,11 @@ export function Form({
                               className="inline-flex items-center py-1 bg-green-500 text-white"
                             >
                               <PlusIcon className="h-5 w-5 mr-3" />
-                              Create new wallpaper
+                              Create{" "}
+                              <span className="hidden pl-0.5 sm:inline-block">
+                                {" "}
+                                new wallpaper
+                              </span>
                             </button>
                           </div>
                         </div>
