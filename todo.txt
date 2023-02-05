@@ -1,6 +1,6 @@
 Todos
 - [x] reset git and push a new repo
-- [ ] ? maybe entrypoint to using the replicate API, so it's key there's an obvious CTA
+
 - [x] works on mobile
 - prefilled text, instant demo with minimal thought
 - [x] loading indicator
@@ -8,6 +8,8 @@ Todos
 - [x] page starts with a tile and a placeholder prompt
 - [x] make it look like an OS
 - mention how you can use it on phones, watch faces, desktops. even your home!
+- [ ] make sure github links are all setup
+- [?] it's key there's an obvious CTA
 
 questions
 - do you thikn there's enough of a instant demo with minimal thought?

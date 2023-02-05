@@ -3,7 +3,8 @@ import Head from "next/head";
 import FileSaver from "file-saver";
 import {
   ArrowPathIcon,
-  ArrowDownTrayIcon,
+  ArrowUpRightIcon,
+  DeviceTabletIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
@@ -60,7 +61,9 @@ export default function Home() {
   const [total, setTotal] = useState(null);
   const [wallpaper, setWallpaper] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // creator modal
+  const [aboutOpen, setAboutOpen] = useState(false); // about modal
+  const [saveOpen, setSaveOpen] = useState(false); // save modal
   const [status, setStatus] = useState(null);
   const [placeholder, setPlaceholder] = useState(
     examples[Math.floor(Math.random() * examples.length)].prompt
@@ -78,7 +81,7 @@ export default function Home() {
 
     // Wait a second before showing modal
     setTimeout(() => {
-      setOpen(true);
+      //   setOpen(true);
     }, 2000);
   }, []);
 
@@ -229,12 +232,21 @@ export default function Home() {
         </Head>
         <div class="title-bar">
           <div class="title-bar-text">
-            Wallpaper Creator 3000 •{" "}
+            Wallpaper Creator •{" "}
             <a
               href="https://replicate.com"
-              className="text-blue-100 italic hover:text-white"
+              className="text-yellow-300 italic hover:text-white"
             >
               Built on Replicate™
+            </a>
+          </div>
+
+          <div class="title-bar-text hidden sm:inline-flex">
+            <a
+              href="INSERT_GITHUB_LINK_HERE"
+              className="text-blue-100 hover:text-white"
+            >
+              Code <ArrowUpRightIcon className="inline-flex h-3 w-3" />
             </a>
           </div>
         </div>
@@ -252,7 +264,7 @@ export default function Home() {
             </button>
             <button
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
-              onClick={() => download(wallpaper)}
+              onClick={() => setSaveOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">💾</span>
 
@@ -262,7 +274,7 @@ export default function Home() {
             </button>
             <button
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
-              onClick={() => setOpen(true)}
+              onClick={() => setAboutOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">❔</span>
 
@@ -307,6 +319,15 @@ export default function Home() {
           status={status}
           placeholder={placeholder}
         />
+
+        <About open={aboutOpen} setOpen={setAboutOpen} />
+        <Save
+          open={saveOpen}
+          setOpen={setSaveOpen}
+          wallpaper={wallpaper}
+          download={download}
+        />
+
         {error && <div>{error}</div>}
         {prediction && <p>status: {prediction.status}</p>}
       </div>
@@ -485,19 +506,7 @@ export function Form({
   );
 }
 
-export function About({ aboutOpen, setAboutOpen }) {
-  const handleInspire = () => {
-    const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
-
-    setPrompt(newWallpaper.prompt);
-    setLoading(true);
-
-    // pass before closing modal, so user can see new prompt for a second
-    setTimeout(() => {
-      resetWallpaper(newWallpaper.image);
-      setLoading(false);
-    }, 3000);
-  };
+export function About({ open, setOpen }) {
   return (
     <Transition.Root show={open} as={Fragment} appear>
       <Dialog
@@ -530,7 +539,7 @@ export function About({ aboutOpen, setAboutOpen }) {
           >
             <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden shadow-2xl transition-all">
               <div className="title-bar">
-                <div className="title-bar-text">Wallpaper Creator</div>
+                <div className="title-bar-text">About this project</div>
                 <div className="title-bar-controls">
                   <button
                     onClick={() => setOpen(false)}
@@ -540,96 +549,131 @@ export function About({ aboutOpen, setAboutOpen }) {
                 </div>
               </div>
               <div className="window-body">
-                <form onSubmit={handleSubmit} class="">
-                  <fieldset>
-                    <Combobox>
-                      <div className="mt-4">
-                        <p>
-                          Welcome! This app uses{" "}
-                          <a href="https://replicate.com/tommoore515/material_stable_diffusion">
-                            material stable diffusion
-                          </a>{" "}
-                          to create tileable images from a description. Try it
-                          out by describing your next wallpaper:
-                        </p>
+                <fieldset class="space-y-3">
+                  <p>
+                    Wallpaper Creator is an{" "}
+                    <a href="INSERT_GITHUB_LINK_HERE">open-source project</a>{" "}
+                    that provides an interface for creating tileable images.
+                  </p>
 
-                        <textarea
-                          required={true}
-                          name="prompt"
-                          autoFocus
-                          id="prompt"
-                          rows="3"
-                          value={prompt}
-                          onChange={(e) => setPrompt(e.target.value)}
-                          placeholder={placeholder}
-                          style={{ resize: "none" }}
-                          className="rounded-sm bg-black text-white px-2 py-2 mt-2 w-full ring-0 focus-within:ring-0 text-xl"
-                        />
+                  <p>
+                    It works by using{" "}
+                    <a href="https://replicate.com/tommoore515/material_stable_diffusion">
+                      material stable diffusion,
+                    </a>{" "}
+                    which was created by{" "}
+                    <a href="https://twitter.com/tommoore515">Tom Moore.</a>
+                    The model is hosted on{" "}
+                    <a href="https://replicate.com">Replicate</a>, which exposes
+                    a cloud API for running predictions.
+                  </p>
+
+                  <p>
+                    This website is built with Next.js and hosted on Vercel, and
+                    uses Replicate's API to run the material stable diffusion
+                    model. The source code is publicly available on GitHub. Pull
+                    requests welcome!
+                  </p>
+
+                  <p>
+                    Also, thanks to Jordan Scales for creating the very fun{" "}
+                    <a>98.css</a> UI framework.
+                  </p>
+                </fieldset>
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+}
+
+export function Save({ open, setOpen, wallpaper, download }) {
+  return (
+    <Transition.Root show={open} as={Fragment} appear>
+      <Dialog
+        autoFocus={false}
+        as="div"
+        className="relative z-10"
+        onClose={setOpen}
+      >
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-32">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden shadow-2xl transition-all">
+              <div className="title-bar">
+                <div className="title-bar-text">Save your wallpaper</div>
+                <div className="title-bar-controls">
+                  <button
+                    onClick={() => setOpen(false)}
+                    aria-label="Close"
+                    className=""
+                  ></button>
+                </div>
+              </div>
+              <div className="window-body">
+                <fieldset class="space-y-3">
+                  <p>Save your wallpaper for free! Just pick a resolution.</p>
+
+                  {/* <img className="h-20 w-20" src={wallpaper} alt="" /> */}
+                  <div className="grid grid-cols-4 text-center">
+                    <div>
+                      <span className="text-6xl">💻</span>
+                      <p className="mt-2">Current Device</p>
+                      {window.screen.width * devicePixelRatio} x{" "}
+                      {window.screen.height * devicePixelRatio}
+                      <div className="mt-2">
+                        <button>Download</button>
                       </div>
-                    </Combobox>
-
-                    <div className="mt-4 pt-4">
-                      {loading ? (
-                        <div>
-                          {status ? (
-                            <progress
-                              className="w-full"
-                              max="100"
-                              value={status}
-                            ></progress>
-                          ) : (
-                            // Does a nice booting up animation if no value is given
-                            <progress className="w-full" max="100"></progress>
-                          )}
-
-                          {status ? (
-                            <div>
-                              {status}%
-                              <span className="animate-pulse">
-                                {" "}
-                                Creating your wallpaper...
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="animate-pulse">Booting up...</span>
-                          )}
-                        </div>
-                      ) : (
-                        <div class="flex justify-between">
-                          <button
-                            type="button"
-                            onClick={() => setPrompt("")}
-                            className="inline-flex mr-3 py-1 items-center"
-                          >
-                            Clear text
-                          </button>
-
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => handleInspire()}
-                              className="inline-flex mr-3 py-1 items-center"
-                            >
-                              <ArrowPathIcon className="h-5 w-5 mr-3" />
-                              Example
-                            </button>
-                            <button
-                              type="submit"
-                              className="inline-flex items-center py-1 bg-green-500 text-white"
-                            >
-                              <PlusIcon className="h-5 w-5 mr-3" />
-                              Create{" "}
-                              <span className="hidden pl-0.5 sm:inline-block">
-                                {" "}
-                                new wallpaper
-                              </span>
-                            </button>
-                          </div>
-                        </div>
-                      )}
                     </div>
-                  </fieldset>
-                </form>
+                    <div>
+                      <span className="text-6xl">🖥️</span>
+                      <p className="mt-2">Desktop</p>
+                      <span>3840 x 2160</span>
+                      <div className="mt-2">
+                        <button>Download</button>
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-6xl">📱</span>
+                      <p className="mt-2">Phone</p>
+                      {window.screen.width * devicePixelRatio} x{" "}
+                      {window.screen.height * devicePixelRatio}
+                      <div className="mt-2">
+                        <button>Download</button>
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-6xl">⌚</span>
+                      <p className="mt-2">Watch</p>
+                      {window.screen.width * devicePixelRatio} x{" "}
+                      {window.screen.height * devicePixelRatio}
+                      <div className="mt-2">
+                        <button>Download</button>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
               </div>
             </Dialog.Panel>
           </Transition.Child>
