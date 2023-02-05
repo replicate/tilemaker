@@ -11,6 +11,8 @@ import "xp.css/dist/XP.css";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+const IMAGE_SIZE = 256;
+
 const examples = [
   {
     prompt:
@@ -63,8 +65,8 @@ export default function Home() {
 
   useEffect(() => {
     // On page load, set the grid cols/rows based on the window size
-    var cols = Math.min(Math.ceil(window.innerWidth / 256), 12);
-    var rows = Math.min(Math.ceil(window.innerHeight / 256), 12) + 1;
+    var cols = Math.min(Math.ceil(window.innerWidth / IMAGE_SIZE), 12);
+    var rows = Math.min(Math.ceil(window.innerHeight / IMAGE_SIZE), 12) + 1;
     const example = examples[Math.floor(Math.random() * examples.length)];
     setWallpaper(example.image);
     setPrompt(example.prompt);
@@ -326,7 +328,12 @@ export function Form({
   };
   return (
     <Transition.Root show={open} as={Fragment} appear>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog
+        autoFocus={false}
+        as="div"
+        className="relative z-10"
+        onClose={setOpen}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

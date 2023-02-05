@@ -1,15 +1,10 @@
+Todos
 - [x] reset git and push a new repo
-
-- entrypoint to using the replicate API, so it's key there's an obvious CTA
-- works on mobile
+- [ ] ? maybe entrypoint to using the replicate API, so it's key there's an obvious CTA
+- [x] works on mobile
 - prefilled text, instant demo with minimal thought
-- loading indicator
-- download button
-- page starts with a tile and a placeholder prompt
-- make it look like an OS
+- [x] loading indicator
+- [x] download button
+- [x] page starts with a tile and a placeholder prompt
+- [x] make it look like an OS
 - mention how you can use it on phones, watch faces, desktops. even your home!
-
-stretch:
-- gallery of buttons
-- fading border
-- would be nice if new prompt had a typing effect
