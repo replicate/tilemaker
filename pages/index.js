@@ -31,20 +31,23 @@ export default function Home() {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
   const [prompt, setPrompt] = useState(null);
-  const [cols, setCols] = useState("");
-  const [rows, setRows] = useState("");
-  const [total, setTotal] = useState(0);
+  const [cols, setCols] = useState(3);
+  const [rows, setRows] = useState(4);
+  const [total, setTotal] = useState(144);
   const [wallpaper, setWallpaper] = useState(example.image);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     var cols = Math.min(Math.ceil(window.innerWidth / 512), 12);
-    var rows = Math.min(Math.ceil(window.innerHeight / 512), 12);
-    setTotal(cols * rows);
-    setCols(`grid-cols-${cols}`);
-    setRows(`grid-rows-${rows}`);
-    console.log(cols, rows, total);
+    var rows = Math.min(Math.ceil(window.innerHeight / 512), 12) + 1;
+    resize(cols, rows);
   }, []);
+
+  const resize = (cols, rows) => {
+    setTotal(cols * rows);
+    setCols(cols);
+    setRows(rows);
+  };
 
   const [playActive] = useSound("/beep.mp3", { volume: 0.25 });
   const [playSuccess] = useSound("/ding.wav", { volume: 0.25 });
@@ -99,7 +102,7 @@ export default function Home() {
       tiles[i].classList.remove("animate-drop");
     }
 
-    const interval = setInterval(playActive, 100);
+    // const interval = setInterval(playActive, 100);
 
     setTimeout(() => {
       for (let i = 0; i < tiles.length; i++) {
@@ -108,9 +111,9 @@ export default function Home() {
       setWallpaper(image);
     }, 10);
 
-    setTimeout(() => {
-      clearInterval(interval), playSuccess();
-    }, 1700);
+    // setTimeout(() => {
+    //   clearInterval(interval), playSuccess();
+    // }, 1700);
   };
 
   const stitchImages = async (imageUrl) => {
@@ -169,7 +172,13 @@ export default function Home() {
           <title>Wallpaper Creator</title>
         </Head>
 
-        <div className={`grid grid-cols-4 grid-rows-4`}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+            gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
+          }}
+        >
           {Array(total)
             .fill(1)
             .map((_value, index) => (
@@ -189,7 +198,7 @@ export default function Home() {
         </div>
 
         <form
-          className="max-w-sm mx-auto absolute top-4"
+          className="max-w-sm mx-auto absolute top-4 bg-white"
           onSubmit={handleSubmit}
         >
           <div>
@@ -208,6 +217,17 @@ export default function Home() {
             </div>
           </div>
 
+          <input
+            type="range"
+            value={cols}
+            onChange={(e) => setCols(e.target.value)}
+            min="3"
+            max="12"
+            id="myRange"
+          />
+
+          {cols}
+
           <button
             type="button"
             onClick={() => {
@@ -217,14 +237,6 @@ export default function Home() {
             }}
           >
             Set Wallpaper
-          </button>
-
-          <button
-            type="button"
-            onClick={() => playActive()}
-            className="bg-orange-500 -4"
-          >
-            sound
           </button>
 
           <button
