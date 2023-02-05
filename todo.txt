@@ -1,16 +1,27 @@
 Todos
 - [x] reset git and push a new repo
-
 - [x] works on mobile
-- prefilled text, instant demo with minimal thought
 - [x] loading indicator
 - [x] download button
 - [x] page starts with a tile and a placeholder prompt
 - [x] make it look like an OS
-- mention how you can use it on phones, watch faces, desktops. even your home!
-- [ ] make sure github links are all setup
+- [x] mention how you can use it on phones, watch faces, desktops. even your home!
+- [x] make sure github links are all setup
 - [?] it's key there's an obvious CTA
+- [?] prefilled text, instant demo with minimal thought
+
+launch
+- [] get a domain!
+    - available on a quick look:
+        - tiled.ai
+        - wallpapercreator.ai
+        - wallpapercreator3000
+        - wallpaperXP
+        -
+
+
+- [] open source the repo
 
 questions
-- do you thikn there's enough of a instant demo with minimal thought?
+- do you think there's enough of a instant demo with minimal thought?
 - do you think that the replicate origin is obvious enough? right now I have a feeling it's too subtle
