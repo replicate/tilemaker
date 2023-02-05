@@ -145,6 +145,10 @@ export default function Home() {
 
   const resetWallpaper = (image) => {
     setOpen(false);
+    setStatus(null);
+
+    // in order to redo the dropdown effect, we need to remove the animation class
+    // and then add it back
     const tiles = document.getElementsByClassName("tile");
     for (let i = 0; i < tiles.length; i++) {
       tiles[i].classList.remove("animate-drop");
@@ -301,8 +305,6 @@ export default function Home() {
           download={download}
           wallpaper={wallpaper}
           status={status}
-          resetWallpaper={resetWallpaper}
-          setLoading={setLoading}
           placeholder={placeholder}
         />
         {error && <div>{error}</div>}
@@ -318,36 +320,24 @@ export function Form({
   handleSubmit,
   loading,
   status,
-  resetWallpaper,
   prompt,
   setPrompt,
-  setLoading,
   placeholder,
 }) {
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
-
-    typeWriter("", newWallpaper);
+    typeWriter("", newWallpaper.prompt);
   };
 
-  const typeWriter = (prompt, newWallpaper, callback) => {
+  const typeWriter = (currentPrompt, newPrompt) => {
     var i = 0;
-    const txt = newWallpaper.prompt;
 
     var interval = setInterval(() => {
-      if (i < txt.length) {
-        setPrompt((prompt += txt.charAt(i)));
-
+      if (i < newPrompt.length) {
+        setPrompt((currentPrompt += newPrompt.charAt(i)));
         i++;
       } else {
         clearInterval(interval);
-        setLoading(true);
-
-        // pause before closing modal, so user can see new prompt for a second
-        setTimeout(() => {
-          resetWallpaper(newWallpaper.image);
-          setLoading(false);
-        }, 3000);
       }
     }, 10);
   };
