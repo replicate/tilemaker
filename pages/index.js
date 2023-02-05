@@ -227,7 +227,7 @@ export default function Home() {
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100  hover:bg-opacity-50 text-white hover:text-gray-900"
               onClick={() => setOpen(true)}
             >
-              <span className="text-8xl">🖼️</span>
+              <span className="text-6xl sm:text-8xl">🖼️</span>
 
               <p className="font-bold text-lg">New Wallpaper</p>
             </button>
@@ -235,7 +235,7 @@ export default function Home() {
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
               onClick={() => download(wallpaper)}
             >
-              <span className="text-8xl">💾</span>
+              <span className="text-6xl sm:text-8xl">💾</span>
 
               <p className="font-bold text-lg">
                 Save <br /> Wallpaper
@@ -245,7 +245,7 @@ export default function Home() {
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
               onClick={() => setOpen(true)}
             >
-              <span className="text-8xl">❔</span>
+              <span className="text-6xl sm:text-8xl">❔</span>
 
               <p className="font-bold text-lg">What is this?</p>
             </button>
