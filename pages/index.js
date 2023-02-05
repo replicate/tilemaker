@@ -1,5 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
+import { Image as MyImage } from "next/image";
 import FileSaver from "file-saver";
 import {
   ArrowPathIcon,
@@ -101,6 +102,18 @@ export default function Home() {
     }
   };
 
+  const deviceEmoji = (width, height) => {
+    if (width <= 410 || height <= 502) {
+      return "⌚";
+    } else if (width <= 1200 || height <= 1600) {
+      return "📱";
+    } else if (width <= 4000 || height <= 2200) {
+      return "💻";
+    } else {
+      return "🖥️";
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -165,7 +178,7 @@ export default function Home() {
     }, 10);
   };
 
-  const stitchImages = async (imageUrl) => {
+  const stitchImages = async (imageUrl, screenWidth, screenHeight) => {
     /**
      * Given a url for an image (which comes from replicate),
      * stitch it into a canvas and return the canvas so we can download it.
@@ -178,9 +191,6 @@ export default function Home() {
 
     var myCanvas = document.getElementById("canvas");
     var ctx = myCanvas.getContext("2d");
-
-    const screenHeight = window.screen.height * window.devicePixelRatio;
-    const screenWidth = window.screen.width * window.devicePixelRatio;
 
     ctx.canvas.width = screenWidth;
     ctx.canvas.height = screenHeight;
@@ -208,8 +218,8 @@ export default function Home() {
     return myCanvas.toDataURL("image/png");
   };
 
-  const download = async (image) => {
-    stitchImages(image);
+  const download = async (image, width, height) => {
+    stitchImages(image, width, height);
 
     // I couldn't figure out the async/await version of this
     // so I just used a setTimeout to wait for the canvas to be drawn
@@ -322,6 +332,7 @@ export default function Home() {
 
         <About open={aboutOpen} setOpen={setAboutOpen} />
         <Save
+          deviceEmoji={deviceEmoji}
           open={saveOpen}
           setOpen={setSaveOpen}
           wallpaper={wallpaper}
@@ -589,7 +600,7 @@ export function About({ open, setOpen }) {
   );
 }
 
-export function Save({ open, setOpen, wallpaper, download }) {
+export function Save({ open, setOpen, wallpaper, download, deviceEmoji }) {
   return (
     <Transition.Root show={open} as={Fragment} appear>
       <Dialog
@@ -638,38 +649,52 @@ export function Save({ open, setOpen, wallpaper, download }) {
                   {/* <img className="h-20 w-20" src={wallpaper} alt="" /> */}
                   <div className="grid grid-cols-4 text-center">
                     <div>
-                      <span className="text-6xl">💻</span>
+                      <span className="text-6xl">
+                        {deviceEmoji(
+                          window.screen.width * devicePixelRatio,
+                          window.screen.height * devicePixelRatio
+                        )}
+                      </span>
                       <p className="mt-2">Current Device</p>
-                      {window.screen.width * devicePixelRatio} x{" "}
-                      {window.screen.height * devicePixelRatio}
                       <div className="mt-2">
-                        <button>Download</button>
+                        <button
+                          onClick={() =>
+                            download(
+                              wallpaper,
+                              window.screen.width * devicePixelRatio,
+                              window.screen.height * devicePixelRatio
+                            )
+                          }
+                        >
+                          Download
+                        </button>
                       </div>
                     </div>
                     <div>
                       <span className="text-6xl">🖥️</span>
                       <p className="mt-2">Desktop</p>
-                      <span>3840 x 2160</span>
                       <div className="mt-2">
-                        <button>Download</button>
+                        <button onClick={() => download(wallpaper, 3840, 2160)}>
+                          Download
+                        </button>
                       </div>
                     </div>
                     <div>
                       <span className="text-6xl">📱</span>
                       <p className="mt-2">Phone</p>
-                      {window.screen.width * devicePixelRatio} x{" "}
-                      {window.screen.height * devicePixelRatio}
                       <div className="mt-2">
-                        <button>Download</button>
+                        <button onClick={() => download(wallpaper, 1170, 2532)}>
+                          Download
+                        </button>
                       </div>
                     </div>
                     <div>
                       <span className="text-6xl">⌚</span>
                       <p className="mt-2">Watch</p>
-                      {window.screen.width * devicePixelRatio} x{" "}
-                      {window.screen.height * devicePixelRatio}
                       <div className="mt-2">
-                        <button>Download</button>
+                        <button onClick={() => download(wallpaper, 410, 502)}>
+                          Download
+                        </button>
                       </div>
                     </div>
                   </div>
