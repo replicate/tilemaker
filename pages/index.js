@@ -2,7 +2,7 @@ import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
 import FileSaver from "file-saver";
 import useSound from "use-sound";
-import { ArrowDownTrayIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { ArrowPathIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import "xp.css/dist/XP.css";
 
@@ -68,9 +68,6 @@ export default function Home() {
       return pct * 2;
     }
   };
-
-  const [playActive] = useSound("/beep.mp3", { volume: 0.25 });
-  const [playSuccess] = useSound("/ding.wav", { volume: 0.25 });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -195,6 +192,52 @@ export default function Home() {
         <Head>
           <title>Wallpaper Creator</title>
         </Head>
+        <div class="title-bar">
+          <div class="title-bar-text">
+            Wallpaper Creator 3000 •{" "}
+            <a
+              href="https://replicate.com"
+              className="text-blue-100 italic hover:text-white"
+            >
+              Built on Replicate™
+            </a>
+          </div>
+          <div class="title-bar-controls">
+            <button aria-label="Close"></button>
+          </div>
+        </div>
+
+        {/* App Icons */}
+        <div className="absolute top-16 left-16">
+          <div className="grid gap-8">
+            <button
+              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50"
+              onClick={() => setOpen(true)}
+            >
+              <span className="text-8xl">🖼️</span>
+
+              <p className="text-white font-bold text-lg">New Wallpaper</p>
+            </button>
+            <button
+              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50"
+              onClick={() => download(wallpaper)}
+            >
+              <span className="text-8xl">💾</span>
+
+              <p className="text-white font-bold text-lg">
+                Download <br /> Wallpaper
+              </p>
+            </button>
+            <button
+              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50"
+              onClick={() => setOpen(true)}
+            >
+              <span className="text-8xl">❔</span>
+
+              <p className="text-white font-bold text-lg">What is this?</p>
+            </button>
+          </div>
+        </div>
 
         {/* repeating tiles */}
         <div
@@ -217,11 +260,9 @@ export default function Home() {
               />
             ))}
         </div>
-
         <div className="fixed hidden top-0 left-0">
           <canvas id="canvas" className="fixed top-0 left-0"></canvas>
         </div>
-
         <Form
           open={open}
           setOpen={setOpen}
@@ -233,10 +274,10 @@ export default function Home() {
           download={download}
           wallpaper={wallpaper}
           status={status}
+          examples={examples}
+          setWallpaper={setWallpaper}
         />
-
         {error && <div>{error}</div>}
-
         {prediction && <p>status: {prediction.status}</p>}
       </div>
     </>
@@ -258,9 +299,9 @@ export function Form({
   example,
   handleSubmit,
   loading,
-  download,
-  wallpaper,
   status,
+  examples,
+  setWallpaper,
 }) {
   return (
     <Transition.Root show={open} as={Fragment} appear>
@@ -287,25 +328,30 @@ export function Form({
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden rounded-xl shadow-2xl transition-all">
+            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden shadow-2xl transition-all">
               <div className="title-bar">
                 <div className="title-bar-text">Wallpaper Creator</div>
                 <div className="title-bar-controls">
-                  <button aria-label="Close"></button>
+                  <button aria-label="Close" className=""></button>
                 </div>
               </div>
 
               <form onSubmit={handleSubmit} class="p-4">
                 <Combobox>
                   <div className="relative">
-                    <textarea
-                      required={true}
-                      name="prompt"
-                      rows="3"
-                      placeholder={example.prompt}
-                      style={{ resize: "none" }}
-                      className="w-full border-0 bg-transparent text-gray-800 placeholder-gray-400 focus:ring-0 text-xl"
-                    />
+                    <label htmlFor="prompt">
+                      Enter a description of your wallpaper:
+                    </label>
+                    <pre className="mt-3 rounded-sm">
+                      <textarea
+                        required={true}
+                        name="prompt"
+                        rows="3"
+                        placeholder={example.prompt}
+                        style={{ resize: "none" }}
+                        className="rounded-sm bg-transparent w-full ring-0 focus-within:ring-0"
+                      />
+                    </pre>
                   </div>
                 </Combobox>
 
@@ -317,21 +363,34 @@ export function Form({
                         max="100"
                         value={status}
                       ></progress>
-                      {status}%
-                      <span className="animate-pulse">
-                        {" "}
-                        Creating your wallpaper...
-                      </span>
+
+                      {status ? (
+                        <div>
+                          {status}%
+                          <span className="animate-pulse">
+                            {" "}
+                            Creating your wallpaper...
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="animate-pulse">Booting up...</span>
+                      )}
                     </div>
                   ) : (
                     <div class="text-right">
                       <button
                         type="button"
-                        onClick={() => download(wallpaper)}
+                        onClick={() =>
+                          setWallpaper(
+                            examples[
+                              Math.floor(Math.random() * examples.length)
+                            ].image
+                          )
+                        }
                         className="inline-flex mr-3 py-1 items-center"
                       >
-                        <ArrowDownTrayIcon className="h-5 w-5 mr-3" /> Download
-                        wallpaper
+                        <ArrowPathIcon className="h-5 w-5 mr-3" /> Give me an
+                        example
                       </button>
 
                       <button
