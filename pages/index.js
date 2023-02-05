@@ -117,13 +117,11 @@ export default function Home() {
   };
 
   const resetWallpaper = (image) => {
-    setOpen(false);
+    // setOpen(false);
     const tiles = document.getElementsByClassName("tile");
     for (let i = 0; i < tiles.length; i++) {
       tiles[i].classList.remove("animate-drop");
     }
-
-    // const interval = setInterval(playActive, 100);
 
     setTimeout(() => {
       for (let i = 0; i < tiles.length; i++) {
@@ -131,10 +129,6 @@ export default function Home() {
       }
       setWallpaper(image);
     }, 10);
-
-    // setTimeout(() => {
-    //   clearInterval(interval), playSuccess();
-    // }, 1700);
   };
 
   const stitchImages = async (imageUrl) => {
@@ -208,7 +202,7 @@ export default function Home() {
         </div>
 
         {/* App Icons */}
-        <div className="absolute top-16 left-16">
+        <div className="absolute z-10 top-16 left-16">
           <div className="grid gap-8">
             <button
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50"
@@ -225,7 +219,7 @@ export default function Home() {
               <span className="text-8xl">💾</span>
 
               <p className="text-white font-bold text-lg">
-                Download <br /> Wallpaper
+                Save <br /> Wallpaper
               </p>
             </button>
             <button
@@ -275,22 +269,13 @@ export default function Home() {
           wallpaper={wallpaper}
           status={status}
           examples={examples}
-          setWallpaper={setWallpaper}
+          resetWallpaper={resetWallpaper}
         />
         {error && <div>{error}</div>}
         {prediction && <p>status: {prediction.status}</p>}
       </div>
     </>
   );
-}
-
-const people = [
-  { id: 1, name: "Leslie Alexander", url: "#" },
-  // More people...
-];
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
 }
 
 export function Form({
@@ -301,8 +286,17 @@ export function Form({
   loading,
   status,
   examples,
-  setWallpaper,
+  resetWallpaper,
+  prompt,
+  setPrompt,
 }) {
+  const handleInspire = () => {
+    const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
+    console.log("first");
+
+    resetWallpaper(newWallpaper.image);
+    setPrompt(newWallpaper.prompt);
+  };
   return (
     <Transition.Root show={open} as={Fragment} appear>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -339,14 +333,22 @@ export function Form({
               <form onSubmit={handleSubmit} class="p-4">
                 <Combobox>
                   <div className="relative">
-                    <label htmlFor="prompt">
-                      Enter a description of your wallpaper:
-                    </label>
-                    <pre className="mt-3 rounded-sm">
+                    <p>
+                      Welcome! This app uses{" "}
+                      <a href="https://replicate.com/tommoore515/material_stable_diffusion">
+                        material stable diffusion
+                      </a>{" "}
+                      to create wallpapers from a description. Try it out by
+                      describing your next wallpaper:
+                    </p>
+
+                    <pre className="mt-4 px-2 py-2 rounded-sm">
                       <textarea
                         required={true}
                         name="prompt"
                         rows="3"
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
                         placeholder={example.prompt}
                         style={{ resize: "none" }}
                         className="rounded-sm bg-transparent w-full ring-0 focus-within:ring-0"
@@ -380,16 +382,10 @@ export function Form({
                     <div class="text-right">
                       <button
                         type="button"
-                        onClick={() =>
-                          setWallpaper(
-                            examples[
-                              Math.floor(Math.random() * examples.length)
-                            ].image
-                          )
-                        }
+                        onClick={() => handleInspire()}
                         className="inline-flex mr-3 py-1 items-center"
                       >
-                        <ArrowPathIcon className="h-5 w-5 mr-3" /> Give me an
+                        <ArrowPathIcon className="h-5 w-5 mr-3" /> See an
                         example
                       </button>
 
@@ -398,7 +394,7 @@ export function Form({
                         className="inline-flex items-center py-1"
                       >
                         <PlusIcon className="h-5 w-5 mr-3" />
-                        Create wallpaper
+                        Create new wallpaper
                       </button>
                     </div>
                   )}
