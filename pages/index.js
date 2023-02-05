@@ -82,7 +82,7 @@ export default function Home() {
 
     // Wait a second before showing modal
     setTimeout(() => {
-      //   setOpen(true);
+      setOpen(true);
     }, 2000);
   }, []);
 
