@@ -329,7 +329,11 @@ export function Form({
               <div className="title-bar">
                 <div className="title-bar-text">Wallpaper Creator</div>
                 <div className="title-bar-controls">
-                  <button aria-label="Close" className=""></button>
+                  <button
+                    onClick={() => setOpen(false)}
+                    aria-label="Close"
+                    className=""
+                  ></button>
                 </div>
               </div>
               <div className="window-body">
