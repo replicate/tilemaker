@@ -51,14 +51,13 @@ const examples = [
 ];
 
 export default function Home() {
-  const example = examples[Math.floor(Math.random() * examples.length)];
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
-  const [prompt, setPrompt] = useState(example.prompt);
-  const [cols, setCols] = useState(3);
-  const [rows, setRows] = useState(4);
-  const [total, setTotal] = useState(144);
-  const [wallpaper, setWallpaper] = useState(example.image);
+  const [prompt, setPrompt] = useState(null);
+  const [cols, setCols] = useState(null);
+  const [rows, setRows] = useState(null);
+  const [total, setTotal] = useState(null);
+  const [wallpaper, setWallpaper] = useState(null);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(true);
   const [status, setStatus] = useState(null);
@@ -66,6 +65,9 @@ export default function Home() {
   useEffect(() => {
     var cols = Math.min(Math.ceil(window.innerWidth / 512), 12);
     var rows = Math.min(Math.ceil(window.innerHeight / 512), 12) + 1;
+    const example = examples[Math.floor(Math.random() * examples.length)];
+    setPrompt(example.prompt);
+    setWallpaper(example.image);
     resize(cols, rows);
   }, []);
 
@@ -88,8 +90,6 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    console.log("HELLO???");
 
     const response = await fetch("/api/predictions", {
       method: "POST",
@@ -133,7 +133,7 @@ export default function Home() {
   };
 
   const resetWallpaper = (image) => {
-    // setOpen(false);
+    setOpen(false);
     const tiles = document.getElementsByClassName("tile");
     for (let i = 0; i < tiles.length; i++) {
       tiles[i].classList.remove("animate-drop");
@@ -277,7 +277,6 @@ export default function Home() {
         <Form
           open={open}
           setOpen={setOpen}
-          example={example}
           prompt={prompt}
           setPrompt={setPrompt}
           handleSubmit={handleSubmit}
@@ -285,7 +284,6 @@ export default function Home() {
           download={download}
           wallpaper={wallpaper}
           status={status}
-          examples={examples}
           resetWallpaper={resetWallpaper}
         />
         {error && <div>{error}</div>}
@@ -298,11 +296,9 @@ export default function Home() {
 export function Form({
   open,
   setOpen,
-  example,
   handleSubmit,
   loading,
   status,
-  examples,
   resetWallpaper,
   prompt,
   setPrompt,
@@ -311,10 +307,13 @@ export function Form({
 }) {
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
-    console.log("first");
 
-    resetWallpaper(newWallpaper.image);
     setPrompt(newWallpaper.prompt);
+
+    // pass before closing modal, so user can see new prompt for a second
+    setTimeout(() => {
+      resetWallpaper(newWallpaper.image);
+    }, 250);
   };
   return (
     <Transition.Root show={open} as={Fragment} appear>
@@ -372,7 +371,7 @@ export function Form({
                           rows="3"
                           value={prompt}
                           onChange={(e) => setPrompt(e.target.value)}
-                          placeholder={example.prompt}
+                          placeholder={prompt}
                           style={{ resize: "none" }}
                           className="rounded-sm bg-black text-white px-2 py-2 mt-2 w-full ring-0 focus-within:ring-0 text-xl"
                         />
