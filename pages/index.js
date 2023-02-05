@@ -36,6 +36,18 @@ const examples = [
     image:
       "https://replicate.delivery/pbxt/K2M3OVwEpSLxNdZDmEe8K5fIGN25TOUTQA7JnGb5n4fcsY2gA/out-0.jpg",
   },
+  {
+    prompt:
+      "Ancient carvings trim sheet texture, trending on artstation, sandstone, base color, albedo, 4k",
+    image:
+      "https://replicate.delivery/mgxm/147f2329-db56-4a6a-a950-7a358f731fb7/out-0.png",
+  },
+  {
+    prompt:
+      "Wall made from chocolate bars seamless texture, trending on artstation, tasty, base color, albedo, 4k",
+    image:
+      "https://replicate.delivery/mgxm/9c645c58-82e8-4d88-bb7d-972472978698/out-0.png",
+  },
 ];
 
 export default function Home() {
@@ -337,108 +349,90 @@ export function Form({
                 </div>
               </div>
               <div className="window-body">
-                <menu role="tablist" className="pt-2 " aria-label="Sample Tabs">
-                  <button role="tab" aria-selected="true" aria-controls="tab-A">
-                    Tab A
-                  </button>
-                  <button role="tab" aria-controls="tab-B">
-                    Tab B
-                  </button>
-                  <button role="tab" aria-controls="tab-C">
-                    Tab C
-                  </button>
-                </menu>
+                <form onSubmit={handleSubmit} class="">
+                  <fieldset>
+                    <Combobox>
+                      <div className="mt-4">
+                        <p>
+                          Welcome! This app uses{" "}
+                          <a href="https://replicate.com/tommoore515/material_stable_diffusion">
+                            material stable diffusion
+                          </a>{" "}
+                          to create tileable images from a description. Try it
+                          out by describing your next wallpaper:
+                        </p>
 
-                <article role="tabpanel" hidden id="tab-B">
-                  <h3>More...</h3>
-                  <p>This tab contains a GroupBox</p>
-                </article>
+                        <textarea
+                          required={true}
+                          name="prompt"
+                          rows="3"
+                          value={prompt}
+                          onChange={(e) => setPrompt(e.target.value)}
+                          placeholder={example.prompt}
+                          style={{ resize: "none" }}
+                          className="rounded-sm bg-black text-white px-2 mt-2 w-full ring-0 focus-within:ring-0"
+                        />
+                      </div>
+                    </Combobox>
 
-                <article role="tabpanel" id="tab-A">
-                  <h3>Welcome!</h3>
-
-                  <form onSubmit={handleSubmit} class="">
-                    <fieldset>
-                      <Combobox>
-                        <div className="mt-4">
-                          <p>
-                            Welcome! This app uses{" "}
-                            <a href="https://replicate.com/tommoore515/material_stable_diffusion">
-                              material stable diffusion
-                            </a>{" "}
-                            to create wallpapers from a description. Try it out
-                            by describing your next wallpaper:
-                          </p>
-
-                          <textarea
-                            required={true}
-                            name="prompt"
-                            rows="3"
-                            value={prompt}
-                            onChange={(e) => setPrompt(e.target.value)}
-                            placeholder={example.prompt}
-                            style={{ resize: "none" }}
-                            className="rounded-sm bg-black text-white px-2 mt-2 w-full ring-0 focus-within:ring-0"
-                          />
-                        </div>
-                      </Combobox>
-
-                      <div className="mt-4 pt-4">
-                        {loading ? (
-                          <div>
+                    <div className="mt-4 pt-4">
+                      {loading ? (
+                        <div>
+                          {status ? (
                             <progress
                               className="w-full"
                               max="100"
                               value={status}
                             ></progress>
+                          ) : (
+                            // Does a nice booting up animation if no value is given
+                            <progress className="w-full" max="100"></progress>
+                          )}
 
-                            {status ? (
-                              <div>
-                                {status}%
-                                <span className="animate-pulse">
-                                  {" "}
-                                  Creating your wallpaper...
-                                </span>
-                              </div>
-                            ) : (
+                          {status ? (
+                            <div>
+                              {status}%
                               <span className="animate-pulse">
-                                Booting up...
+                                {" "}
+                                Creating your wallpaper...
                               </span>
-                            )}
-                          </div>
-                        ) : (
-                          <div class="text-right">
-                            <button
-                              type="button"
-                              onClick={() => handleInspire()}
-                              className="inline-flex mr-3 py-1 items-center"
-                            >
-                              <ArrowPathIcon className="h-5 w-5 mr-3" />
-                              Example
-                            </button>
+                            </div>
+                          ) : (
+                            <span className="animate-pulse">Booting up...</span>
+                          )}
+                        </div>
+                      ) : (
+                        <div class="text-right">
+                          <button
+                            type="button"
+                            onClick={() => handleInspire()}
+                            className="inline-flex mr-3 py-1 items-center"
+                          >
+                            <ArrowPathIcon className="h-5 w-5 mr-3" />
+                            Example
+                          </button>
 
-                            <button
-                              type="button"
-                              onClick={() => download(wallpaper)}
-                              className="inline-flex mr-3 py-1 items-center"
-                            >
-                              <ArrowDownTrayIcon className="h-5 w-5 mr-3" />{" "}
-                              Save wallpaper
-                            </button>
+                          <button
+                            type="button"
+                            onClick={() => download(wallpaper)}
+                            className="inline-flex mr-3 py-1 items-center"
+                          >
+                            <ArrowDownTrayIcon className="h-5 w-5 mr-3" /> Save
+                            wallpaper
+                          </button>
 
-                            <button
-                              type="submit"
-                              className="inline-flex items-center py-1"
-                            >
-                              <PlusIcon className="h-5 w-5 mr-3" />
-                              Create new wallpaper
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </fieldset>
-                  </form>
-                </article>
+                          <button
+                            type="submit"
+                            className="inline-flex items-center py-1"
+                          >
+                            <PlusIcon className="h-5 w-5 mr-3" />
+                            Create new wallpaper
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </fieldset>
+                </form>
               </div>
             </Dialog.Panel>
           </Transition.Child>
