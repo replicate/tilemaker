@@ -12,3 +12,4 @@
 stretch:
 - gallery of buttons
 - fading border
+- would be nice if new prompt had a typing effect

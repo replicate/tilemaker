@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import "xp.css/dist/XP.css";
+import ReactTypingEffect from "react-typing-effect";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -222,30 +223,30 @@ export default function Home() {
         <div className="absolute z-10 top-16 left-16">
           <div className="grid gap-8">
             <button
-              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50"
+              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100  hover:bg-opacity-50 text-white hover:text-gray-900"
               onClick={() => setOpen(true)}
             >
               <span className="text-8xl">🖼️</span>
 
-              <p className="text-white font-bold text-lg">New Wallpaper</p>
+              <p className="font-bold text-lg">New Wallpaper</p>
             </button>
             <button
-              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50"
+              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
               onClick={() => download(wallpaper)}
             >
               <span className="text-8xl">💾</span>
 
-              <p className="text-white font-bold text-lg">
+              <p className="font-bold text-lg">
                 Save <br /> Wallpaper
               </p>
             </button>
             <button
-              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50"
+              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
               onClick={() => setOpen(true)}
             >
               <span className="text-8xl">❔</span>
 
-              <p className="text-white font-bold text-lg">What is this?</p>
+              <p className="font-bold text-lg">What is this?</p>
             </button>
           </div>
         </div>
@@ -285,6 +286,7 @@ export default function Home() {
           wallpaper={wallpaper}
           status={status}
           resetWallpaper={resetWallpaper}
+          setLoading={setLoading}
         />
         {error && <div>{error}</div>}
         {prediction && <p>status: {prediction.status}</p>}
@@ -304,16 +306,19 @@ export function Form({
   setPrompt,
   download,
   wallpaper,
+  setLoading,
 }) {
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
 
     setPrompt(newWallpaper.prompt);
+    setLoading(true);
 
     // pass before closing modal, so user can see new prompt for a second
     setTimeout(() => {
       resetWallpaper(newWallpaper.image);
-    }, 250);
+      setLoading(false);
+    }, 3000);
   };
   return (
     <Transition.Root show={open} as={Fragment} appear>
@@ -368,6 +373,7 @@ export function Form({
                         <textarea
                           required={true}
                           name="prompt"
+                          id="prompt"
                           rows="3"
                           value={prompt}
                           onChange={(e) => setPrompt(e.target.value)}
