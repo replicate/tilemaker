@@ -374,7 +374,7 @@ export function Form({
                           onChange={(e) => setPrompt(e.target.value)}
                           placeholder={example.prompt}
                           style={{ resize: "none" }}
-                          className="rounded-sm bg-black text-white px-2 mt-2 w-full ring-0 focus-within:ring-0"
+                          className="rounded-sm bg-black text-white px-2 py-2 mt-2 w-full ring-0 focus-within:ring-0 text-xl"
                         />
                       </div>
                     </Combobox>
