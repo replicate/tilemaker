@@ -67,8 +67,8 @@ export default function Home() {
     var cols = Math.min(Math.ceil(window.innerWidth / 512), 12);
     var rows = Math.min(Math.ceil(window.innerHeight / 512), 12) + 1;
     const example = examples[Math.floor(Math.random() * examples.length)];
-    setPrompt(example.prompt);
     setWallpaper(example.image);
+    setPrompt(example.prompt);
     resize(cols, rows);
   }, []);
 
@@ -135,6 +135,7 @@ export default function Home() {
 
   const resetWallpaper = (image) => {
     setOpen(false);
+    setPrompt(null);
     const tiles = document.getElementsByClassName("tile");
     for (let i = 0; i < tiles.length; i++) {
       tiles[i].classList.remove("animate-drop");
@@ -308,6 +309,7 @@ export function Form({
   wallpaper,
   setLoading,
 }) {
+  const placeholder = prompt;
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
 
@@ -373,6 +375,7 @@ export function Form({
                         <textarea
                           required={true}
                           name="prompt"
+                          autoFocus
                           id="prompt"
                           rows="3"
                           value={prompt}
@@ -414,14 +417,10 @@ export function Form({
                         <div class="flex justify-between">
                           <button
                             type="button"
-                            onClick={() => download(wallpaper)}
+                            onClick={() => setPrompt("")}
                             className="inline-flex mr-3 py-1 items-center"
                           >
-                            <ArrowDownTrayIcon className="h-5 w-5 mr-3" />
-                            Save{" "}
-                            <span className="hidden pl-0.5 sm:inline-block">
-                              wallpaper
-                            </span>
+                            Clear text
                           </button>
 
                           <div>
