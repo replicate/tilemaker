@@ -409,8 +409,8 @@ export function Form({
                               onClick={() => handleInspire()}
                               className="inline-flex mr-3 py-1 items-center"
                             >
-                              <ArrowPathIcon className="h-5 w-5 mr-3" /> See an
-                              example
+                              <ArrowPathIcon className="h-5 w-5 mr-3" />
+                              Example
                             </button>
 
                             <button
