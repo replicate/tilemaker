@@ -250,8 +250,8 @@ export default function Home() {
         </div>
 
         {/* App Icons */}
-        <div className="absolute z-10 top-16 left-16">
-          <div className="grid gap-8">
+        <div className="absolute z-10 top-16 sm:left-16 left-6">
+          <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
             <button
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100  hover:bg-opacity-50 text-white hover:text-gray-900"
               onClick={() => setOpen(true)}
@@ -266,9 +266,7 @@ export default function Home() {
             >
               <span className="text-6xl sm:text-8xl">💾</span>
 
-              <p className="font-bold text-lg">
-                Save <br /> Wallpaper
-              </p>
+              <p className="font-bold text-lg">Save</p>
             </button>
             <button
               className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
