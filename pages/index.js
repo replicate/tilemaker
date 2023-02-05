@@ -60,8 +60,11 @@ export default function Home() {
   const [total, setTotal] = useState(null);
   const [wallpaper, setWallpaper] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(null);
+  const [placeholder, setPlaceholder] = useState(
+    examples[Math.floor(Math.random() * examples.length)].prompt
+  );
 
   useEffect(() => {
     // On page load, set the grid cols/rows based on the window size
@@ -69,8 +72,14 @@ export default function Home() {
     var rows = Math.min(Math.ceil(window.innerHeight / IMAGE_SIZE), 12) + 1;
     const example = examples[Math.floor(Math.random() * examples.length)];
     setWallpaper(example.image);
+    setPlaceholder(example.prompt);
     setPrompt(example.prompt);
     resize(cols, rows);
+
+    // Wait a second before showing modal
+    setTimeout(() => {
+      setOpen(true);
+    }, 2000);
   }, []);
 
   const resize = (cols, rows) => {
@@ -136,7 +145,6 @@ export default function Home() {
 
   const resetWallpaper = (image) => {
     setOpen(false);
-    setPrompt(null);
     const tiles = document.getElementsByClassName("tile");
     for (let i = 0; i < tiles.length; i++) {
       tiles[i].classList.remove("animate-drop");
@@ -295,6 +303,7 @@ export default function Home() {
           status={status}
           resetWallpaper={resetWallpaper}
           setLoading={setLoading}
+          placeholder={placeholder}
         />
         {error && <div>{error}</div>}
         {prediction && <p>status: {prediction.status}</p>}
@@ -313,7 +322,180 @@ export function Form({
   prompt,
   setPrompt,
   setLoading,
+  placeholder,
 }) {
+  const handleInspire = () => {
+    const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
+
+    typeWriter("", newWallpaper);
+  };
+
+  const typeWriter = (prompt, newWallpaper, callback) => {
+    var i = 0;
+    const txt = newWallpaper.prompt;
+
+    var interval = setInterval(() => {
+      if (i < txt.length) {
+        setPrompt((prompt += txt.charAt(i)));
+
+        i++;
+      } else {
+        clearInterval(interval);
+        setLoading(true);
+
+        // pause before closing modal, so user can see new prompt for a second
+        setTimeout(() => {
+          resetWallpaper(newWallpaper.image);
+          setLoading(false);
+        }, 3000);
+      }
+    }, 10);
+  };
+
+  return (
+    <Transition.Root show={open} as={Fragment} appear>
+      <Dialog
+        autoFocus={false}
+        as="div"
+        className="relative z-10"
+        onClose={setOpen}
+      >
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-32">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden shadow-2xl transition-all">
+              <div className="title-bar">
+                <div className="title-bar-text">Wallpaper Creator</div>
+                <div className="title-bar-controls">
+                  <button
+                    onClick={() => setOpen(false)}
+                    aria-label="Close"
+                    className=""
+                  ></button>
+                </div>
+              </div>
+              <div className="window-body">
+                <form onSubmit={handleSubmit} class="">
+                  <fieldset>
+                    <Combobox>
+                      <div className="mt-4">
+                        <p>
+                          Welcome! This app uses{" "}
+                          <a href="https://replicate.com/tommoore515/material_stable_diffusion">
+                            material stable diffusion
+                          </a>{" "}
+                          to create tileable images from a description. Try it
+                          out by describing your next wallpaper:
+                        </p>
+
+                        <hr className="mt-2" />
+
+                        <textarea
+                          required={true}
+                          name="prompt"
+                          autoFocus
+                          id="prompt"
+                          rows="3"
+                          value={prompt}
+                          onChange={(e) => setPrompt(e.target.value)}
+                          placeholder={placeholder}
+                          style={{ resize: "none" }}
+                          className="rounded-sm text-black font-sans font-bold py-2 w-full border border-gray-300 border-t-2"
+                        />
+                      </div>
+                    </Combobox>
+
+                    <div className="mt-4 pt-4">
+                      {loading ? (
+                        <div>
+                          {status ? (
+                            <progress
+                              className="w-full"
+                              max="100"
+                              value={status}
+                            ></progress>
+                          ) : (
+                            // Does a nice booting up animation if no value is given
+                            <progress className="w-full" max="100"></progress>
+                          )}
+
+                          {status ? (
+                            <div>
+                              {status}%
+                              <span className="animate-pulse">
+                                {" "}
+                                Creating your wallpaper...
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="animate-pulse">Booting up...</span>
+                          )}
+                        </div>
+                      ) : (
+                        <div class="flex justify-between">
+                          <button
+                            type="button"
+                            onClick={() => setPrompt("")}
+                            className="inline-flex mr-3 py-1 items-center"
+                          >
+                            Clear text
+                          </button>
+
+                          <div>
+                            <button
+                              type="button"
+                              onClick={() => handleInspire()}
+                              className="inline-flex mr-3 py-1 items-center"
+                            >
+                              <ArrowPathIcon className="h-5 w-5 mr-3" />
+                              Example
+                            </button>
+                            <button
+                              type="submit"
+                              className="inline-flex items-center py-1 bg-green-500 text-white"
+                            >
+                              <PlusIcon className="h-5 w-5 mr-3" />
+                              Create{" "}
+                              <span className="hidden pl-0.5 sm:inline-block">
+                                {" "}
+                                new wallpaper
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+}
+
+export function About({ aboutOpen, setAboutOpen }) {
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
 
@@ -389,7 +571,7 @@ export function Form({
                           rows="3"
                           value={prompt}
                           onChange={(e) => setPrompt(e.target.value)}
-                          placeholder={prompt}
+                          placeholder={placeholder}
                           style={{ resize: "none" }}
                           className="rounded-sm bg-black text-white px-2 py-2 mt-2 w-full ring-0 focus-within:ring-0 text-xl"
                         />

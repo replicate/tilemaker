@@ -8,3 +8,7 @@ Todos
 - [x] page starts with a tile and a placeholder prompt
 - [x] make it look like an OS
 - mention how you can use it on phones, watch faces, desktops. even your home!
+
+questions
+- do you thikn there's enough of a instant demo with minimal thought?
+- do you think that the replicate origin is obvious enough? right now I have a feeling it's too subtle
