@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
 import FileSaver from "file-saver";
 import useSound from "use-sound";
+import { ArrowDownTrayIcon, PlusIcon } from "@heroicons/react/20/solid";
+import { Combobox, Dialog, Transition } from "@headlessui/react";
+import "xp.css/dist/XP.css";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -24,18 +27,25 @@ const examples = [
     image:
       "https://replicate.delivery/mgxm/7d3bc46c-612f-42cb-9347-317b2db1d3d6/out-0.png",
   },
+  {
+    prompt: "flamingo painting",
+    image:
+      "https://replicate.delivery/pbxt/K2M3OVwEpSLxNdZDmEe8K5fIGN25TOUTQA7JnGb5n4fcsY2gA/out-0.jpg",
+  },
 ];
 
 export default function Home() {
   const example = examples[Math.floor(Math.random() * examples.length)];
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
-  const [prompt, setPrompt] = useState(null);
+  const [prompt, setPrompt] = useState(example.prompt);
   const [cols, setCols] = useState(3);
   const [rows, setRows] = useState(4);
   const [total, setTotal] = useState(144);
   const [wallpaper, setWallpaper] = useState(example.image);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     var cols = Math.min(Math.ceil(window.innerWidth / 512), 12);
@@ -49,12 +59,24 @@ export default function Home() {
     setRows(rows);
   };
 
+  const parseLogs = (logs) => {
+    if (!logs) {
+      return 0;
+    } else {
+      const lastLine = logs.split("\n").slice(-1)[0];
+      const pct = lastLine.split("it")[0];
+      return pct * 2;
+    }
+  };
+
   const [playActive] = useSound("/beep.mp3", { volume: 0.25 });
   const [playSuccess] = useSound("/ding.wav", { volume: 0.25 });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    console.log("HELLO???");
 
     const response = await fetch("/api/predictions", {
       method: "POST",
@@ -86,7 +108,8 @@ export default function Home() {
         setError(prediction.detail);
         return;
       }
-      console.log({ prediction });
+      console.log(prediction.logs);
+      setStatus(parseLogs(prediction.logs));
       setPrediction(prediction);
 
       if (prediction.status === "succeeded") {
@@ -97,6 +120,7 @@ export default function Home() {
   };
 
   const resetWallpaper = (image) => {
+    setOpen(false);
     const tiles = document.getElementsByClassName("tile");
     for (let i = 0; i < tiles.length; i++) {
       tiles[i].classList.remove("animate-drop");
@@ -172,6 +196,7 @@ export default function Home() {
           <title>Wallpaper Creator</title>
         </Head>
 
+        {/* repeating tiles */}
         <div
           style={{
             display: "grid",
@@ -197,101 +222,133 @@ export default function Home() {
           <canvas id="canvas" className="fixed top-0 left-0"></canvas>
         </div>
 
-        <form
-          className="max-w-sm mx-auto absolute top-4 bg-white"
-          onSubmit={handleSubmit}
-        >
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700"
-            ></label>
-            <div className="mt-1 border-gray-300 focus-within:border-indigo-600">
-              <input
-                type="text"
-                name="prompt"
-                id="name"
-                className="block w-full rounded-lg bg-gray-50 focus:border-indigo-600 focus:ring-0 sm:text-sm"
-                placeholder="Enter your wallpaper prompt"
-              />
-            </div>
-          </div>
-
-          <input
-            type="range"
-            value={cols}
-            onChange={(e) => setCols(e.target.value)}
-            min="3"
-            max="12"
-            id="myRange"
-          />
-
-          {cols}
-
-          <button
-            type="button"
-            onClick={() => {
-              resetWallpaper(
-                examples[Math.floor(Math.random() * examples.length)].image
-              );
-            }}
-          >
-            Set Wallpaper
-          </button>
-
-          <button
-            type="button"
-            className="bg-red-500 p-4"
-            onClick={() => {
-              download(wallpaper);
-            }}
-          >
-            Download
-          </button>
-
-          <div className="mt-4 text-center">
-            {loading ? (
-              <button
-                type="submit"
-                disabled
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-800 px-6 py-3 text-base font-medium text-indigo-300 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <div role="status">
-                  <svg
-                    aria-hidden="true"
-                    class="w-6 h-6 mr-3 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                    viewBox="0 0 100 101"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                      fill="currentFill"
-                    />
-                  </svg>
-                  <span class="sr-only">Loading...</span>
-                </div>
-                Creating your wallpaper...
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Create your wallpaper
-              </button>
-            )}
-          </div>
-        </form>
+        <Form
+          open={open}
+          setOpen={setOpen}
+          example={example}
+          prompt={prompt}
+          setPrompt={setPrompt}
+          handleSubmit={handleSubmit}
+          loading={loading}
+          download={download}
+          wallpaper={wallpaper}
+          status={status}
+        />
 
         {error && <div>{error}</div>}
 
         {prediction && <p>status: {prediction.status}</p>}
       </div>
     </>
+  );
+}
+
+const people = [
+  { id: 1, name: "Leslie Alexander", url: "#" },
+  // More people...
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+export function Form({
+  open,
+  setOpen,
+  example,
+  handleSubmit,
+  loading,
+  download,
+  wallpaper,
+  status,
+}) {
+  return (
+    <Transition.Root show={open} as={Fragment} appear>
+      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+        </Transition.Child>
+
+        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden rounded-xl shadow-2xl transition-all">
+              <div className="title-bar">
+                <div className="title-bar-text">Wallpaper Creator</div>
+                <div className="title-bar-controls">
+                  <button aria-label="Close"></button>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit} class="p-4">
+                <Combobox>
+                  <div className="relative">
+                    <textarea
+                      required={true}
+                      name="prompt"
+                      rows="3"
+                      placeholder={example.prompt}
+                      style={{ resize: "none" }}
+                      className="w-full border-0 bg-transparent text-gray-800 placeholder-gray-400 focus:ring-0 text-xl"
+                    />
+                  </div>
+                </Combobox>
+
+                <div className="mt-4 pt-4">
+                  {loading ? (
+                    <div>
+                      <progress
+                        className="w-full"
+                        max="100"
+                        value={status}
+                      ></progress>
+                      {status}%
+                      <span className="animate-pulse">
+                        {" "}
+                        Creating your wallpaper...
+                      </span>
+                    </div>
+                  ) : (
+                    <div class="text-right">
+                      <button
+                        type="button"
+                        onClick={() => download(wallpaper)}
+                        className="inline-flex mr-3 py-1 items-center"
+                      >
+                        <ArrowDownTrayIcon className="h-5 w-5 mr-3" /> Download
+                        wallpaper
+                      </button>
+
+                      <button
+                        type="submit"
+                        className="inline-flex items-center py-1"
+                      >
+                        <PlusIcon className="h-5 w-5 mr-3" />
+                        Create wallpaper
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </form>
+            </Dialog.Panel>
+          </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
   );
 }
