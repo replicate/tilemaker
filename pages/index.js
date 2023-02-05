@@ -102,18 +102,6 @@ export default function Home() {
     }
   };
 
-  const deviceEmoji = (width, height) => {
-    if (width <= 410 || height <= 502) {
-      return "⌚";
-    } else if (width <= 1200 || height <= 1600) {
-      return "📱";
-    } else if (width <= 4000 || height <= 2200) {
-      return "💻";
-    } else {
-      return "🖥️";
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -293,6 +281,18 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Prompt in bottom right */}
+        {!open && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <button
+              onClick={() => setOpen(true)}
+              className="bg-none text-left text-white opacity-75 bg-black max-w-xs p-2 font-extrabold italic"
+            >
+              {prompt}
+            </button>
+          </div>
+        )}
+
         {/* repeating tiles */}
         <div
           style={{
@@ -378,7 +378,7 @@ export function Form({
       <Dialog
         autoFocus={false}
         as="div"
-        className="relative z-10"
+        className="relative z-50"
         onClose={setOpen}
       >
         <Transition.Child
