@@ -201,6 +201,10 @@ export default function Home() {
       <div className="relative min-h-screen bg-blue-900">
         <Head>
           <title>Wallpaper Creator</title>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+          ></meta>
         </Head>
         <div class="title-bar">
           <div class="title-bar-text">
@@ -402,16 +406,7 @@ export function Form({
                           )}
                         </div>
                       ) : (
-                        <div class="text-right">
-                          <button
-                            type="button"
-                            onClick={() => handleInspire()}
-                            className="inline-flex mr-3 py-1 items-center"
-                          >
-                            <ArrowPathIcon className="h-5 w-5 mr-3" />
-                            Example
-                          </button>
-
+                        <div class="flex justify-between">
                           <button
                             type="button"
                             onClick={() => download(wallpaper)}
@@ -421,13 +416,23 @@ export function Form({
                             wallpaper
                           </button>
 
-                          <button
-                            type="submit"
-                            className="inline-flex items-center py-1"
-                          >
-                            <PlusIcon className="h-5 w-5 mr-3" />
-                            Create new wallpaper
-                          </button>
+                          <div>
+                            <button
+                              type="button"
+                              onClick={() => handleInspire()}
+                              className="inline-flex mr-3 py-1 items-center"
+                            >
+                              <ArrowPathIcon className="h-5 w-5 mr-3" />
+                              Example
+                            </button>
+                            <button
+                              type="submit"
+                              className="inline-flex items-center py-1 bg-green-500 text-white"
+                            >
+                              <PlusIcon className="h-5 w-5 mr-3" />
+                              Create new wallpaper
+                            </button>
+                          </div>
                         </div>
                       )}
                     </div>
