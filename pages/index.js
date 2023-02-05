@@ -247,7 +247,7 @@ export default function Home() {
             >
               <span className="text-6xl sm:text-8xl">❔</span>
 
-              <p className="font-bold text-lg">What is this?</p>
+              <p className="font-bold text-lg">About</p>
             </button>
           </div>
         </div>
