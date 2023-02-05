@@ -1,7 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
 import FileSaver from "file-saver";
-import useSound from "use-sound";
 import {
   ArrowPathIcon,
   ArrowDownTrayIcon,
@@ -9,7 +8,6 @@ import {
 } from "@heroicons/react/20/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import "xp.css/dist/XP.css";
-import ReactTypingEffect from "react-typing-effect";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -64,8 +62,9 @@ export default function Home() {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    var cols = Math.min(Math.ceil(window.innerWidth / 512), 12);
-    var rows = Math.min(Math.ceil(window.innerHeight / 512), 12) + 1;
+    // On page load, set the grid cols/rows based on the window size
+    var cols = Math.min(Math.ceil(window.innerWidth / 256), 12);
+    var rows = Math.min(Math.ceil(window.innerHeight / 256), 12) + 1;
     const example = examples[Math.floor(Math.random() * examples.length)];
     setWallpaper(example.image);
     setPrompt(example.prompt);
@@ -150,6 +149,12 @@ export default function Home() {
   };
 
   const stitchImages = async (imageUrl) => {
+    /**
+     * Given a url for an image (which comes from replicate),
+     * stitch it into a canvas and return the canvas so we can download it.
+     *
+     * Surprisingly complicated I know, but seems like it's necessary to download a grid of images.
+     */
     const image = await fetch(imageUrl);
     const imageBlob = await image.blob();
     const imageURL = URL.createObjectURL(imageBlob);
@@ -305,11 +310,8 @@ export function Form({
   resetWallpaper,
   prompt,
   setPrompt,
-  download,
-  wallpaper,
   setLoading,
 }) {
-  const placeholder = prompt;
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
 
