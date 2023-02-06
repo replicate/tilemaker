@@ -5,7 +5,6 @@ import FileSaver from "file-saver";
 import {
   ArrowPathIcon,
   ArrowUpRightIcon,
-  DeviceTabletIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
@@ -239,12 +238,10 @@ export default function Home() {
             </a>
           </div>
 
-          <div class="title-bar-text hidden sm:inline-flex"></div>
-
           <div className="title-bar-controls">
             <a
               href="https://github.com/replicate/wallpaper"
-              className="text-blue-100 hover:text-white mr-3"
+              className="hidden sm:inline-flex text-blue-100 hover:text-white mr-3"
             >
               Code <ArrowUpRightIcon className="inline-flex h-3 w-3" />
             </a>
@@ -579,8 +576,8 @@ export function About({ open, setOpen }) {
                       material stable diffusion,
                     </a>{" "}
                     which was created by{" "}
-                    <a href="https://twitter.com/tommoore515">Tom Moore.</a>
-                    The model is hosted on{" "}
+                    <a href="https://twitter.com/tommoore515">Tom Moore.</a> The
+                    model is hosted on{" "}
                     <a href="https://replicate.com">Replicate</a>, which exposes
                     a cloud API for running predictions.
                   </p>
@@ -596,6 +593,15 @@ export function About({ open, setOpen }) {
                     Also, thanks to Jordan Scales for creating the very fun{" "}
                     <a>98.css</a> UI framework.
                   </p>
+                  <div className="mt-4 space-x-3 flex justify-between">
+                    <a href="https://github.com/replicate/wallpaper">
+                      <button className="text-black">See Code</button>
+                    </a>
+
+                    <a href="https://replicate.com">
+                      <button className="text-black">Build on Replicate</button>
+                    </a>
+                  </div>
                 </fieldset>
               </div>
             </Dialog.Panel>
