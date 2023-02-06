@@ -257,28 +257,34 @@ export default function Home() {
         <div className="absolute z-10 top-16 sm:left-16 left-6">
           <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
             <button
-              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100  hover:bg-opacity-50 text-white hover:text-gray-900"
+              className="bg-transparent bg-none border-none p-2 text-white hover:text-gray-900 group"
               onClick={() => setOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">🖼️</span>
 
-              <p className="font-bold text-lg">New Wallpaper</p>
+              <p className="font-bold text-lg bg-gray-800 group-hover:bg-white px-2">
+                New Wallpaper
+              </p>
             </button>
             <button
-              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
+              className="bg-transparent bg-none border-none p-2 text-white hover:text-gray-900 group"
               onClick={() => setSaveOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">💾</span>
 
-              <p className="font-bold text-lg">Save</p>
+              <p className="font-bold text-lg bg-gray-800 group-hover:bg-white">
+                Save
+              </p>
             </button>
             <button
-              className="bg-transparent bg-none border-none p-2 hover:bg-blue-100 hover:bg-opacity-50 text-white hover:text-gray-900"
+              className="bg-transparent bg-none border-none p-2 text-white hover:text-gray-900 group"
               onClick={() => setAboutOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">❔</span>
 
-              <p className="font-bold text-lg">About</p>
+              <p className="font-bold text-lg bg-gray-800 group-hover:bg-white">
+                About
+              </p>
             </button>
           </div>
         </div>
@@ -442,7 +448,7 @@ export function Form({
                           onChange={(e) => setPrompt(e.target.value)}
                           placeholder={placeholder}
                           style={{ resize: "none" }}
-                          className="rounded-sm text-black font-sans font-bold py-2 w-full border border-gray-300 border-t-2"
+                          className="bg-gray-100 rounded-b-md px-2 text-black font-sans py-2 w-full border border-gray-300 border-t-2"
                         />
                       </div>
                     </Combobox>
