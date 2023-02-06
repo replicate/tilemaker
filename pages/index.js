@@ -266,7 +266,7 @@ export default function Home() {
             >
               <span className="text-6xl sm:text-8xl">🖼️</span>
 
-              <p className="font-bold text-lg text-gray-900 bg-opacity-75 bg-white mt-2 group-hover:text-white group-hover:bg-gray-900 px-2">
+              <p className="font-bold text-lg text-white bg-opacity-75 bg-gray-900 mt-2 group-hover:text-gray-900 group-hover:bg-white px-2">
                 New Wallpaper
               </p>
             </button>
@@ -276,7 +276,7 @@ export default function Home() {
             >
               <span className="text-6xl sm:text-8xl">💾</span>
 
-              <p className="font-bold text-lg text-gray-900  bg-opacity-75 bg-white mt-2 group-hover:text-white group-hover:bg-gray-900 px-2">
+              <p className="font-bold text-lg text-white bg-opacity-75 bg-gray-900 mt-2 group-hover:text-gray-900 group-hover:bg-white px-2">
                 Save
               </p>
             </button>
@@ -286,7 +286,7 @@ export default function Home() {
             >
               <span className="text-6xl sm:text-8xl">❔</span>
 
-              <p className="font-bold text-lg text-gray-900  bg-opacity-75 bg-white mt-2 group-hover:text-white group-hover:bg-gray-900 px-2">
+              <p className="font-bold text-lg text-white bg-opacity-75 bg-gray-900 mt-2 group-hover:text-gray-900 group-hover:bg-white px-2">
                 About
               </p>
             </button>
