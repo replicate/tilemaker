@@ -19,6 +19,7 @@ known bugs
 "new wallpaper", the prompt description in the bottom right will change to the new prompt
 even though it doesn't describe the new wallpaper. could probably fix this but there's
 some complexity to the state now and it could get confusing
+- [] would be nice if hitting "clear text" did an autofocus on the textarea
 
 launch
 - [] get a domain!
