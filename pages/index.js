@@ -1,18 +1,16 @@
 import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
-import { Image as MyImage } from "next/image";
 import FileSaver from "file-saver";
 import {
   ArrowPathIcon,
   ArrowUpRightIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
+import useSound from "use-sound";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import "xp.css/dist/XP.css";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-const IMAGE_SIZE = 256;
 
 const examples = [
   {
@@ -52,6 +50,8 @@ const examples = [
   },
 ];
 
+const IMAGE_SIZE = 256;
+
 export default function Home() {
   const [prediction, setPrediction] = useState(null);
   const [error, setError] = useState(null);
@@ -69,6 +69,9 @@ export default function Home() {
     examples[Math.floor(Math.random() * examples.length)].prompt
   );
 
+  //   sounds
+  const [play] = useSound("/complete.wav", { volume: 0.25 });
+
   useEffect(() => {
     // On page load, set the grid cols/rows based on the window size
     var cols = Math.min(Math.ceil(window.innerWidth / IMAGE_SIZE), 12);
@@ -79,10 +82,10 @@ export default function Home() {
     setPrompt(example.prompt);
     resize(cols, rows);
 
-    // Wait a second before showing modal
+    // Wait for the grid to render, then open the creator modal
     setTimeout(() => {
       setOpen(true);
-    }, 2000);
+    }, rows * cols * 100);
   }, []);
 
   const resize = (cols, rows) => {
@@ -142,6 +145,7 @@ export default function Home() {
       if (prediction.status === "succeeded") {
         resetWallpaper(prediction.output);
         setLoading(false);
+        play();
       }
     }
   };
