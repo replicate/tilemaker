@@ -261,32 +261,32 @@ export default function Home() {
         <div className="absolute z-10 top-16 sm:left-16 left-6">
           <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
             <button
-              className="bg-transparent bg-none border-none p-2 text-white hover:text-gray-900 group"
+              className="bg-transparent bg-none border-none p-2  group"
               onClick={() => setOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">🖼️</span>
 
-              <p className="font-bold text-lg bg-gray-800 group-hover:bg-white px-2">
+              <p className="font-bold text-lg text-gray-900 bg-opacity-75 bg-white mt-2 group-hover:text-white group-hover:bg-gray-900 px-2">
                 New Wallpaper
               </p>
             </button>
             <button
-              className="bg-transparent bg-none border-none p-2 text-white hover:text-gray-900 group"
+              className="bg-transparent bg-none border-none p-2 group"
               onClick={() => setSaveOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">💾</span>
 
-              <p className="font-bold text-lg bg-gray-800 group-hover:bg-white">
+              <p className="font-bold text-lg text-gray-900  bg-opacity-75 bg-white mt-2 group-hover:text-white group-hover:bg-gray-900 px-2">
                 Save
               </p>
             </button>
             <button
-              className="bg-transparent bg-none border-none p-2 text-white hover:text-gray-900 group"
+              className="bg-transparent bg-none border-none p-2 group"
               onClick={() => setAboutOpen(true)}
             >
               <span className="text-6xl sm:text-8xl">❔</span>
 
-              <p className="font-bold text-lg bg-gray-800 group-hover:bg-white">
+              <p className="font-bold text-lg text-gray-900  bg-opacity-75 bg-white mt-2 group-hover:text-white group-hover:bg-gray-900 px-2">
                 About
               </p>
             </button>

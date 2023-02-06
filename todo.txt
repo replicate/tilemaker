@@ -10,6 +10,7 @@ Todos
 - [?] it's key there's an obvious CTA
 - [?] prefilled text, instant demo with minimal thought
 - [ ] add more examples!
+- [ ] add social share / og tags
 
 stretch
 - [] down the line add a way to see others wallpapers
@@ -22,6 +23,7 @@ some complexity to the state now and it could get confusing
 - [] would be nice if hitting "clear text" did an autofocus on the textarea
 
 launch
+- [] setup preview image tags
 - [] get a domain!
     - available on a quick look:
         - tiled.ai
