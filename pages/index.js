@@ -1,7 +1,12 @@
 import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
 import FileSaver from "file-saver";
-import { LightBulbIcon, PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import {
+  LightBulbIcon,
+  PlusIcon,
+  XMarkIcon,
+  TrashIcon,
+} from "@heroicons/react/20/solid";
 import useSound from "use-sound";
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -308,7 +313,7 @@ export default function Home() {
 
         {/* Repeating tiles */}
         <div
-          className={blur && "transition ease-linear delay-50 blur-sm"}
+          className={`${blur && "blur-sm"} transition ease-linear delay-50`}
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
@@ -344,7 +349,7 @@ export default function Home() {
           class="absolute top-1/4 right-0 py-12 pl-16 mr-6"
         >
           <fieldset>
-            <div className="mt-4">
+            <div className="mt-4 relative">
               <textarea
                 required={true}
                 onFocus={() => setBlur(true)}
@@ -360,6 +365,17 @@ export default function Home() {
                 style={{ resize: "none" }}
                 className="w-full text-sm rounded-lg bg-gray-900 bg-opacity-75 text-gray-200 ring-0 focus:outline-none focus:ring-1 focus:ring-offset-2"
               />
+              {prompt && (
+                <button
+                  onClick={() => setPrompt("")}
+                  type="button"
+                  className="absolute hover:bg-gray-900 p-1 rounded-lg font-light bottom-2.5 right-1 text-xs text-gray-300"
+                >
+                  <span>
+                    <TrashIcon className="text-gray-300 h-3 w-3" />
+                  </span>
+                </button>
+              )}
             </div>
 
             <div className="mt-2">
