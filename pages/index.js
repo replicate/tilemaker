@@ -6,6 +6,7 @@ import {
   ArrowUpRightIcon,
   LightBulbIcon,
   PlusIcon,
+  XMarkIcon,
 } from "@heroicons/react/20/solid";
 import useSound from "use-sound";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
@@ -284,17 +285,19 @@ export default function Home() {
           {Array(total)
             .fill(1)
             .map((_value, index) => (
-              <img
-                key={`tile-${index}`}
-                id={index}
-                className={`tile animate-fadein ${
-                  !blur &&
-                  "hover:border border-white hover:rounded-sm hover:shadow-green-100 hover:shadow-md transition ease-linear delay-100 hover:scale-125"
-                }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-                src={wallpaper}
-                alt=""
-              />
+              <button onClick={() => setSaveOpen(true)}>
+                <img
+                  key={`tile-${index}`}
+                  id={index}
+                  className={`tile animate-fadein ${
+                    !blur &&
+                    "hover:border border-white hover:rounded-sm hover:shadow-green-100 hover:shadow-md transition ease-linear delay-100 hover:scale-125"
+                  }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                  src={wallpaper}
+                  alt=""
+                />
+              </button>
             ))}
         </div>
         <div className="fixed hidden top-0 left-0">
@@ -369,7 +372,7 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => handleInspire()}
-                    className="mr-2 inline-flex items-center  bg-opacity-75  rounded-md border border-transparent bg-gray-900 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                    className="mr-2 inline-flex items-center hover:bg-gray-800 rounded-md border border-transparent text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2"
                   >
                     <LightBulbIcon className="h-4 w-4" />
                   </button>
@@ -396,71 +399,8 @@ export default function Home() {
           wallpaper={wallpaper}
           download={download}
         />
-
-        {error && <div>{error}</div>}
-        {prediction && <p>status: {prediction.status}</p>}
       </div>
     </>
-  );
-}
-
-export function Form({
-  open,
-  setOpen,
-  handleSubmit,
-  loading,
-  status,
-  prompt,
-  setPrompt,
-  placeholder,
-}) {
-  return (
-    <Transition.Root show={open} as={Fragment} appear>
-      <Dialog
-        autoFocus={false}
-        as="div"
-        className="relative z-50"
-        onClose={setOpen}
-      >
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-32">
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden shadow-2xl transition-all">
-              <div className="title-bar">
-                <div className="title-bar-text">Wallpaper Creator</div>
-                <div className="title-bar-controls">
-                  <button
-                    onClick={() => setOpen(false)}
-                    aria-label="Close"
-                    className=""
-                  ></button>
-                </div>
-              </div>
-              <div className="window-body"></div>
-            </Dialog.Panel>
-          </Transition.Child>
-        </div>
-      </Dialog>
-    </Transition.Root>
   );
 }
 
@@ -589,68 +529,69 @@ export function Save({ open, setOpen, wallpaper, download }) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden shadow-2xl transition-all">
-              <div className="title-bar">
-                <div className="title-bar-text">Save your wallpaper</div>
-                <div className="title-bar-controls">
-                  <button
-                    onClick={() => setOpen(false)}
-                    aria-label="Close"
-                    className=""
-                  ></button>
+            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm mx-auto sm:p-6">
+              <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
+                <button
+                  type="button"
+                  className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none"
+                  onClick={() => setOpen(false)}
+                >
+                  <span className="sr-only">Close</span>
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div>
+                <div className="text-center">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    Download Tiles
+                  </Dialog.Title>
+                  <p class="mt-2 text-gray-500">
+                    Download your tiles as a wallpaper.
+                  </p>
                 </div>
               </div>
-              <div className="window-body">
-                <fieldset class="space-y-3">
-                  <p>Save your wallpaper for free! Just pick a resolution.</p>
 
-                  <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-y-12 sm:gap-0 text-center">
-                    <div>
-                      <span className="text-6xl">⬇️</span>
-                      <p className="mt-2">Current Device</p>
-                      <div className="mt-2">
-                        <button
-                          onClick={() =>
-                            download(
-                              wallpaper,
-                              window.screen.width * devicePixelRatio,
-                              window.screen.height * devicePixelRatio
-                            )
-                          }
-                        >
-                          Download
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-6xl">🖥️</span>
-                      <p className="mt-2">Desktop</p>
-                      <div className="mt-2">
-                        <button onClick={() => download(wallpaper, 3840, 2160)}>
-                          Download
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-6xl">📱</span>
-                      <p className="mt-2">Phone</p>
-                      <div className="mt-2">
-                        <button onClick={() => download(wallpaper, 1170, 2532)}>
-                          Download
-                        </button>
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-6xl">⌚</span>
-                      <p className="mt-2">Watch</p>
-                      <div className="mt-2">
-                        <button onClick={() => download(wallpaper, 410, 502)}>
-                          Download
-                        </button>
-                      </div>
-                    </div>
+              <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-y-12 sm:gap-0 text-center">
+                <div>
+                  <span className="text-6xl">🖥️</span>
+                  <p className="mt-4 text-gray-500">Desktop</p>
+                  <div className="mt-2">
+                    <button
+                      className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      onClick={() => download(wallpaper, 3800, 2100)}
+                    >
+                      Download
+                    </button>
                   </div>
-                </fieldset>
+                </div>
+
+                <div>
+                  <span className="text-6xl">📱</span>
+                  <p className="mt-4 text-gray-500">Phone</p>
+                  <div className="mt-2">
+                    <button
+                      className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      onClick={() => download(wallpaper, 1170, 2532)}
+                    >
+                      Download
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <span className="text-6xl">🖼️</span>
+                  <p className="mt-4 text-gray-500">Single Tile</p>
+                  <div className="mt-2">
+                    <button
+                      className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      onClick={() => download(wallpaper, 256, 256)}
+                    >
+                      Download
+                    </button>
+                  </div>
+                </div>
               </div>
             </Dialog.Panel>
           </Transition.Child>
