@@ -9,11 +9,14 @@ import {
   ArrowDownTrayIcon,
   ArrowDownCircleIcon,
   Bars3Icon,
+  LinkIcon,
   QuestionMarkCircleIcon,
   CodeBracketIcon,
 } from "@heroicons/react/20/solid";
 import useSound from "use-sound";
 import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
+import toast, { Toaster } from "react-hot-toast";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -78,6 +81,8 @@ const examples = [
 const IMAGE_SIZE = 180;
 
 export default function Home() {
+  const router = useRouter();
+  const { id } = router.query;
   const [prompt, setPrompt] = useState(null);
   const [cols, setCols] = useState(null);
   const [rows, setRows] = useState(null);
@@ -102,11 +107,19 @@ export default function Home() {
     var cols = Math.min(Math.ceil(window.innerWidth / IMAGE_SIZE), 12);
     var rows = Math.min(Math.ceil(window.innerHeight / IMAGE_SIZE), 12) + 1;
     const example = examples[Math.floor(Math.random() * examples.length)];
-    setWallpaper(example.image);
-    setPlaceholder(example.prompt);
-    setPrompt(example.prompt);
+
     resize(cols, rows);
-  }, []);
+
+    console.log(router.query);
+
+    if (id) {
+      getPrediction(id);
+    } else {
+      setWallpaper(example.image);
+      setPlaceholder(example.prompt);
+      setPrompt(example.prompt);
+    }
+  }, [id]);
 
   const resize = (cols, rows) => {
     setTotal(cols * rows);
@@ -124,8 +137,16 @@ export default function Home() {
     }
   };
 
+  const getPrediction = async (id) => {
+    const response = await fetch(`/api/predictions/${id}`, { method: "GET" });
+    let result = await response.json();
+    setWallpaper(result.output[0]);
+    setPrompt(result.input.prompt);
+  };
+
   const getRecent = async (e) => {
     const response = await fetch("/api/predictions/list", {
+      method: "GET",
       method: "GET",
     });
     let results = await response.json();
@@ -139,6 +160,11 @@ export default function Home() {
       console.log(submission.output);
       console.log(JSON.stringify(submission));
     }
+  };
+
+  const copyToClipboard = (e) => {
+    navigator.clipboard.writeText(window.location.toString());
+    toast("Link to wallpaper copied");
   };
 
   const onKeyDown = (e) => {
@@ -187,6 +213,9 @@ export default function Home() {
       if (prediction.status === "succeeded") {
         resetWallpaper(prediction.output);
         setLoading(false);
+
+        router.query.id = prediction.id;
+        router.push(router);
 
         play();
       }
@@ -291,13 +320,15 @@ export default function Home() {
             property="og:description"
             content="Make your next wallpaper with tiled stable diffusion"
           />
-          <meta property="og:image" content="/tile.png" />
+          <meta property="og:image" content={`${wallpaper}`} />
 
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           ></meta>
         </Head>
+
+        <Toaster />
 
         {/* Hamburger */}
         <div
@@ -315,12 +346,28 @@ export default function Home() {
           </button>
         </div>
 
+        <div
+          className={`${
+            sidebar ? "hidden" : "absolute"
+          } transition ease-in-and-out delay-150 z-10 top-4 right-4`}
+        >
+          <button
+            type="button"
+            onClick={() => copyToClipboard()}
+            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+          >
+            <LinkIcon className="h-4 w-4 mr-2" />
+            Copy Link
+          </button>
+        </div>
+
         <Sidebar
           open={sidebar}
           setOpen={setSidebar}
           aboutOpen={aboutOpen}
           setAboutOpen={setAboutOpen}
           setSaveOpen={setSaveOpen}
+          copyToClipboard={copyToClipboard}
         />
 
         {/* Repeating tiles */}
@@ -701,7 +748,13 @@ export function Save({ open, setOpen, wallpaper, download }) {
   );
 }
 
-export function Sidebar({ open, setOpen, setAboutOpen, setSaveOpen }) {
+export function Sidebar({
+  open,
+  setOpen,
+  setAboutOpen,
+  setSaveOpen,
+  copyToClipboard,
+}) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
@@ -757,6 +810,14 @@ export function Sidebar({ open, setOpen, setAboutOpen, setSaveOpen }) {
                         >
                           <ArrowDownTrayIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
                           Download Wallpaper
+                        </button>
+
+                        <button
+                          onClick={() => copyToClipboard()}
+                          className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
+                        >
+                          <LinkIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
+                          Copy Link to Wallpaper
                         </button>
 
                         <a
