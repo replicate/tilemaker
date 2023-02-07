@@ -1,17 +1,9 @@
 import { useState, useEffect, Fragment } from "react";
 import Head from "next/head";
 import FileSaver from "file-saver";
-import {
-  ArrowPathIcon,
-  ArrowUpRightIcon,
-  QuestionMarkCircleIcon,
-  LightBulbIcon,
-  HomeIcon,
-  PlusIcon,
-  XMarkIcon,
-} from "@heroicons/react/20/solid";
+import { LightBulbIcon, PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import useSound from "use-sound";
-import { Combobox, Dialog, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -93,6 +85,7 @@ export default function Home() {
     setPlaceholder(example.prompt);
     setPrompt(example.prompt);
     resize(cols, rows);
+    getRecent();
   }, []);
 
   const resize = (cols, rows) => {
@@ -108,6 +101,23 @@ export default function Home() {
       const lastLine = logs.split("\n").slice(-1)[0];
       const pct = lastLine.split("it")[0];
       return pct * 2;
+    }
+  };
+
+  const getRecent = async (e) => {
+    const response = await fetch("/api/predictions/list", {
+      method: "GET",
+    });
+    let results = await response.json();
+
+    for (let i = 0; i < 3; i++) {
+      //   console.log(results[i].output);
+
+      // sadly it doesnt seem like getting a list of results includes the prompts
+      const full_response = await fetch(`/api/predictions/${results[i].id}`);
+      const submission = await full_response.json();
+      console.log(submission.output);
+      console.log(JSON.stringify(submission));
     }
   };
 
@@ -258,7 +268,7 @@ export default function Home() {
             onClick={() => setAboutOpen(true)}
             class="hover:border-white border-transparent border-2 rounded-md p-2"
           >
-            <span class="text-3xl">🏠</span>
+            <span class="text-3xl">❔</span>
           </button>
         </div>
 
