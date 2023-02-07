@@ -57,7 +57,7 @@ const examples = [
       "https://replicate.delivery/mgxm/9c645c58-82e8-4d88-bb7d-972472978698/out-0.png",
   },
   {
-    prompt: "A painting with oranges and lemons, Picasso",
+    prompt: "A painting with oranges and lemons",
     image:
       "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
   },
