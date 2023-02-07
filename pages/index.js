@@ -371,7 +371,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setSaveOpen(true)}
-            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
           >
             <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
             Download
@@ -382,7 +382,7 @@ export default function Home() {
           <div
             className={`${
               sidebar ? "hidden" : "absolute"
-            } animate-drop  z-10 top-4 right-32`}
+            } animate-drop  z-10 top-4 right-36`}
           >
             <button
               type="button"
