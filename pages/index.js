@@ -115,9 +115,11 @@ export default function Home() {
     if (id) {
       getPrediction(id);
     } else {
-      setWallpaper(example.image);
-      setPlaceholder(example.prompt);
-      setPrompt(example.prompt);
+      if (router.isReady) {
+        setWallpaper(example.image);
+        setPlaceholder(example.prompt);
+        setPrompt(example.prompt);
+      }
     }
   }, [id]);
 
