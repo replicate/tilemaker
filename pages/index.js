@@ -842,7 +842,7 @@ export function Sidebar({
 
                         <button
                           onClick={() => copyToClipboard()}
-                          className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
+                          className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <LinkIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
                           Copy link to current tile
