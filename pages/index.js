@@ -598,18 +598,11 @@ export function About({ open, setOpen }) {
                     It works by using{" "}
                     <a
                       className="font-semibold hover:text-blue-800"
-                      href="https://replicate.com/tommoore515/material_stable_diffusion"
+                      href="https://replicate.com/tstramer/material-diffusion"
                     >
                       material stable diffusion,
                     </a>{" "}
-                    which was created by{" "}
-                    <a
-                      className="font-semibold hover:text-blue-800"
-                      href="https://twitter.com/tommoore515"
-                    >
-                      Tom Moore.
-                    </a>{" "}
-                    The model is hosted on{" "}
+                    which was created by Tal Stramer. The model is hosted on{" "}
                     <a
                       className="font-semibold hover:text-blue-800"
                       href="https://replicate.com"

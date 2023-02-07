@@ -22,9 +22,6 @@ launch
 - [] get a domain!
     - available on a quick look:
         - tiled.ai
-        - wallpapercreator.ai
-        - wallpapercreator3000
-        - wallpaperXP
 - [] open source the repo
 
 questions
