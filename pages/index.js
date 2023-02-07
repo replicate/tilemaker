@@ -4,7 +4,9 @@ import FileSaver from "file-saver";
 import {
   ArrowPathIcon,
   ArrowUpRightIcon,
+  QuestionMarkCircleIcon,
   LightBulbIcon,
+  HomeIcon,
   PlusIcon,
   XMarkIcon,
 } from "@heroicons/react/20/solid";
@@ -247,6 +249,16 @@ export default function Home() {
           ></meta>
         </Head>
 
+        {/* About */}
+        <div className="absolute z-10 top-4 left-4">
+          <button
+            onClick={() => setAboutOpen(true)}
+            class="hover:border-white border-transparent border-2 rounded-md p-2"
+          >
+            <HomeIcon className="h-8 w-8 text-gray-900 opacity-90" />
+          </button>
+        </div>
+
         {/* App Icons */}
         <div className="hidden absolute z-10 top-16 sm:left-16 left-6">
           <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
@@ -273,7 +285,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* repeating tiles */}
+        {/* Repeating tiles */}
         <div
           className={blur && "transition ease-linear delay-50 blur-sm"}
           style={{
@@ -300,6 +312,8 @@ export default function Home() {
               </button>
             ))}
         </div>
+
+        {/* Canvas */}
         <div className="fixed hidden top-0 left-0">
           <canvas id="canvas" className="fixed top-0 left-0"></canvas>
         </div>
@@ -372,13 +386,13 @@ export default function Home() {
                   <button
                     type="button"
                     onClick={() => handleInspire()}
-                    className="mr-2 inline-flex items-center hover:bg-gray-800 rounded-md border border-transparent text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2"
+                    className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
                   >
                     <LightBulbIcon className="h-4 w-4" />
                   </button>
                   <button
                     type="submit"
-                    className="inline-flex items-center rounded-md  bg-opacity-75  border border-transparent bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                    className="inline-flex items-center rounded-md  bg-opacity-75 border-transparent border-2 hover:border-white bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
                   >
                     <PlusIcon
                       className="-ml-0.5 mr-2 h-4 w-4"
@@ -435,22 +449,35 @@ export function About({ open, setOpen }) {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="window mx-auto max-w-xl transform overflow-hidden shadow-2xl transition-all">
-              <div className="title-bar">
-                <div className="title-bar-text">About this project</div>
-                <div className="title-bar-controls">
-                  <button
-                    onClick={() => setOpen(false)}
-                    aria-label="Close"
-                    className=""
-                  ></button>
+            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm mx-auto sm:p-6">
+              <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
+                <button
+                  type="button"
+                  className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none"
+                  onClick={() => setOpen(false)}
+                >
+                  <span className="sr-only">Close</span>
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div>
+                <div className="text-center">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    About
+                  </Dialog.Title>
                 </div>
               </div>
-              <div className="window-body">
+              <div className="window-body mt-4">
                 <fieldset class="space-y-3">
                   <p>
-                    Wallpaper Creator is an{" "}
-                    <a href="https://github.com/replicate/wallpaper">
+                    Tiler is an{" "}
+                    <a
+                      className="font-semibold hover:text-blue-800"
+                      href="https://github.com/replicate/wallpaper"
+                    >
                       open-source project
                     </a>{" "}
                     that provides an interface for creating tileable images.
@@ -458,14 +485,27 @@ export function About({ open, setOpen }) {
 
                   <p>
                     It works by using{" "}
-                    <a href="https://replicate.com/tommoore515/material_stable_diffusion">
+                    <a
+                      className="font-semibold hover:text-blue-800"
+                      href="https://replicate.com/tommoore515/material_stable_diffusion"
+                    >
                       material stable diffusion,
                     </a>{" "}
                     which was created by{" "}
-                    <a href="https://twitter.com/tommoore515">Tom Moore.</a> The
-                    model is hosted on{" "}
-                    <a href="https://replicate.com">Replicate</a>, which exposes
-                    a cloud API for running predictions.
+                    <a
+                      className="font-semibold hover:text-blue-800"
+                      href="https://twitter.com/tommoore515"
+                    >
+                      Tom Moore.
+                    </a>{" "}
+                    The model is hosted on{" "}
+                    <a
+                      className="font-semibold hover:text-blue-800"
+                      href="https://replicate.com"
+                    >
+                      Replicate
+                    </a>
+                    , which exposes a cloud API for running predictions.
                   </p>
 
                   <p>
@@ -475,17 +515,20 @@ export function About({ open, setOpen }) {
                     GitHub. Pull requests welcome!
                   </p>
 
-                  <p>
-                    Also, thanks to Jordan Scales for creating the very fun{" "}
-                    <a>98.css</a> UI framework.
-                  </p>
-                  <div className="mt-4 space-x-3 flex justify-between">
-                    <a href="https://github.com/replicate/wallpaper">
-                      <button className="text-black">See Code</button>
+                  <div className="pt-8 space-x-3 flex justify-between">
+                    <a
+                      className="text-blue-600"
+                      href="https://github.com/replicate/wallpaper"
+                    >
+                      <button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        See Code
+                      </button>
                     </a>
 
                     <a href="https://replicate.com">
-                      <button className="text-black">Build on Replicate</button>
+                      <button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Build on Replicate
+                      </button>
                     </a>
                   </div>
                 </fieldset>
