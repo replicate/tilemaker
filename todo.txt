@@ -26,7 +26,5 @@ launch
 - [] open source the repo
 
 questions
-- do you think there's enough of a instant demo with minimal thought?
 - do you think that the replicate origin is obvious enough? right now I have a feeling it's too subtle
-- do you think it's a bit annoying how the window loads after 2s? I'm worried if I don't
-have the auto open users won't know want to do. but there could be an element of intrigue if they just load the page and have to figure out to click "new wallpaper" themselves. can't decide
+- what do you think of the tap to download?
