@@ -212,9 +212,6 @@ export default function Home() {
       }
     });
 
-    ctx.fillStyle = "green";
-    ctx.fillRect(100, 100, 100, 100);
-
     return myCanvas.toDataURL("image/png");
   };
 
@@ -265,7 +262,7 @@ export default function Home() {
             onClick={() => setAboutOpen(true)}
             class="hover:border-white border-transparent border-2 rounded-md p-2"
           >
-            <HomeIcon className="h-8 w-8 text-gray-900 opacity-90" />
+            <span class="text-3xl">🏠</span>
           </button>
         </div>
 
@@ -314,7 +311,7 @@ export default function Home() {
                     !blur &&
                     "hover:rounded-sm hover:shadow-gray-900 hover:shadow-xl transition ease-linear delay-100 hover:scale-125"
                   }`}
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  style={{ animationDelay: `${index * 0.05}s` }}
                   src={wallpaper}
                   alt=""
                 />
