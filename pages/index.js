@@ -350,20 +350,22 @@ export default function Home() {
           </button>
         </div>
 
-        <div
-          className={`${
-            sidebar ? "hidden" : "absolute"
-          } transition ease-in-and-out delay-150 z-10 top-4 right-4`}
-        >
-          <button
-            type="button"
-            onClick={() => copyToClipboard()}
-            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+        {id && (
+          <div
+            className={`${
+              sidebar ? "hidden" : "absolute"
+            } animate-drop  z-10 top-4 right-4`}
           >
-            <LinkIcon className="h-4 w-4 mr-2" />
-            Copy Link
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={() => copyToClipboard()}
+              className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+            >
+              <LinkIcon className="h-4 w-4 mr-2" />
+              Copy Link
+            </button>
+          </div>
+        )}
 
         <Sidebar
           open={sidebar}
