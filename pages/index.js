@@ -372,6 +372,7 @@ export default function Home() {
           </div>
         )}
 
+        {/* Sidebar */}
         <Sidebar
           open={sidebar}
           setOpen={setSidebar}
@@ -380,6 +381,27 @@ export default function Home() {
           setSaveOpen={setSaveOpen}
           copyToClipboard={copyToClipboard}
         />
+
+        {/* Footer */}
+        <div className="fixed bottom-2 right-2 text-white text-xs">
+          <p>
+            Powered by{" "}
+            <a
+              className="hover:text-blue-100"
+              href="https://replicate.com/tstramer/material-diffusion"
+            >
+              Material Diffusion
+            </a>{" "}
+            +{" "}
+            <a className="hover:text-blue-100" href="https://replicate.com">
+              Replicate
+            </a>{" "}
+            +{" "}
+            <a className="hover:text-blue-100" href="https://vercel.com">
+              Vercel
+            </a>
+          </p>
+        </div>
 
         {/* Repeating tiles */}
         <div
@@ -406,7 +428,7 @@ export default function Home() {
                   className={`tile animate-fadein ${
                     !blur &&
                     index != 0 &&
-                    "hover:rounded-sm hover:shadow-gray-900 hover:shadow-xl transition ease-linear delay-100 hover:scale-125"
+                    "hover:rounded-sm hover:shadow-xl transition ease-linear delay-100"
                   }`}
                   style={{ animationDelay: `${index * 0.05}s` }}
                   src={wallpaper}
@@ -523,6 +545,7 @@ export default function Home() {
         </form>
 
         <About open={aboutOpen} setOpen={setAboutOpen} />
+
         <Save
           open={saveOpen}
           setOpen={setSaveOpen}
