@@ -4,11 +4,11 @@ import FileSaver from "file-saver";
 import {
   ArrowPathIcon,
   ArrowUpRightIcon,
+  LightBulbIcon,
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import useSound from "use-sound";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
-import "xp.css/dist/XP.css";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -32,7 +32,7 @@ const examples = [
       "https://replicate.delivery/mgxm/7d3bc46c-612f-42cb-9347-317b2db1d3d6/out-0.png",
   },
   {
-    prompt: "flamingo painting",
+    prompt: "Flamingo painting",
     image:
       "https://replicate.delivery/pbxt/K2M3OVwEpSLxNdZDmEe8K5fIGN25TOUTQA7JnGb5n4fcsY2gA/out-0.jpg",
   },
@@ -50,7 +50,7 @@ const examples = [
   },
 ];
 
-const IMAGE_SIZE = 256;
+const IMAGE_SIZE = 180;
 
 export default function Home() {
   const [prediction, setPrediction] = useState(null);
@@ -68,6 +68,7 @@ export default function Home() {
   const [placeholder, setPlaceholder] = useState(
     examples[Math.floor(Math.random() * examples.length)].prompt
   );
+  const [blur, setBlur] = useState(false);
 
   //   sounds
   const [play] = useSound("/complete.wav", { volume: 0.25 });
@@ -81,11 +82,6 @@ export default function Home() {
     setPlaceholder(example.prompt);
     setPrompt(example.prompt);
     resize(cols, rows);
-
-    // Wait for the grid to render, then open the creator modal
-    setTimeout(() => {
-      setOpen(true);
-    }, rows * cols * 100);
   }, []);
 
   const resize = (cols, rows) => {
@@ -158,12 +154,12 @@ export default function Home() {
     // and then add it back
     const tiles = document.getElementsByClassName("tile");
     for (let i = 0; i < tiles.length; i++) {
-      tiles[i].classList.remove("animate-drop");
+      tiles[i].classList.remove("animate-fadein");
     }
 
     setTimeout(() => {
       for (let i = 0; i < tiles.length; i++) {
-        tiles[i].classList.add("animate-drop");
+        tiles[i].classList.add("animate-fadein");
       }
       setWallpaper(image);
     }, 10);
@@ -221,9 +217,27 @@ export default function Home() {
     }, 100);
   };
 
+  const handleInspire = () => {
+    const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
+    typeWriter("", newWallpaper.prompt);
+  };
+
+  const typeWriter = (currentPrompt, newPrompt) => {
+    var i = 0;
+
+    var interval = setInterval(() => {
+      if (i < newPrompt.length) {
+        setPrompt((currentPrompt += newPrompt.charAt(i)));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 10);
+  };
+
   return (
     <>
-      <div className="relative min-h-screen bg-blue-900">
+      <div className="relative min-h-screen bg-black">
         <Head>
           <title>Wallpaper Creator</title>
           <meta
@@ -231,45 +245,10 @@ export default function Home() {
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
           ></meta>
         </Head>
-        <div class="title-bar">
-          <div class="title-bar-text">
-            Wallpaper Creator •{" "}
-            <a
-              href="https://replicate.com"
-              className="text-yellow-300 italic hover:text-white"
-            >
-              Built on Replicate™
-            </a>
-          </div>
-
-          <div className="title-bar-controls">
-            <a
-              href="https://github.com/replicate/wallpaper"
-              className="hidden sm:inline-flex text-blue-100 hover:text-white mr-3"
-            >
-              Code <ArrowUpRightIcon className="inline-flex h-3 w-3" />
-            </a>
-            <button
-              onClick={() => (window.location.href = "https://replicate.com")}
-              aria-label="Close"
-              className=""
-            ></button>
-          </div>
-        </div>
 
         {/* App Icons */}
-        <div className="absolute z-10 top-16 sm:left-16 left-6">
+        <div className="hidden absolute z-10 top-16 sm:left-16 left-6">
           <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
-            <button
-              className="bg-transparent bg-none border-none p-2  group"
-              onClick={() => setOpen(true)}
-            >
-              <span className="text-6xl sm:text-8xl">🖼️</span>
-
-              <p className="font-bold text-lg text-white bg-opacity-75 bg-gray-900 mt-2 group-hover:text-gray-900 group-hover:bg-white px-2">
-                New <span className="hidden sm:inline-block">Wallpaper</span>
-              </p>
-            </button>
             <button
               className="bg-transparent bg-none border-none p-2 group"
               onClick={() => setSaveOpen(true)}
@@ -293,20 +272,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Prompt in bottom right */}
-        {!open && (
-          <div className="fixed bottom-4 right-4 z-30">
-            <button
-              onClick={() => setOpen(true)}
-              className="bg-none text-left text-white opacity-75 bg-black max-w-xs p-2 font-extrabold italic"
-            >
-              {prompt}
-            </button>
-          </div>
-        )}
-
         {/* repeating tiles */}
         <div
+          className={blur && "transition ease-linear delay-50 blur-sm"}
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
@@ -319,7 +287,10 @@ export default function Home() {
               <img
                 key={`tile-${index}`}
                 id={index}
-                className="tile animate-drop"
+                className={`tile animate-fadein ${
+                  !blur &&
+                  "hover:border border-white hover:rounded-sm hover:shadow-green-100 hover:shadow-md transition ease-linear delay-100 hover:scale-125"
+                }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
                 src={wallpaper}
                 alt=""
@@ -329,18 +300,94 @@ export default function Home() {
         <div className="fixed hidden top-0 left-0">
           <canvas id="canvas" className="fixed top-0 left-0"></canvas>
         </div>
-        <Form
-          open={open}
-          setOpen={setOpen}
-          prompt={prompt}
-          setPrompt={setPrompt}
-          handleSubmit={handleSubmit}
-          loading={loading}
-          download={download}
-          wallpaper={wallpaper}
-          status={status}
-          placeholder={placeholder}
-        />
+
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit}
+          class="absolute top-1/4 right-0 py-12 pl-16 mr-6"
+        >
+          <fieldset>
+            <div className="mt-4">
+              <textarea
+                required={true}
+                onFocus={() => setBlur(true)}
+                onBlur={() => setBlur(false)}
+                name="prompt"
+                autoFocus
+                id="prompt"
+                rows="3"
+                cols="40"
+                autoCorrect="false"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder={placeholder}
+                style={{ resize: "none" }}
+                className="w-full text-sm rounded-lg bg-gray-900 bg-opacity-75 text-gray-200 ring-0 focus:outline-none focus:ring-1 focus:ring-offset-2"
+              />
+            </div>
+
+            <div className="mt-2">
+              {loading ? (
+                <div className="px-2">
+                  {status ? (
+                    <div>
+                      <div class="w-full bg-gray-900 rounded-full h-2">
+                        <div
+                          class="bg-gray-100 h-2 rounded-full"
+                          style={{ width: `${status}%` }}
+                        ></div>
+                      </div>
+                      <div className="text-gray-100">{status}%</div>
+                    </div>
+                  ) : (
+                    <span className="animate-pulse text-white">
+                      <div role="status" className="inline-flex">
+                        <svg
+                          aria-hidden="true"
+                          class="inline w-4 h-4 mr-2 text-gray-200 animate-spin fill-blue-600"
+                          viewBox="0 0 100 101"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="currentColor"
+                          />
+                          <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentFill"
+                          />
+                        </svg>
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                      Starting up...
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <div class="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => handleInspire()}
+                    className="mr-2 inline-flex items-center  bg-opacity-75  rounded-md border border-transparent bg-gray-900 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                  >
+                    <LightBulbIcon className="h-4 w-4" />
+                  </button>
+                  <button
+                    type="submit"
+                    className="inline-flex items-center rounded-md  bg-opacity-75  border border-transparent bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                  >
+                    <PlusIcon
+                      className="-ml-0.5 mr-2 h-4 w-4"
+                      aria-hidden="true"
+                    />
+                    New Wallpaper
+                  </button>
+                </div>
+              )}
+            </div>
+          </fieldset>
+        </form>
 
         <About open={aboutOpen} setOpen={setAboutOpen} />
         <Save
@@ -367,24 +414,6 @@ export function Form({
   setPrompt,
   placeholder,
 }) {
-  const handleInspire = () => {
-    const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
-    typeWriter("", newWallpaper.prompt);
-  };
-
-  const typeWriter = (currentPrompt, newPrompt) => {
-    var i = 0;
-
-    var interval = setInterval(() => {
-      if (i < newPrompt.length) {
-        setPrompt((currentPrompt += newPrompt.charAt(i)));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 10);
-  };
-
   return (
     <Transition.Root show={open} as={Fragment} appear>
       <Dialog
@@ -426,100 +455,7 @@ export function Form({
                   ></button>
                 </div>
               </div>
-              <div className="window-body">
-                <form onSubmit={handleSubmit} class="">
-                  <fieldset>
-                    <Combobox>
-                      <div className="mt-4">
-                        <p>
-                          Welcome! This app uses{" "}
-                          <a href="https://replicate.com/tommoore515/material_stable_diffusion">
-                            material stable diffusion
-                          </a>{" "}
-                          to create tileable images from a description. Try it
-                          out by describing your next wallpaper:
-                        </p>
-
-                        <hr className="mt-2" />
-
-                        <textarea
-                          required={true}
-                          name="prompt"
-                          autoFocus
-                          id="prompt"
-                          rows="3"
-                          value={prompt}
-                          onChange={(e) => setPrompt(e.target.value)}
-                          placeholder={placeholder}
-                          style={{ resize: "none" }}
-                          className="bg-gray-100 rounded-b-md px-2 text-black font-sans py-2 w-full border border-gray-300 border-t-2"
-                        />
-                      </div>
-                    </Combobox>
-
-                    <div className="mt-4 pt-4">
-                      {loading ? (
-                        <div>
-                          {status ? (
-                            <progress
-                              className="w-full"
-                              max="100"
-                              value={status}
-                            ></progress>
-                          ) : (
-                            // Does a nice booting up animation if no value is given
-                            <progress className="w-full" max="100"></progress>
-                          )}
-
-                          {status ? (
-                            <div>
-                              {status}%
-                              <span className="animate-pulse">
-                                {" "}
-                                Creating your wallpaper...
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="animate-pulse">Booting up...</span>
-                          )}
-                        </div>
-                      ) : (
-                        <div class="flex justify-between">
-                          <button
-                            type="button"
-                            onClick={() => setPrompt("")}
-                            className="inline-flex mr-3 py-1 items-center"
-                          >
-                            Clear text
-                          </button>
-
-                          <div>
-                            <button
-                              type="button"
-                              onClick={() => handleInspire()}
-                              className="inline-flex mr-3 py-1 items-center"
-                            >
-                              <ArrowPathIcon className="h-5 w-5 mr-3" />
-                              Example
-                            </button>
-                            <button
-                              type="submit"
-                              className="inline-flex items-center py-1 bg-green-500 text-white"
-                            >
-                              <PlusIcon className="h-5 w-5 mr-3" />
-                              Create{" "}
-                              <span className="hidden pl-0.5 sm:inline-block">
-                                {" "}
-                                new wallpaper
-                              </span>
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
+              <div className="window-body"></div>
             </Dialog.Panel>
           </Transition.Child>
         </div>
