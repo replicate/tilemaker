@@ -78,6 +78,7 @@ const examples = [
   },
 ];
 
+const appName = "TileMaker";
 const IMAGE_SIZE = 180;
 
 export default function Home() {
@@ -318,7 +319,7 @@ export default function Home() {
     <>
       <div className="relative min-h-screen bg-black">
         <Head>
-          <title>Tiled Stable Diffusion</title>
+          <title>{appName}</title>
 
           <link
             rel="icon"
@@ -351,7 +352,7 @@ export default function Home() {
             className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
           >
             <Bars3Icon className="h-4 w-4 mr-2" />
-            Menu
+            {appName}
           </button>
         </div>
 
