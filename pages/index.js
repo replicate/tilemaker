@@ -406,7 +406,7 @@ export default function Home() {
 
         {/* Repeating tiles */}
         <div
-          className={`${blur && "blur-sm"} transition ease-linear delay-50`}
+          className={`${blur && "blur-md"} transition ease-linear delay-50`}
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
