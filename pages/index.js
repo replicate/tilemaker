@@ -49,7 +49,7 @@ const examples = [
       "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
   },
   {
-    prompt: "Monet, lilacs, bright, oil painting",
+    prompt: "Monet, lilies, bright, oil painting",
     image:
       "https://replicate.delivery/pbxt/1b4tM1hOSi7lGl9ks94Tdr9vFj8ON7uDe1eXRzQ51LUIiAcQA/out-0.jpg",
   },
