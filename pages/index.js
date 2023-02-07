@@ -85,7 +85,6 @@ export default function Home() {
     setPlaceholder(example.prompt);
     setPrompt(example.prompt);
     resize(cols, rows);
-    getRecent();
   }, []);
 
   const resize = (cols, rows) => {
