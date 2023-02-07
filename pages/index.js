@@ -257,6 +257,11 @@ export default function Home() {
       <div className="relative min-h-screen bg-black">
         <Head>
           <title>Tiled Stable Diffusion</title>
+
+          <meta
+            property="og:description"
+            content="Make your next wallpaper with tiled stable diffusion"
+          />
           <meta property="og:image" content="/tile.png" />
 
           <meta
