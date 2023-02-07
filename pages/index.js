@@ -51,6 +51,16 @@ const examples = [
     image:
       "https://replicate.delivery/mgxm/9c645c58-82e8-4d88-bb7d-972472978698/out-0.png",
   },
+  {
+    prompt: "A painting with oranges and lemons, Picasso",
+    image:
+      "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
+  },
+  {
+    prompt: "Monet, lilacs, bright, oil painting",
+    image:
+      "https://replicate.delivery/pbxt/1b4tM1hOSi7lGl9ks94Tdr9vFj8ON7uDe1eXRzQ51LUIiAcQA/out-0.jpg",
+  },
 ];
 
 const IMAGE_SIZE = 180;
@@ -329,7 +339,6 @@ export default function Home() {
                 onFocus={() => setBlur(true)}
                 onBlur={() => setBlur(false)}
                 name="prompt"
-                autoFocus
                 id="prompt"
                 rows="3"
                 cols="40"
