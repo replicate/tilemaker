@@ -285,12 +285,18 @@ export default function Home() {
   const download = async (image, width, height) => {
     stitchImages(image, width, height);
 
+    const idStr = id ? `(${id})` : "";
     // I couldn't figure out the async/await version of this
     // so I just used a setTimeout to wait for the canvas to be drawn
     setTimeout(() => {
       var myCanvas = document.getElementById("canvas");
       const dataUrl = myCanvas.toDataURL("image/png");
-      FileSaver.saveAs(dataUrl, "wallpaper.png");
+      FileSaver.saveAs(
+        dataUrl,
+        `tilemaker - ${prompt
+          .replace(/[^a-zA-Z0-9]/g, "-")
+          .slice(0, 100)} ${idStr}.png`
+      );
     }, 100);
   };
 
