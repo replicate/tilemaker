@@ -68,6 +68,11 @@ const examples = [
     image:
       "https://replicate.delivery/pbxt/gQtBQDykYhrbGVr9FSEm03v9Ppmsf73EutwTPmYd1ePqbEcQA/out-0.png",
   },
+  {
+    prompt: "Flowers, Otsu-e style, traditional",
+    image:
+      "https://replicate.delivery/pbxt/eHE4fVdlnokqAEHYemffxq6edjFFTTxmBepzL2XQCLAsOQCOIA/out-0.png",
+  },
 ];
 
 const IMAGE_SIZE = 180;
