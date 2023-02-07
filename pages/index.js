@@ -78,6 +78,7 @@ const examples = [
   },
 ];
 
+const appName = "TileMaker";
 const IMAGE_SIZE = 180;
 
 export default function Home() {
@@ -324,7 +325,7 @@ export default function Home() {
     <>
       <div className="relative min-h-screen bg-black">
         <Head>
-          <title>Tiled Stable Diffusion</title>
+          <title>{appName}</title>
 
           <link
             rel="icon"
@@ -354,10 +355,10 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setSidebar(true)}
-            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-opacity-70 bg-black"
           >
             <Bars3Icon className="h-4 w-4 mr-2" />
-            Menu
+            {appName}
           </button>
         </div>
 
@@ -370,7 +371,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => copyToClipboard()}
-              className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+              className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
             >
               <LinkIcon className="h-4 w-4 mr-2" />
               Copy Link
@@ -389,7 +390,7 @@ export default function Home() {
         />
 
         {/* Footer */}
-        <div className="fixed bottom-2 right-2 text-white text-xs">
+        <div className="fixed bottom-0 right-0 text-white bg-gray-900 text-xs p-3 rounded-t-lg">
           <p>
             Powered by{" "}
             <a
@@ -411,7 +412,7 @@ export default function Home() {
 
         {/* Repeating tiles */}
         <div
-          className={`${blur && "blur-sm"} transition ease-linear delay-50`}
+          className={`${blur && "blur-md"} transition ease-linear delay-50`}
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
@@ -436,7 +437,7 @@ export default function Home() {
                     index != 0 &&
                     "hover:rounded-sm hover:shadow-xl transition ease-linear delay-100"
                   }`}
-                  style={{ animationDelay: `${index * 0.05}s` }}
+                  style={{ animationDelay: `${index * 0.03}s` }}
                   src={wallpaper}
                   alt=""
                 />
@@ -470,7 +471,7 @@ export default function Home() {
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder={placeholder}
                 style={{ resize: "none" }}
-                className="w-full text-sm rounded-lg bg-gray-900 bg-opacity-75 text-gray-200 ring-0 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                className="w-full text-sm rounded-lg bg-black bg-opacity-80 text-gray-200 ring-0 focus:outline-none focus:ring-1 focus:ring-offset-2"
               />
               {prompt && (
                 <button
@@ -487,10 +488,10 @@ export default function Home() {
 
             <div className="mt-2">
               {loading ? (
-                <div className="px-2">
+                <div className="px-2 py-2 bg-black bg-opacity-60 rounded-lg">
                   {status ? (
                     <div>
-                      <div className="w-full bg-gray-900 rounded-full h-2">
+                      <div className="w-full rounded-full h-2">
                         <div
                           className="bg-gray-100 h-2 rounded-full"
                           style={{ width: `${status}%` }}
@@ -541,7 +542,7 @@ export default function Home() {
                         className="-ml-0.5 mr-2 h-4 w-4"
                         aria-hidden="true"
                       />
-                      New Wallpaper
+                      Make tile
                     </button>
                   </div>
                 </div>
@@ -581,7 +582,7 @@ export function About({ open, setOpen }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-60 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-32">
@@ -659,7 +660,7 @@ export function About({ open, setOpen }) {
                       href="https://github.com/replicate/wallpaper"
                     >
                       <button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        See Code
+                        See code
                       </button>
                     </a>
                     <a href="https://replicate.com">
@@ -696,7 +697,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-60 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-8 sm:mt-32">
@@ -806,11 +807,11 @@ export function Sidebar({
                 leaveTo="-translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                  <div className="flex h-full flex-col overflow-y-scroll bg-gray-900 bg-opacity-50 py-6 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll bg-gray-900 bg-opacity-60 py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
-                          Learn More
+                          {appName}
                         </Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
@@ -835,22 +836,22 @@ export function Sidebar({
                           className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <QuestionMarkCircleIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          About
+                          About this project
                         </button>
                         <button
                           onClick={() => setSaveOpen(true)}
                           className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <ArrowDownTrayIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          Download Wallpaper
+                          Download current tile
                         </button>
 
                         <button
                           onClick={() => copyToClipboard()}
-                          className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
+                          className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <LinkIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          Copy Link to Wallpaper
+                          Copy link to current tile
                         </button>
 
                         <a
@@ -858,7 +859,7 @@ export function Sidebar({
                           className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <CodeBracketIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          See Code
+                          See code
                         </a>
                         <a
                           href="https://replicate.com"
