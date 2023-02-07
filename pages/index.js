@@ -322,7 +322,7 @@ export default function Home() {
             property="og:description"
             content="Make your next wallpaper with tiled stable diffusion"
           />
-          <meta property="og:image" content={`${wallpaper}`} />
+          <meta property="og:image" content="/tile.png" />
 
           <meta
             name="viewport"
