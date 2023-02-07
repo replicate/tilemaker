@@ -132,6 +132,8 @@ export default function Home() {
   const parseLogs = (logs) => {
     if (!logs) {
       return 0;
+    } else if (logs.includes("NSFW")) {
+      toast("Uh oh, potential NSFW material detected! Try again?");
     } else {
       const lastLine = logs.split("\n").slice(-1)[0];
       const pct = lastLine.split("%")[0];
@@ -175,7 +177,7 @@ export default function Home() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, prompt) => {
     e.preventDefault();
     setLoading(true);
     setBlur(false);
