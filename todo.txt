@@ -10,20 +10,13 @@ Todos
 - [?] it's key there's an obvious CTA
 - [?] prefilled text, instant demo with minimal thought
 - [ ] add more examples!
-- [ ] add social share / og tags
+- [x] add social share / og tags -> JUST UPDATE THE OG LINK!
 
 stretch
-- [] down the line add a way to see others wallpapers
-
-known bugs
-- [] right now if you click "see example" in the new wallpaper modal, but don't click
-"new wallpaper", the prompt description in the bottom right will change to the new prompt
-even though it doesn't describe the new wallpaper. could probably fix this but there's
-some complexity to the state now and it could get confusing
-- [] would be nice if hitting "clear text" did an autofocus on the textarea
+- [] down the line add a way to see others wallpapers. im close on this
 
 launch
-- [] setup preview image tags
+- [x] setup preview image tags
 - [] get a domain!
     - available on a quick look:
         - tiled.ai
