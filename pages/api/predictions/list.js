@@ -20,6 +20,5 @@ export default async function handler(req, res) {
       result.version ==
       "3b5c0242f8925a4ab6c79b4c51e9b4ce6374e9b07b5e8461d89e692fd0faa449" // parse out to only include tile diffusion models
   );
-  console.log(filtered);
   res.end(JSON.stringify(filtered));
 }

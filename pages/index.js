@@ -256,7 +256,14 @@ export default function Home() {
     <>
       <div className="relative min-h-screen bg-black">
         <Head>
-          <title>Wallpaper Creator</title>
+          <title>Tiled Stable Diffusion</title>
+          <meta property="og:image" content="/tile.png" />
+
+          <meta
+            property="og:image"
+            content="https://wallpaper-ochre.vercel.app/api/og"
+          />
+
           <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
