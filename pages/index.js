@@ -438,26 +438,18 @@ export default function Home() {
           {Array(total)
             .fill(1)
             .map((_value, index) => (
-              <button
+              <img
                 key={`tile-${index}`}
-                onClick={() => {
-                  if (index != 0) {
-                    setSaveOpen(true);
-                  }
-                }}
-              >
-                <img
-                  id={index}
-                  className={`tile animate-fadein ${
-                    !blur &&
-                    index != 0 &&
-                    "hover:rounded-sm hover:shadow-xl transition ease-linear delay-100"
-                  }`}
-                  style={{ animationDelay: `${index * 0.03}s` }}
-                  src={wallpaper}
-                  alt=""
-                />
-              </button>
+                id={index}
+                className={`tile animate-fadein ${
+                  !blur &&
+                  index != 0 &&
+                  "hover:rounded-sm hover:shadow-xl transition ease-linear delay-100"
+                }`}
+                style={{ animationDelay: `${index * 0.03}s` }}
+                src={wallpaper}
+                alt=""
+              />
             ))}
         </div>
 
