@@ -257,11 +257,11 @@ export default function Home() {
       <div className="relative min-h-screen bg-black">
         <Head>
           <title>Tiled Stable Diffusion</title>
-          <meta property="og:image" content="/tile.png" />
+          {/* <meta property="og:image" content="/tile.png" /> */}
 
           <meta
             property="og:image"
-            content={`https://wallpaper-ochre.vercel.app/api/og?url=${wallpaper}`}
+            content="https://my-og-img.vercel.app/api/og"
           />
 
           <meta
