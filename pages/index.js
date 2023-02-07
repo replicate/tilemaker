@@ -131,6 +131,12 @@ export default function Home() {
     }
   };
 
+  const onKeyDown = (e) => {
+    if (e.metaKey && e.which === 13) {
+      handleSubmit(e, prompt);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -141,7 +147,7 @@ export default function Home() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: e.target.prompt.value,
+        prompt: prompt,
         width: "512",
         height: "512",
       }),
@@ -170,6 +176,7 @@ export default function Home() {
       if (prediction.status === "succeeded") {
         resetWallpaper(prediction.output);
         setLoading(false);
+        setBlur(false);
         play();
       }
     }
@@ -347,7 +354,8 @@ export default function Home() {
 
         {/* Form */}
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleSubmit(e, prompt)}
+          onKeyDown={onKeyDown}
           class="absolute top-1/4 right-0 py-12 pl-16 mr-6"
         >
           <fieldset>
