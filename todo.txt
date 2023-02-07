@@ -9,7 +9,7 @@ Todos
 - [x] make sure github links are all setup
 - [?] it's key there's an obvious CTA
 - [?] prefilled text, instant demo with minimal thought
-- [ ] add more examples!
+- [x] add more examples!
 - [x] add social share / og tags -> JUST UPDATE THE OG LINK!
 
 stretch
@@ -17,6 +17,7 @@ stretch
 
 launch
 - [x] setup preview image tags
+- [ ] give it a name
 - [] get a domain!
     - available on a quick look:
         - tiled.ai

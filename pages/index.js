@@ -492,7 +492,7 @@ export function About({ open, setOpen }) {
               <div className="window-body mt-4">
                 <fieldset class="space-y-3">
                   <p>
-                    Tiler is an{" "}
+                    This is an{" "}
                     <a
                       className="font-semibold hover:text-blue-800"
                       href="https://github.com/replicate/wallpaper"
