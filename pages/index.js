@@ -536,7 +536,7 @@ export default function Home() {
                         className="-ml-0.5 mr-2 h-4 w-4"
                         aria-hidden="true"
                       />
-                      New Wallpaper
+                      Make tile
                     </button>
                   </div>
                 </div>
@@ -654,7 +654,7 @@ export function About({ open, setOpen }) {
                       href="https://github.com/replicate/wallpaper"
                     >
                       <button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        See Code
+                        See code
                       </button>
                     </a>
                     <a href="https://replicate.com">
@@ -805,7 +805,7 @@ export function Sidebar({
                     <div className="px-4 sm:px-6">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
-                          Learn More
+                          {appName}
                         </Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
@@ -830,14 +830,14 @@ export function Sidebar({
                           className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <QuestionMarkCircleIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          About
+                          About this project
                         </button>
                         <button
                           onClick={() => setSaveOpen(true)}
                           className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <ArrowDownTrayIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          Download Wallpaper
+                          Download current tile
                         </button>
 
                         <button
@@ -845,7 +845,7 @@ export function Sidebar({
                           className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <LinkIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          Copy Link to Wallpaper
+                          Copy link to current tile
                         </button>
 
                         <a
@@ -853,7 +853,7 @@ export function Sidebar({
                           className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <CodeBracketIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
-                          See Code
+                          See code
                         </a>
                         <a
                           href="https://replicate.com"
