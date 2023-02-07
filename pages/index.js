@@ -529,7 +529,7 @@ export function About({ open, setOpen }) {
                     GitHub. Pull requests welcome!
                   </p>
 
-                  <div className="pt-8 space-x-3 flex justify-between">
+                  <div className="pt-8 space-x-3">
                     <a
                       className="text-blue-600"
                       href="https://github.com/replicate/wallpaper"
@@ -576,7 +576,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
           <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-32">
+        <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-8 sm:mt-32">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -611,7 +611,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
                 </div>
               </div>
 
-              <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-y-12 sm:gap-0 text-center">
+              <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 gap-y-12 sm:gap-0 text-center">
                 <div>
                   <span className="text-6xl">🖥️</span>
                   <p className="mt-4 text-gray-500">Desktop</p>
