@@ -6,6 +6,11 @@ import {
   PlusIcon,
   XMarkIcon,
   TrashIcon,
+  ArrowDownTrayIcon,
+  ArrowDownCircleIcon,
+  Bars3Icon,
+  QuestionMarkCircleIcon,
+  CodeBracketIcon,
 } from "@heroicons/react/20/solid";
 import useSound from "use-sound";
 import { Dialog, Transition } from "@headlessui/react";
@@ -77,6 +82,7 @@ export default function Home() {
     examples[Math.floor(Math.random() * examples.length)].prompt
   );
   const [blur, setBlur] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
 
   //   sounds
   const [play] = useSound("/complete.wav", { volume: 0.25 });
@@ -275,41 +281,29 @@ export default function Home() {
           ></meta>
         </Head>
 
-        {/* About */}
-        <div className="absolute z-10 top-4 left-4">
+        {/* Hamburger */}
+        <div
+          className={`${
+            sidebar ? "hidden" : "absolute"
+          } transition ease-in-and-out delay-150 z-10 top-4 left-4`}
+        >
           <button
-            onClick={() => setAboutOpen(true)}
-            class="hover:border-white border-transparent border-2 rounded-md p-2"
+            type="button"
+            onClick={() => setSidebar(true)}
+            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
           >
-            <span class="text-3xl">❔</span>
+            <Bars3Icon className="h-4 w-4 mr-2" />
+            Menu
           </button>
         </div>
 
-        {/* App Icons */}
-        <div className="hidden absolute z-10 top-16 sm:left-16 left-6">
-          <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
-            <button
-              className="bg-transparent bg-none border-none p-2 group"
-              onClick={() => setSaveOpen(true)}
-            >
-              <span className="text-6xl sm:text-8xl">💾</span>
-
-              <p className="font-bold text-lg text-white bg-opacity-75 bg-gray-900 mt-2 group-hover:text-gray-900 group-hover:bg-white px-2">
-                Save
-              </p>
-            </button>
-            <button
-              className="bg-transparent bg-none border-none p-2 group"
-              onClick={() => setAboutOpen(true)}
-            >
-              <span className="text-6xl sm:text-8xl">❔</span>
-
-              <p className="font-bold text-lg text-white bg-opacity-75 bg-gray-900 mt-2 group-hover:text-gray-900 group-hover:bg-white px-2">
-                About
-              </p>
-            </button>
-          </div>
-        </div>
+        <Sidebar
+          open={sidebar}
+          setOpen={setSidebar}
+          aboutOpen={aboutOpen}
+          setAboutOpen={setAboutOpen}
+          setSaveOpen={setSaveOpen}
+        />
 
         {/* Repeating tiles */}
         <div
@@ -323,11 +317,19 @@ export default function Home() {
           {Array(total)
             .fill(1)
             .map((_value, index) => (
-              <button key={`tile-${index}`} onClick={() => setSaveOpen(true)}>
+              <button
+                key={`tile-${index}`}
+                onClick={() => {
+                  if (index != 0) {
+                    setSaveOpen(true);
+                  }
+                }}
+              >
                 <img
                   id={index}
                   className={`tile animate-fadein ${
                     !blur &&
+                    index != 0 &&
                     "hover:rounded-sm hover:shadow-gray-900 hover:shadow-xl transition ease-linear delay-100 hover:scale-125"
                   }`}
                   style={{ animationDelay: `${index * 0.05}s` }}
@@ -418,23 +420,25 @@ export default function Home() {
                 </div>
               ) : (
                 <div class="flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() => handleInspire()}
-                    className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
-                  >
-                    <LightBulbIcon className="h-4 w-4" />
-                  </button>
-                  <button
-                    type="submit"
-                    className="inline-flex items-center rounded-md  bg-opacity-75 border-transparent border-2 hover:border-white bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
-                  >
-                    <PlusIcon
-                      className="-ml-0.5 mr-2 h-4 w-4"
-                      aria-hidden="true"
-                    />
-                    New Wallpaper
-                  </button>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => handleInspire()}
+                      className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+                    >
+                      <LightBulbIcon className="h-4 w-4" />
+                    </button>
+                    <button
+                      type="submit"
+                      className="inline-flex items-center rounded-md  bg-opacity-75 border-transparent border-2 hover:border-white bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                    >
+                      <PlusIcon
+                        className="-ml-0.5 mr-2 h-4 w-4"
+                        aria-hidden="true"
+                      />
+                      New Wallpaper
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -550,7 +554,7 @@ export function About({ open, setOpen }) {
                     GitHub. Pull requests welcome!
                   </p>
 
-                  <div className="pt-8 space-x-3">
+                  <div className="pt-8 space-x-3 flex justify-between">
                     <a
                       className="text-blue-600"
                       href="https://github.com/replicate/wallpaper"
@@ -559,7 +563,6 @@ export function About({ open, setOpen }) {
                         See Code
                       </button>
                     </a>
-
                     <a href="https://replicate.com">
                       <button className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         Build on Replicate
@@ -673,6 +676,93 @@ export function Save({ open, setOpen, wallpaper, download }) {
               </div>
             </Dialog.Panel>
           </Transition.Child>
+        </div>
+      </Dialog>
+    </Transition.Root>
+  );
+}
+
+export function Sidebar({ open, setOpen, setAboutOpen, setSaveOpen }) {
+  return (
+    <Transition.Root show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+        <div className="fixed inset-0" />
+
+        <div className="fixed inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="pointer-events-none fixed inset-y-0 left-0 flex max-w-full pr-10">
+              <Transition.Child
+                as={Fragment}
+                enter="transform transition ease-in-out duration-500 sm:duration-700"
+                enterFrom="-translate-x-full"
+                enterTo="translate-x-0"
+                leave="transform transition ease-in-out duration-500 sm:duration-700"
+                leaveFrom="translate-x-0"
+                leaveTo="-translate-x-full"
+              >
+                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                  <div className="flex h-full flex-col overflow-y-scroll bg-gray-900 bg-opacity-50 py-6 shadow-xl">
+                    <div className="px-4 sm:px-6">
+                      <div className="flex items-start justify-between">
+                        <Dialog.Title className="text-lg font-medium text-white">
+                          Learn More
+                        </Dialog.Title>
+                        <div className="ml-3 flex h-7 items-center">
+                          <button
+                            type="button"
+                            className="rounded-md text-white hover:text-gray-300 focus:outline-none "
+                            onClick={() => setOpen(false)}
+                          >
+                            <span className="sr-only">Close panel</span>
+                            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <nav
+                      className="flex-1 space-y-8 min-h-screen pt-6 pr-12 px-2"
+                      aria-label="Sidebar"
+                    >
+                      <div className="space-y-1">
+                        <button
+                          onClick={() => setAboutOpen(true)}
+                          className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
+                        >
+                          <QuestionMarkCircleIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
+                          About
+                        </button>
+                        <button
+                          onClick={() => setSaveOpen(true)}
+                          className="text-white w-full hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
+                        >
+                          <ArrowDownTrayIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
+                          Download Wallpaper
+                        </button>
+
+                        <a
+                          href="https://github.com/replicate/wallpaper/fork"
+                          className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
+                        >
+                          <CodeBracketIcon className="text-gray-200 group-hover:text-gray-500 mr-3 flex-shrink-0 h-6 w-6" />
+                          Fork Repo
+                        </a>
+                        <a
+                          href="https://github.com/replicate/wallpaper/fork"
+                          className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
+                        >
+                          <span className="mr-4">🚀</span>
+                          Build on Replicate
+                        </a>
+                      </div>
+                    </nav>
+
+                    {/* /End replace */}
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
         </div>
       </Dialog>
     </Transition.Root>
