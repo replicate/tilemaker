@@ -385,9 +385,9 @@ export default function Home() {
                 <div className="px-2">
                   {status ? (
                     <div>
-                      <div class="w-full bg-gray-900 rounded-full h-2">
+                      <div className="w-full bg-gray-900 rounded-full h-2">
                         <div
-                          class="bg-gray-100 h-2 rounded-full"
+                          className="bg-gray-100 h-2 rounded-full"
                           style={{ width: `${status}%` }}
                         ></div>
                       </div>
