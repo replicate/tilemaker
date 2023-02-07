@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   const filtered = resp.results.filter(
     (result) =>
       result.version ==
-      "3b5c0242f8925a4ab6c79b4c51e9b4ce6374e9b07b5e8461d89e692fd0faa449" // parse out to only include tile diffusion models
+      "a42692c54c0f407f803a0a8a9066160976baedb77c91171a01730f9b0d7beeff" // parse out to only include tile diffusion models
   );
   res.end(JSON.stringify(filtered));
 }
