@@ -361,11 +361,27 @@ export default function Home() {
           </button>
         </div>
 
+        {/* Download */}
+        <div
+          className={`${
+            sidebar ? "hidden" : "absolute"
+          } animate-drop  z-10 top-4 right-4`}
+        >
+          <button
+            type="button"
+            onClick={() => setSaveOpen(true)}
+            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+          >
+            <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
+            Download
+          </button>
+        </div>
+
         {id && (
           <div
             className={`${
               sidebar ? "hidden" : "absolute"
-            } animate-drop  z-10 top-4 right-4`}
+            } animate-drop  z-10 top-4 right-32`}
           >
             <button
               type="button"
