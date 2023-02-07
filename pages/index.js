@@ -63,6 +63,11 @@ const examples = [
     image:
       "https://replicate.delivery/pbxt/1b4tM1hOSi7lGl9ks94Tdr9vFj8ON7uDe1eXRzQ51LUIiAcQA/out-0.jpg",
   },
+  {
+    prompt: "Clouds, Hokusai, etching",
+    image:
+      "https://replicate.delivery/pbxt/gQtBQDykYhrbGVr9FSEm03v9Ppmsf73EutwTPmYd1ePqbEcQA/out-0.png",
+  },
 ];
 
 const IMAGE_SIZE = 180;
@@ -140,6 +145,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setBlur(false);
 
     const response = await fetch("/api/predictions", {
       method: "POST",
@@ -176,7 +182,7 @@ export default function Home() {
       if (prediction.status === "succeeded") {
         resetWallpaper(prediction.output);
         setLoading(false);
-        setBlur(false);
+
         play();
       }
     }

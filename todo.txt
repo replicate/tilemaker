@@ -14,6 +14,7 @@ Todos
 
 stretch
 - [] down the line add a way to see others wallpapers. im close on this
+- [] would be really nice if you could share your wallpaper... one way to do this would be to add the URL to the param
 
 launch
 - [x] setup preview image tags
