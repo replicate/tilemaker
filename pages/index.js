@@ -110,7 +110,7 @@ export default function Home() {
     } else {
       const lastLine = logs.split("\n").slice(-1)[0];
       const pct = lastLine.split("%")[0];
-      return pct * 2;
+      return pct;
     }
   };
 
