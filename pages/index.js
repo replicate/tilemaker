@@ -297,9 +297,8 @@ export default function Home() {
           {Array(total)
             .fill(1)
             .map((_value, index) => (
-              <button onClick={() => setSaveOpen(true)}>
+              <button key={`tile-${index}`} onClick={() => setSaveOpen(true)}>
                 <img
-                  key={`tile-${index}`}
                   id={index}
                   className={`tile animate-fadein ${
                     !blur &&
