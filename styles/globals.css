@@ -2,39 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-.animate-drop {
-    animation-duration: 0.5s;
-    animation-name: animate-drop;
-    animation-delay: 0.5s;
-    animation-fill-mode: backwards;
-  }
-
 .animate-fadein {
-    animation-duration: 1s;
-    animation-name: animate-fadein;
-    animation-delay: 0.5s;
-    animation-fill-mode: backwards;
-}
-
-.animate-scale {
-    animation-duration: 1s;
-    animation-name: animate-scale;
-    animation-delay: 0.5s;
-    animation-fill-mode: backwards;
-}
-
-@keyframes animate-scale {
-   0% { transform: scale(0); }
-   100% {transform: scale(1.5);}
-
-}
-
-@keyframes animate-drop {
-    0% { opacity: 0; transform: translateY(-400px); }
-    100% { opacity: 1; transform: translateY(0); }
+  animation-duration: 0.3s;
+  animation-name: animate-fadein;
+  animation-delay: 0s;
+  animation-fill-mode: backwards;
 }
 
 @keyframes animate-fadein {
-    0% { opacity: 0;}
-   100% {opacity: 1;}
- }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
