@@ -66,8 +66,6 @@ const examples = [
 const IMAGE_SIZE = 180;
 
 export default function Home() {
-  const [prediction, setPrediction] = useState(null);
-  const [error, setError] = useState(null);
   const [prompt, setPrompt] = useState(null);
   const [cols, setCols] = useState(null);
   const [rows, setRows] = useState(null);
@@ -133,7 +131,6 @@ export default function Home() {
       setError(prediction.detail);
       return;
     }
-    setPrediction(prediction);
     setLoading(true);
 
     while (
@@ -149,7 +146,6 @@ export default function Home() {
       }
       console.log(prediction.logs);
       setStatus(parseLogs(prediction.logs));
-      setPrediction(prediction);
 
       if (prediction.status === "succeeded") {
         resetWallpaper(prediction.output);
