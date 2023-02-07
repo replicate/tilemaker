@@ -302,7 +302,7 @@ export default function Home() {
                   id={index}
                   className={`tile animate-fadein ${
                     !blur &&
-                    "hover:border border-white hover:rounded-sm hover:shadow-green-100 hover:shadow-md transition ease-linear delay-100 hover:scale-125"
+                    "hover:rounded-sm hover:shadow-gray-900 hover:shadow-xl transition ease-linear delay-100 hover:scale-125"
                   }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                   src={wallpaper}
