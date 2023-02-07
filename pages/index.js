@@ -261,7 +261,7 @@ export default function Home() {
 
           <meta
             property="og:image"
-            content={`https://my-og-img.vercel.app/api/og?url=${wallpaper}`}
+            content={`https://wallpaper-ochre.vercel.app/api/og?url=${wallpaper}`}
           />
 
           <meta
