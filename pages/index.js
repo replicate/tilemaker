@@ -431,7 +431,7 @@ export default function Home() {
                     index != 0 &&
                     "hover:rounded-sm hover:shadow-xl transition ease-linear delay-100"
                   }`}
-                  style={{ animationDelay: `${index * 0.05}s` }}
+                  style={{ animationDelay: `${index * 0.03}s` }}
                   src={wallpaper}
                   alt=""
                 />
