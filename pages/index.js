@@ -349,7 +349,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setSidebar(true)}
-            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-opacity-70 bg-black"
           >
             <Bars3Icon className="h-4 w-4 mr-2" />
             {appName}
@@ -365,7 +365,7 @@ export default function Home() {
             <button
               type="button"
               onClick={() => copyToClipboard()}
-              className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+              className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
             >
               <LinkIcon className="h-4 w-4 mr-2" />
               Copy Link
@@ -384,7 +384,7 @@ export default function Home() {
         />
 
         {/* Footer */}
-        <div className="fixed bottom-2 right-2 text-white text-xs">
+        <div className="fixed bottom-0 right-0 text-white bg-gray-900 text-xs p-3 rounded-t-lg">
           <p>
             Powered by{" "}
             <a
@@ -465,7 +465,7 @@ export default function Home() {
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder={placeholder}
                 style={{ resize: "none" }}
-                className="w-full text-sm rounded-lg bg-gray-900 bg-opacity-75 text-gray-200 ring-0 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                className="w-full text-sm rounded-lg bg-black bg-opacity-80 text-gray-200 ring-0 focus:outline-none focus:ring-1 focus:ring-offset-2"
               />
               {prompt && (
                 <button
@@ -482,10 +482,10 @@ export default function Home() {
 
             <div className="mt-2">
               {loading ? (
-                <div className="px-2">
+                <div className="px-2 py-2 bg-black bg-opacity-60 rounded-lg">
                   {status ? (
                     <div>
-                      <div className="w-full bg-gray-900 rounded-full h-2">
+                      <div className="w-full rounded-full h-2">
                         <div
                           className="bg-gray-100 h-2 rounded-full"
                           style={{ width: `${status}%` }}
@@ -576,7 +576,7 @@ export function About({ open, setOpen }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-60 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-32">
@@ -691,7 +691,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-50 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-60 transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 mt-8 sm:mt-32">
@@ -801,7 +801,7 @@ export function Sidebar({
                 leaveTo="-translate-x-full"
               >
                 <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
-                  <div className="flex h-full flex-col overflow-y-scroll bg-gray-900 bg-opacity-50 py-6 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll bg-gray-900 bg-opacity-60 py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
