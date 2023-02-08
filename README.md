@@ -1,38 +1,35 @@
-## Getting started with Next.js and Replicate
+# 🖼️ TileMaker
 
-This is a [Next.js](https://nextjs.org/) template project that's preconfigured to work with Replicate's API.
+Generate tiling images from text using AI.
 
-You can use this as a quick jumping-off point to build a web app using Replicate's API, or you can recreate this codebase from scratch by following the guide at [replicate.com/docs/get-started/nextjs](https://replicate.com/docs/get-started/nextjs)
+Try it out at [tilemaker.app](http://tilemaker.app)
 
-## Noteworthy files
+## How it works
 
-- [pages/index.js](pages/index.js) - The React frontend that renders the home page in the browser
-- [pages/api/predictions/index.js](pages/api/predictions/index.js) - The backend API endpoint that calls Replicate's API to create a prediction
-- [pages/api/predictions/[id].js](pages/api/predictions/[id].js) - The backend API endpoint that calls Replicate's API to get the prediction result
+This app is powered by:
 
-## Usage
+🚀 [Replicate](https://replicate.com/?utm_source=project&utm_campaign=tilemaker), a platform for running machine learning models in the cloud.
 
-Install dependencies:
+🎨 [Material Diffusion](https://replicate.com/tstramer/material-diffusion?utm_source=project&utm_campaign=tilemaker), an open-source machine learning model that generates tiling images using Stable Diffusion.
 
-```console
-npm install
-```
+▲ [Vercel](https://vercel.com/), a platform for running web apps.
 
-Add your [Replicate API token](https://replicate.com/account#token) to `.env.local`:
+⚡️ Next.js [server-side API routes](pages/api), for talking to the Replicate API.
 
-```
-REPLICATE_API_TOKEN=<your-token-here>
-```
+👀 Next.js React components, for the browser UI.
 
-Run the development server:
+🍃 [Tailwind CSS](https://tailwindcss.com/), for styles.
 
-```console
-npm run dev
-```
+## Development
 
-Open [http://localhost:3000](http://localhost:3000) with your browser.
-
-For detailed instructions on how to create and use this template, see [replicate.com/docs/get-started/nextjs](https://replicate.com/docs/get-started/nextjs)
-
-<img src="https://user-images.githubusercontent.com/2289/208017930-a39ca4d5-2410-4049-bce0-20718480c73b.png" alt="app screenshot">
-# wallpaper
+1. Install a recent version of [Node.js](https://nodejs.org/)
+1. Copy your [Replicate API token](https://replicate.com/account?utm_source=project&utm_campaign=tilemaker) and set it in your environment:
+   ```
+   echo "REPLICATE_API_TOKEN=<your-token-here>" > .env.local
+   ```
+1. Install dependencies and run the server:
+   ```
+   npm install
+   npm run dev
+   ```
+1. Open [localhost:3000](http://localhost:3000) in your browser. That's it!
