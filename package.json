@@ -21,6 +21,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
+    "react-tooltip": "^5.7.4",
     "sharp": "^0.31.3",
     "use-sound": "^4.0.1"
   },

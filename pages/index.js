@@ -17,6 +17,8 @@ import useSound from "use-sound";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -355,7 +357,7 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setSidebar(true)}
-            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-opacity-70 bg-black"
+            className="mr-2 animate-drop inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-opacity-70 bg-black"
           >
             <Bars3Icon className="h-4 w-4 mr-2" />
             {appName}
@@ -363,37 +365,49 @@ export default function Home() {
         </div>
 
         {/* Download */}
-        <div
-          className={`${
-            sidebar ? "hidden" : "absolute"
-          } animate-drop  z-10 top-4 right-4`}
-        >
-          <button
-            type="button"
-            onClick={() => setSaveOpen(true)}
-            className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
-          >
-            <ArrowDownTrayIcon className="h-4 w-4 mr-2" />
-            Download
-          </button>
-        </div>
-
-        {id && (
+        <div className="absolute top-4 right-4">
           <div
             className={`${
-              sidebar ? "hidden" : "absolute"
-            } animate-drop  z-10 top-4 right-32 sm:right-36`}
+              sidebar ? "hidden" : "inline-block"
+            }  animate-drop z-10 top-4 right-4`}
           >
             <button
+              id="download-button"
               type="button"
-              onClick={() => copyToClipboard()}
+              onClick={() => setSaveOpen(true)}
               className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
             >
-              <LinkIcon className="h-4 w-4 mr-2" />
-              Copy Link
+              <ArrowDownTrayIcon className="h-4 w-4" />
             </button>
+            <Tooltip
+              anchorId="download-button"
+              content="Download tile"
+              place="top"
+            />
           </div>
-        )}
+
+          {id && (
+            <div
+              className={`${
+                sidebar ? "hidden" : "inline-block"
+              } animate-drop z-10 top-4 right-16 sm:right-36`}
+            >
+              <button
+                id="copy-button"
+                type="button"
+                onClick={() => copyToClipboard()}
+                className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
+              >
+                <LinkIcon className="h-4 w-4" />
+              </button>
+              <Tooltip
+                anchorId="copy-button"
+                content="Copy link to tile"
+                place="top"
+              />
+            </div>
+          )}
+        </div>
 
         {/* Sidebar */}
         <Sidebar
@@ -406,7 +420,7 @@ export default function Home() {
         />
 
         {/* Footer */}
-        <div className="fixed bottom-0 right-0 text-white bg-gray-900 text-xs p-3 rounded-t-lg">
+        <div className="animate-rise fixed bottom-0 right-0 text-white bg-gray-900 text-xs p-3 rounded-t-lg">
           <p>
             Powered by{" "}
             <a
@@ -536,12 +550,18 @@ export default function Home() {
                 <div class="flex justify-end">
                   <div>
                     <button
+                      id="inspire-button"
                       type="button"
                       onClick={() => handleInspire()}
                       className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
                     >
                       <LightBulbIcon className="h-4 w-4" />
                     </button>
+                    <Tooltip
+                      anchorId="inspire-button"
+                      content="Example prompt"
+                      place="bottom"
+                    />
                     <button
                       type="submit"
                       className="inline-flex items-center rounded-md  bg-opacity-75 border-transparent border-2 hover:border-white bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"

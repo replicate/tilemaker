@@ -32,6 +32,18 @@
     "minimatch" "^3.1.2"
     "strip-json-comments" "^3.1.1"
 
+"@floating-ui/core@^1.2.0":
+  "integrity" "sha512-GHUXPEhMEmTpnpIfesFA2KAoMJPb1SPQw964tToQwt+BbGXdhqTCWT1rOb0VURGylsxsYxiGMnseJ3IlclVpVA=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/core/-/core-1.2.0.tgz"
+  "version" "1.2.0"
+
+"@floating-ui/dom@^1.0.4":
+  "integrity" "sha512-QXzg57o1cjLz3cGETzKXjI3kx1xyS49DW9l7kV2jw2c8Yftd434t2hllX0sVGn2Q8MtcW/4pNm8bfE1/4n6mng=="
+  "resolved" "https://registry.npmjs.org/@floating-ui/dom/-/dom-1.2.0.tgz"
+  "version" "1.2.0"
+  dependencies:
+    "@floating-ui/core" "^1.2.0"
+
 "@headlessui/react@^1.7.9":
   "integrity" "sha512-Bobh/+mDciu8kEE2hvdukFYjbfaG4MEkK/6TjWOgqcODLKYpRhWPKPE+dCcCSz/YrwjFVrEAMOiWtfk6sW20/w=="
   "resolved" "https://registry.npmjs.org/@headlessui/react/-/react-1.7.9.tgz"
@@ -495,6 +507,11 @@
   "integrity" "sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg=="
   "resolved" "https://registry.npmjs.org/chownr/-/chownr-1.1.4.tgz"
   "version" "1.1.4"
+
+"classnames@^2.3.2":
+  "integrity" "sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw=="
+  "resolved" "https://registry.npmjs.org/classnames/-/classnames-2.3.2.tgz"
+  "version" "2.3.2"
 
 "client-only@^0.0.1", "client-only@0.0.1":
   "integrity" "sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA=="
@@ -1950,7 +1967,7 @@
     "minimist" "^1.2.0"
     "strip-json-comments" "~2.0.1"
 
-"react-dom@^16 || ^17 || ^18", "react-dom@^18.2.0", "react-dom@>=16", "react-dom@18.2.0":
+"react-dom@^16 || ^17 || ^18", "react-dom@^18.2.0", "react-dom@>=16", "react-dom@>=16.14.0", "react-dom@18.2.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -1970,7 +1987,15 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
-"react@^16 || ^17 || ^18", "react@^18.2.0", "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@>=16.8", "react@18.2.0":
+"react-tooltip@^5.7.4":
+  "integrity" "sha512-Eocnm5Dl6numT52CXLVecX5p93W4ifU3TIbhGqrNfFw2KY7ES2tZDPQHH5yQ1OSWhAcxWZImuFRcUwe+W/vTig=="
+  "resolved" "https://registry.npmjs.org/react-tooltip/-/react-tooltip-5.7.4.tgz"
+  "version" "5.7.4"
+  dependencies:
+    "@floating-ui/dom" "^1.0.4"
+    "classnames" "^2.3.2"
+
+"react@^16 || ^17 || ^18", "react@^18.2.0", "react@>= 16", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@>=16.14.0", "react@>=16.8", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
