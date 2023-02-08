@@ -9,6 +9,20 @@
   animation-fill-mode: backwards;
 }
 
+.animate-drop {
+    animation-duration: 0.5s;
+    animation-name: animate-drop;
+    animation-delay: 0.5s;
+    animation-fill-mode: backwards;
+  }
+
+.animate-rise {
+animation-duration: 0.5s;
+animation-name: animate-rise;
+animation-delay: 0.5s;
+animation-fill-mode: backwards;
+}
+
 @keyframes animate-fadein {
   0% {
     opacity: 0;
@@ -16,4 +30,20 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes animate-drop {
+    0% { opacity: 0; transform: translateY(-400px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes animate-rise {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+
+@keyframes animate-fadein {
+    0% { opacity: 0;}
+   100% {opacity: 1;}
 }
