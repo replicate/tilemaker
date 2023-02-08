@@ -420,23 +420,36 @@ export default function Home() {
         />
 
         {/* Footer */}
-        <div className="animate-rise fixed bottom-0 right-0 text-white bg-gray-900 text-xs p-3 rounded-t-lg">
+        <div className="animate-rise fixed bottom-0 right-0 text-gray-300 bg-gray-900 text-xs p-3 rounded-t-lg">
           <p>
             Powered by{" "}
             <a
-              className="hover:text-blue-100"
-              href="https://replicate.com/tstramer/material-diffusion"
+              className="hover:underline text-white"
+              href="https://replicate.com/tstramer/material-diffusion?utm_source=project&utm_campaign=tilemaker"
             >
               Material Diffusion
-            </a>{" "}
-            +{" "}
-            <a className="hover:text-blue-100" href="https://replicate.com">
+            </a>
+            ,{" "}
+            <a
+              className="hover:underline text-white"
+              href="https://replicate.com?utm_source=project&utm_campaign=tilemaker"
+            >
               Replicate
-            </a>{" "}
-            +{" "}
-            <a className="hover:text-blue-100" href="https://vercel.com">
+            </a>
+            ,{" "}
+            <a
+              className="hover:underline text-white"
+              href="https://vercel.com?utm_source=project&utm_campaign=tilemaker"
+            >
               Vercel
             </a>
+            , and{" "}
+            <a
+              className="hover:underline text-white"
+              href="https://github.com/replicate/tilemaker"
+            >
+              GitHub
+            </a>{" "}
           </p>
         </div>
 
