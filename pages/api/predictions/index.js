@@ -6,8 +6,8 @@ export default async function handler(req, res) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      // Pinned to a specific version of Stable Diffusion
-      // See https://replicate.com/stability-ai/stable-diffussion/versions
+      // Pinned to a specific version of Material Diffusion
+      // See https://replicate.com/tstramer/material-diffusion/versions
       version:
         "a42692c54c0f407f803a0a8a9066160976baedb77c91171a01730f9b0d7beeff",
 
