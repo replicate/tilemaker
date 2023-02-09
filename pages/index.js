@@ -129,6 +129,7 @@ export default function Home() {
   );
   const [blur, setBlur] = useState(false);
   const [sidebar, setSidebar] = useState(false);
+  const [nudge, setNudge] = useState(false);
 
   //   sounds
   const [play] = useSound("/complete.wav", { volume: 0.25 });
@@ -140,6 +141,15 @@ export default function Home() {
     const example = examples[Math.floor(Math.random() * examples.length)];
 
     resize(cols, rows);
+
+    var firstTime = localStorage.getItem("first_time");
+    if (!firstTime) {
+      // first time loaded!
+      localStorage.setItem("first_time", "1");
+      setNudge(true);
+    }
+
+    console.log(firstTime);
 
     if (id) {
       getPrediction(id);
@@ -499,7 +509,7 @@ export default function Home() {
         <form
           onSubmit={(e) => handleSubmit(e, prompt)}
           onKeyDown={onKeyDown}
-          className="absolute  mx-5 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="absolute  mx-5 top-1/3 left-1/4 sm:left-1/2 -translate-x-1/3 sm:-translate-x-1/2 -translate-y-1/2"
         >
           <fieldset>
             <div className="mt-4 relative">
@@ -529,11 +539,16 @@ export default function Home() {
                       document.getElementById("prompt").focus();
                     }, 50);
                   }}
-                  className="text-left italic text-white text-4xl font-bold max-w-md mx-auto"
+                  className="text-left italic text-white text-2xl sm:text-4xl font-bold max-w-md mx-auto"
                 >
                   <span className="inline-bg py-1 leading-loose font-extrabold hover:border-white border-transparent border-2">
                     {prompt}
                   </span>
+                  {nudge && (
+                    <span className="absolute animate-bounce -top-6 left-0 -rotate-12 text-sm">
+                      Click to edit &darr;
+                    </span>
+                  )}
                 </button>
               )}
             </div>
@@ -577,7 +592,7 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                <div className="flex justify-end mt-5">
+                <div className="flex sm:justify-end pt-12 sm:mt-5">
                   <div>
                     <button
                       id="inspire-button"
@@ -597,7 +612,7 @@ export default function Home() {
                         className="-ml-0.5 mr-2 h-4 w-4"
                         aria-hidden="true"
                       />
-                      {blur ? "Make tile" : "Make your own"}
+                      Make tile
                     </button>
                   </div>
                 </div>
