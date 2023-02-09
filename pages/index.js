@@ -125,24 +125,6 @@ export default function Home() {
     setPrompt(result.input.prompt);
   };
 
-  const getRecent = async (e) => {
-    const response = await fetch("/api/predictions/list", {
-      method: "GET",
-      method: "GET",
-    });
-    let results = await response.json();
-
-    for (let i = 0; i < 3; i++) {
-      //   console.log(results[i].output);
-
-      // sadly it doesnt seem like getting a list of results includes the prompts
-      const full_response = await fetch(`/api/predictions/${results[i].id}`);
-      const submission = await full_response.json();
-      console.log(submission.output);
-      console.log(JSON.stringify(submission));
-    }
-  };
-
   const copyToClipboard = (e) => {
     navigator.clipboard.writeText(window.location.toString());
     toast("Link to wallpaper copied");
@@ -331,10 +313,10 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setSidebar(true)}
-            className="mr-2 animate-drop inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-opacity-70 bg-black"
+            className="mr-2 animate-drop inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-dark"
           >
             <Bars3Icon className="h-4 w-4 mr-2" />
-            {appName} {JSON.stringify(blur)}
+            {appName}
           </button>
         </div>
 
@@ -349,7 +331,7 @@ export default function Home() {
               id="download-button"
               type="button"
               onClick={() => setSaveOpen(true)}
-              className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
+              className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-dark"
             >
               <ArrowDownTrayIcon className="h-4 w-4" />
             </button>
@@ -370,7 +352,7 @@ export default function Home() {
                 id="copy-button"
                 type="button"
                 onClick={() => copyToClipboard()}
-                className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-black bg-opacity-60"
+                className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-dark"
               >
                 <LinkIcon className="h-4 w-4" />
               </button>
@@ -394,7 +376,7 @@ export default function Home() {
         />
 
         {/* Footer */}
-        <div className="animate-rise fixed bottom-0 right-0 text-gray-300 bg-gray-900 text-xs p-3 rounded-t-lg">
+        <div className="animate-rise fixed bottom-3 right-0 text-gray-300 bg-dark text-xs p-3 rounded-t-lg">
           <p>
             Powered by{" "}
             <a
@@ -465,7 +447,7 @@ export default function Home() {
         <form
           onSubmit={(e) => handleSubmit(e, prompt)}
           onKeyDown={onKeyDown}
-          class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          class="absolute mx-5 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <fieldset>
             <div className="mt-4 relative">
@@ -484,7 +466,7 @@ export default function Home() {
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder={placeholder}
                   style={{ resize: "none" }}
-                  className="bg-gray-900 bg-opacity-70 focus:border-white focus:ring-white rounded-md text-white font-extrabold text-4xl max-w-sm mx-auto"
+                  className="bg-dark focus:border-white focus:ring-white rounded-md text-white font-extrabold text-4xl max-w-md mx-auto"
                 />
               ) : (
                 <button
@@ -495,7 +477,7 @@ export default function Home() {
                       document.getElementById("prompt").focus();
                     }, 50);
                   }}
-                  className="text-left px-5 text-white text-4xl font-bold max-w-md mx-auto"
+                  className="text-left text-white text-4xl font-bold max-w-md mx-auto"
                 >
                   <span className="inline-bg py-1 leading-loose font-extrabold">
                     {prompt}
@@ -506,7 +488,7 @@ export default function Home() {
 
             <div className="mt-2">
               {loading ? (
-                <div className="px-2 py-2 bg-black bg-opacity-60 rounded-lg">
+                <div className="py-2 bg-dark px-2 rounded-lg">
                   {status ? (
                     <div>
                       <div className="w-full rounded-full h-2">
@@ -543,13 +525,13 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                <div class="flex justify-end">
+                <div class="flex justify-end mt-5">
                   <div>
                     <button
                       id="inspire-button"
                       type="button"
                       onClick={() => handleInspire()}
-                      className="mr-2 inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+                      className="mr-2 inline-flex bg-dark items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
                     >
                       <LightBulbIcon className="h-4 w-4" />
                     </button>
@@ -560,7 +542,7 @@ export default function Home() {
                     />
                     <button
                       type="submit"
-                      className="inline-flex items-center rounded-md  bg-opacity-75 border-transparent border-2 hover:border-white bg-gray-900 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
+                      className="bg-dark inline-flex items-center rounded-md border-transparent border-2 hover:border-white px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
                     >
                       <PlusIcon
                         className="-ml-0.5 mr-2 h-4 w-4"

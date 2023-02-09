@@ -25,7 +25,11 @@
 
 .inline-bg {
     @apply bg-black bg-opacity-70 box-decoration-clone px-2 rounded-md
-  }
+}
+
+.bg-dark {
+    @apply bg-gray-900 bg-opacity-70
+}
 
 @keyframes animate-fadein {
   0% {
