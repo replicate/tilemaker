@@ -23,61 +23,37 @@ import { Tooltip } from "react-tooltip";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const examples = [
-  {
-    prompt:
-      "Muddy ground with autumn leaves seamless texture, trending on artstation, base color, albedo, 4k",
-    image:
-      "https://replicate.delivery/mgxm/9b8f4ec9-eef0-437f-a27a-cbd233d22407/out-0.png",
-  },
-  {
-    prompt:
-      "Lunar surface seamless texture, trending on artstation, base color, albedo, 4k",
-    image:
-      "https://replicate.delivery/mgxm/8f75db20-72d9-4917-bc86-db4ca5d73c35/out-0.png",
-  },
-  {
-    prompt:
-      "Tree bark seamless photoscan texture, trending on artstation, base color, albedo, 4k",
-    image:
-      "https://replicate.delivery/mgxm/7d3bc46c-612f-42cb-9347-317b2db1d3d6/out-0.png",
-  },
-  {
-    prompt: "Flamingo painting",
-    image:
-      "https://replicate.delivery/pbxt/K2M3OVwEpSLxNdZDmEe8K5fIGN25TOUTQA7JnGb5n4fcsY2gA/out-0.jpg",
-  },
-  {
-    prompt:
-      "Ancient carvings trim sheet texture, trending on artstation, sandstone, base color, albedo, 4k",
-    image:
-      "https://replicate.delivery/mgxm/147f2329-db56-4a6a-a950-7a358f731fb7/out-0.png",
-  },
-  {
-    prompt:
-      "Wall made from chocolate bars seamless texture, trending on artstation, tasty, base color, albedo, 4k",
-    image:
-      "https://replicate.delivery/mgxm/9c645c58-82e8-4d88-bb7d-972472978698/out-0.png",
-  },
-  {
-    prompt: "A painting with oranges and lemons",
-    image:
-      "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
-  },
+  //   {
+  //     prompt:
+  //       "Lunar surface seamless texture, trending on artstation, base color, albedo, 4k",
+  //     image:
+  //       "https://replicate.delivery/mgxm/8f75db20-72d9-4917-bc86-db4ca5d73c35/out-0.png",
+  //   },
+  //   {
+  //     prompt: "Flamingo painting",
+  //     image:
+  //       "https://replicate.delivery/pbxt/K2M3OVwEpSLxNdZDmEe8K5fIGN25TOUTQA7JnGb5n4fcsY2gA/out-0.jpg",
+  //   },
+  //   {
+  //     prompt: "A painting with oranges and lemons",
+  //     image:
+  //       "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
+  //   },
   {
     prompt: "Monet, lilies, bright, oil painting",
     image:
       "https://replicate.delivery/pbxt/1b4tM1hOSi7lGl9ks94Tdr9vFj8ON7uDe1eXRzQ51LUIiAcQA/out-0.jpg",
   },
-  {
-    prompt: "Clouds, Hokusai, etching",
-    image:
-      "https://replicate.delivery/pbxt/gQtBQDykYhrbGVr9FSEm03v9Ppmsf73EutwTPmYd1ePqbEcQA/out-0.png",
-  },
-  {
-    prompt: "Flowers, Otsu-e style, traditional",
-    image:
-      "https://replicate.delivery/pbxt/eHE4fVdlnokqAEHYemffxq6edjFFTTxmBepzL2XQCLAsOQCOIA/out-0.png",
-  },
+  //   {
+  //     prompt: "Clouds, Hokusai, etching",
+  //     image:
+  //       "https://replicate.delivery/pbxt/gQtBQDykYhrbGVr9FSEm03v9Ppmsf73EutwTPmYd1ePqbEcQA/out-0.png",
+  //   },
+  //   {
+  //     prompt: "Flowers, Otsu-e style, traditional",
+  //     image:
+  //       "https://replicate.delivery/pbxt/eHE4fVdlnokqAEHYemffxq6edjFFTTxmBepzL2XQCLAsOQCOIA/out-0.png",
+  //   },
 ];
 
 const appName = "TileMaker";
@@ -112,8 +88,6 @@ export default function Home() {
     const example = examples[Math.floor(Math.random() * examples.length)];
 
     resize(cols, rows);
-
-    console.log(router.query);
 
     if (id) {
       getPrediction(id);
@@ -360,7 +334,7 @@ export default function Home() {
             className="mr-2 animate-drop inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-opacity-70 bg-black"
           >
             <Bars3Icon className="h-4 w-4 mr-2" />
-            {appName}
+            {appName} {JSON.stringify(blur)}
           </button>
         </div>
 
@@ -456,7 +430,7 @@ export default function Home() {
         {/* Repeating tiles */}
         <div
           className={`${
-            blur && "blur-md"
+            blur && "blur-sm"
           } transition duration-500 ease-linear delay-50`}
           style={{
             display: "grid",
@@ -491,33 +465,40 @@ export default function Home() {
         <form
           onSubmit={(e) => handleSubmit(e, prompt)}
           onKeyDown={onKeyDown}
-          class="absolute top-1/4 right-0 py-12 pl-16 mr-6"
+          class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <fieldset>
             <div className="mt-4 relative">
-              <textarea
-                required={true}
-                onFocus={() => setBlur(true)}
-                onBlur={() => setBlur(false)}
-                name="prompt"
-                id="prompt"
-                rows="3"
-                cols="40"
-                autoCorrect="false"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder={placeholder}
-                style={{ resize: "none" }}
-                className="w-full text-sm rounded-lg bg-black bg-opacity-80 text-gray-200 ring-0 focus:outline-none focus:ring-1 focus:ring-offset-2"
-              />
-              {prompt && (
+              {blur ? (
+                <textarea
+                  required={true}
+                  onFocus={() => setBlur(true)}
+                  onBlur={() => setBlur(false)}
+                  name="prompt"
+                  id="prompt"
+                  rows="3"
+                  cols="40"
+                  autoFocus={true}
+                  autoCorrect="false"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  placeholder={placeholder}
+                  style={{ resize: "none" }}
+                  className="bg-gray-900 bg-opacity-70 focus:border-white focus:ring-white rounded-md text-white font-extrabold text-4xl max-w-sm mx-auto"
+                />
+              ) : (
                 <button
-                  onClick={() => setPrompt("")}
                   type="button"
-                  className="absolute hover:bg-gray-900 p-1 rounded-lg font-light bottom-2.5 right-1 text-xs text-gray-300"
+                  onClick={() => {
+                    setBlur(true);
+                    setTimeout(() => {
+                      document.getElementById("prompt").focus();
+                    }, 50);
+                  }}
+                  className="text-left px-5 text-white text-4xl font-bold max-w-md mx-auto"
                 >
-                  <span>
-                    <TrashIcon className="text-gray-300 h-3 w-3" />
+                  <span className="inline-bg py-1 leading-loose font-extrabold">
+                    {prompt}
                   </span>
                 </button>
               )}
