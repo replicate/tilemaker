@@ -57,7 +57,7 @@ const examples = [
   },
   {
     prompt:
-      "ancient carvings trim sheet texture, trending on artstation, sandstone, base color, albedo, 4k",
+      "ancient carvings trim sheet texture, trending on artstation, sandstone, 4k",
     image:
       "https://replicate.delivery/pbxt/lC656AZd7OZ5DRB1j9kuSZDELBAmbdPBZNE8klAI1fNFNQOIA/out-0.png",
     predictionId: "ek2qlgv7gfamljinzcggjjfbpu",
