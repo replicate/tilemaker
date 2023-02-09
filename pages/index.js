@@ -24,59 +24,71 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const examples = [
   {
-    prompt:
-      "Muddy ground with autumn leaves seamless texture, trending on artstation, base color, albedo, 4k",
+    prompt: "muddy ground with colorful autumn leaves,  seamless texture",
     image:
-      "https://replicate.delivery/mgxm/9b8f4ec9-eef0-437f-a27a-cbd233d22407/out-0.png",
+      "https://replicate.delivery/pbxt/EZOe7RiVzyUGJiN2q8IftvCPC5sawrDY14CkAF3y7LzhUgcQA/out-0.png",
+    predictionId: "idzgepp6mzgqxm3dvc2o3q4oby",
+  },
+  {
+    prompt: "redwood tree bark",
+    image:
+      "https://replicate.delivery/pbxt/8IfaYI0KfNsR1EJJeGEHd9D5oPXhfSrJmdmZeWevQjpwaCIHE/out-0.png",
+    predictionId: "tax3cmfyyraubaaab64u6kwdq4",
+  },
+  {
+    prompt: "flamingo oil painting",
+    image:
+      "https://replicate.delivery/pbxt/8sWrbQ8IyZ5aDhdyVAsxgOWxQNe5SmeMDKjh2yPTld4zRgcQA/out-0.png",
+    predictionId: "w6fscmyubfe4rndwi6jp2u5kd4",
   },
   {
     prompt:
-      "Lunar surface seamless texture, trending on artstation, base color, albedo, 4k",
+      "ancient carvings trim sheet texture, trending on artstation, sandstone, base color, albedo, 4k",
     image:
-      "https://replicate.delivery/mgxm/8f75db20-72d9-4917-bc86-db4ca5d73c35/out-0.png",
+      "https://replicate.delivery/pbxt/lC656AZd7OZ5DRB1j9kuSZDELBAmbdPBZNE8klAI1fNFNQOIA/out-0.png",
+    predictionId: "ek2qlgv7gfamljinzcggjjfbpu",
   },
   {
-    prompt:
-      "Tree bark seamless photoscan texture, trending on artstation, base color, albedo, 4k",
+    prompt: "wall made from chocolate bars seamless texture",
     image:
-      "https://replicate.delivery/mgxm/7d3bc46c-612f-42cb-9347-317b2db1d3d6/out-0.png",
+      "https://replicate.delivery/pbxt/HtcyzMPb4NK8NFrHrfq4lnogYUd60XHruHFHec08V8hKNgcQA/out-0.png",
+    predictionId: "w56mlnnfiraxreczadybu6qr3i",
   },
   {
-    prompt: "Flamingo painting",
+    prompt: "ukiyo-e clouds",
     image:
-      "https://replicate.delivery/pbxt/K2M3OVwEpSLxNdZDmEe8K5fIGN25TOUTQA7JnGb5n4fcsY2gA/out-0.jpg",
+      "https://replicate.delivery/pbxt/TlCblQultrIRGBqczlBKfezvCHO89m4cflGCItimmiiXYA5gA/out-0.png",
+    predictionId: "ligukgf4vnbitaopx6m7cos4ou",
   },
   {
-    prompt:
-      "Ancient carvings trim sheet texture, trending on artstation, sandstone, base color, albedo, 4k",
+    prompt: "flowers, Otsu-e style, traditional",
     image:
-      "https://replicate.delivery/mgxm/147f2329-db56-4a6a-a950-7a358f731fb7/out-0.png",
+      "https://replicate.delivery/pbxt/J0AkWXPlsKJFHBk1hTWLQcqnS9jT1eiCho7dGSTLY17tMQOIA/out-0.png",
+    predictionId: "sdgzkngmojh7bcrshsyts4yvle",
   },
   {
-    prompt:
-      "Wall made from chocolate bars seamless texture, trending on artstation, tasty, base color, albedo, 4k",
+    prompt: "oranges",
     image:
-      "https://replicate.delivery/mgxm/9c645c58-82e8-4d88-bb7d-972472978698/out-0.png",
+      "https://replicate.delivery/pbxt/HzheUk43MBSoNKeDMdcRtijcv5GwlF9DCY3leTsze7xTV9xBB/out-0.png",
+    predictionId: "peqkza3poffkdlw3km4s7pfqb4",
   },
   {
-    prompt: "A painting with oranges and lemons",
+    prompt: "the surface of mars",
     image:
-      "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
+      "https://replicate.delivery/pbxt/47xpqCioJqrXDtCQk7Q8Ok5MiDEGbWi6Jdy5rKWYG4ehAQOIA/out-0.png",
+    predictionId: "xw46kpcei5b5vgck6bbtxpkj7u",
   },
   {
-    prompt: "Monet, lilies, bright, oil painting",
+    prompt: "where's waldo?",
     image:
-      "https://replicate.delivery/pbxt/1b4tM1hOSi7lGl9ks94Tdr9vFj8ON7uDe1eXRzQ51LUIiAcQA/out-0.jpg",
+      "https://replicate.delivery/pbxt/tMXWRX07ajqCIBabNMdQepiXKYVcyjuND7szGZfcZPetO64gA/out-0.png",
+    predictionId: "ljx7vthlbbgjpirrbvaltqdg6u",
   },
   {
-    prompt: "Clouds, Hokusai, etching",
+    prompt: "mossy runic bricks",
     image:
-      "https://replicate.delivery/pbxt/gQtBQDykYhrbGVr9FSEm03v9Ppmsf73EutwTPmYd1ePqbEcQA/out-0.png",
-  },
-  {
-    prompt: "Flowers, Otsu-e style, traditional",
-    image:
-      "https://replicate.delivery/pbxt/eHE4fVdlnokqAEHYemffxq6edjFFTTxmBepzL2XQCLAsOQCOIA/out-0.png",
+      "https://replicate.delivery/pbxt/GkavaFZq1XbUG9Dqtx2YUaQ3ITKyfxdp6qarY9KKwNMdYOOIA/out-0.png",
+    predictionId: "sayfrouoonc3zh3alt2bzljszy",
   },
 ];
 
@@ -456,7 +468,7 @@ export default function Home() {
         {/* Repeating tiles */}
         <div
           className={`${
-            blur && "blur-md"
+            blur && "blur-sm"
           } transition duration-500 ease-linear delay-50`}
           style={{
             display: "grid",
