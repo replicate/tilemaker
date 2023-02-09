@@ -491,7 +491,7 @@ export default function Home() {
         <form
           onSubmit={(e) => handleSubmit(e, prompt)}
           onKeyDown={onKeyDown}
-          class="absolute top-1/4 right-0 py-12 pl-16 mr-6"
+          className="absolute top-1/4 right-0 py-12 pl-16 mr-6"
         >
           <fieldset>
             <div className="mt-4 relative">
@@ -541,7 +541,7 @@ export default function Home() {
                       <div role="status" className="inline-flex">
                         <svg
                           aria-hidden="true"
-                          class="inline w-4 h-4 mr-2 text-gray-200 animate-spin fill-blue-600"
+                          className="inline w-4 h-4 mr-2 text-gray-200 animate-spin fill-blue-600"
                           viewBox="0 0 100 101"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -555,14 +555,14 @@ export default function Home() {
                             fill="currentFill"
                           />
                         </svg>
-                        <span class="sr-only">Loading...</span>
+                        <span className="sr-only">Loading...</span>
                       </div>
                       Starting up...
                     </span>
                   )}
                 </div>
               ) : (
-                <div class="flex justify-end">
+                <div className="flex justify-end">
                   <div>
                     <button
                       id="inspire-button"
@@ -660,7 +660,7 @@ export function About({ open, setOpen }) {
                 </div>
               </div>
               <div className="window-body mt-4">
-                <fieldset class="space-y-3">
+                <fieldset className="space-y-3">
                   <p>
                     This is an{" "}
                     <a
@@ -772,7 +772,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
                   >
                     Download Tiles
                   </Dialog.Title>
-                  <p class="mt-2 text-gray-500">
+                  <p className="mt-2 text-gray-500">
                     Download your tiles as a wallpaper.
                   </p>
                 </div>
