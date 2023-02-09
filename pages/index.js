@@ -40,7 +40,7 @@ const examples = [
   //       "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
   //   },
   {
-    prompt: "muddy ground with colorful autumn leaves,  seamless texture",
+    prompt: "muddy ground with colorful autumn leaves, seamless texture",
     image:
       "https://replicate.delivery/pbxt/EZOe7RiVzyUGJiN2q8IftvCPC5sawrDY14CkAF3y7LzhUgcQA/out-0.png",
     predictionId: "idzgepp6mzgqxm3dvc2o3q4oby",
