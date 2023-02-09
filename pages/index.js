@@ -323,9 +323,13 @@ export default function Home() {
 
   const handleInspire = () => {
     const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
-    typeWriter("", newWallpaper.prompt);
 
-    resetWallpaper(newWallpaper.image);
+    if (newWallpaper.prompt == prompt) {
+      handleInspire();
+    } else {
+      typeWriter("", newWallpaper.prompt);
+      resetWallpaper(newWallpaper.image);
+    }
   };
 
   const typeWriter = (currentPrompt, newPrompt) => {
