@@ -529,9 +529,9 @@ export default function Home() {
                       document.getElementById("prompt").focus();
                     }, 50);
                   }}
-                  className="text-left animate-drop text-white text-4xl font-bold max-w-md mx-auto"
+                  className="text-left group text-white text-4xl font-bold max-w-md mx-auto"
                 >
-                  <span className="inline-bg py-1 leading-loose font-extrabold">
+                  <span className="inline-bg py-1 leading-loose font-extrabold hover:border-white border-transparent border-2">
                     {prompt}
                   </span>
                 </button>
