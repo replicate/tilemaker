@@ -499,7 +499,7 @@ export default function Home() {
         <form
           onSubmit={(e) => handleSubmit(e, prompt)}
           onKeyDown={onKeyDown}
-          class="absolute mx-5 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="absolute mx-5 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <fieldset>
             <div className="mt-4 relative">
