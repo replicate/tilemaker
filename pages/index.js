@@ -519,7 +519,7 @@ export default function Home() {
           className="absolute  mx-5 top-1/3 left-1/4 sm:left-1/2 -translate-x-1/3 sm:-translate-x-1/2 -translate-y-1/2"
         >
           <fieldset>
-            <div className="mt-4 relative">
+            <div className="mt-4 relative flex items-end text-left h-64">
               {blur ? (
                 <textarea
                   required={true}
@@ -550,7 +550,7 @@ export default function Home() {
                       document.getElementById("prompt").focus();
                     }, 50);
                   }}
-                  className="text-left text-white text-2xl sm:text-4xl font-bold max-w-md mx-auto"
+                  className="left-0 pr-2 absolute text-white text-left text-2xl sm:text-4xl font-bold mx-auto"
                 >
                   <span className="inline-bg py-1 leading-loose font-extrabold hover:border-white border-transparent border-2">
                     {prompt}
