@@ -486,8 +486,8 @@ export default function Home() {
               Array(cols)
                 .fill(1)
                 .map((_value, col) => {
-                  let index = row * col;
-                  let delay = row * col;
+                  let index = (row + 1) * (col + 1);
+                  let delay = row * col + 1;
 
                   return (
                     <img
@@ -603,31 +603,40 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                <div className="flex sm:justify-end sm:mt-5">
-                  <div>
-                    <button
-                      id="inspire-button"
-                      type="button"
-                      onClick={() => handleInspire()}
-                      className="mr-2 inline-flex bg-dark items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
-                    >
-                      <LightBulbIcon className="h-4 w-4 mr-2" />
-                      Example
-                    </button>
+                <div className="flex sm:sm:mt-5">
+                  <button
+                    id="inspire-button"
+                    type="button"
+                    onClick={() => handleInspire()}
+                    className="mr-2 inline-flex w-1/2 justify-center bg-dark items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+                  >
+                    <LightBulbIcon className="h-4 w-4 mr-2" />
+                    Example
+                  </button>
 
-                    <button
-                      type="submit"
-                      className="bg-dark inline-flex items-center rounded-md border-transparent border-2 hover:border-white px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
-                    >
-                      <PlusIcon
-                        className="-ml-0.5 mr-2 h-4 w-4"
-                        aria-hidden="true"
-                      />
-                      Make tile
-                    </button>
-                  </div>
+                  <button
+                    type="submit"
+                    className="w-1/2 bg-white justify-center text-black inline-flex items-center rounded-md border-transparent border-2 hover:border-gray-900 px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2"
+                  >
+                    <PlusIcon
+                      className="-ml-0.5 mr-2 h-4 w-4"
+                      aria-hidden="true"
+                    />
+                    Make tile
+                  </button>
                 </div>
               )}
+              <a
+                id="inspire-button"
+                href="https://github.com/replicate/tilemaker"
+                type="button"
+                style={{ fontSize: "0.65rem" }}
+                className="mt-4 text-left inline-flex w-full bg-dark items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-xs font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
+              >
+                <CodeBracketIcon className="h-4 w-4 mr-2" />
+                Are you a developer and want to make your own powered AI app?
+                Clone &rarr;
+              </a>
             </div>
           </fieldset>
         </form>
