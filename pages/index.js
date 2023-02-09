@@ -455,7 +455,7 @@ export default function Home() {
             ,{" "}
             <a
               className="hover:underline text-white"
-              href="https://vercel.com?utm_source=project&utm_campaign=tilemaker"
+              href="https://vercel.com/templates/ai"
             >
               Vercel
             </a>
