@@ -124,9 +124,6 @@ export default function Home() {
   const [aboutOpen, setAboutOpen] = useState(false); // about modal
   const [saveOpen, setSaveOpen] = useState(false); // save modal
   const [status, setStatus] = useState(null);
-  const [placeholder, setPlaceholder] = useState(
-    examples[Math.floor(Math.random() * examples.length)].prompt
-  );
   const [blur, setBlur] = useState(false);
   const [sidebar, setSidebar] = useState(false);
   const [nudge, setNudge] = useState(false);
@@ -156,7 +153,6 @@ export default function Home() {
     } else {
       if (router.isReady) {
         setWallpaper(example.image);
-        setPlaceholder(example.prompt);
         setPrompt(example.prompt);
       }
     }
@@ -530,7 +526,7 @@ export default function Home() {
                   autoCorrect="false"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
-                  placeholder={placeholder}
+                  placeholder="Describe the tiling image you want to create"
                   style={{ resize: "none" }}
                   className="bg-dark focus:border-white focus:ring-white rounded-md text-white font-extrabold text-4xl max-w-md mx-auto"
                 />
