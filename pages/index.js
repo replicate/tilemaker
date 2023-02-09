@@ -146,8 +146,6 @@ export default function Home() {
       setNudge(true);
     }
 
-    console.log(firstTime);
-
     if (id) {
       getPrediction(id);
     } else {
@@ -475,7 +473,7 @@ export default function Home() {
         <div
           className={`${
             blur && "blur-sm"
-          } transition duration-500 ease-linear delay-50`}
+          } transition duration-200 ease-linear delay-50`}
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
