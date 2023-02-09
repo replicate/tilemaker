@@ -480,22 +480,31 @@ export default function Home() {
             gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
           }}
         >
-          {Array(total)
+          {Array(rows)
             .fill(1)
-            .map((_value, index) => (
-              <img
-                key={`tile-${index}`}
-                id={index}
-                className={`tile animate-fadein ${
-                  !blur &&
-                  index != 0 &&
-                  "hover:rounded-sm hover:shadow-xl transition ease-linear delay-100"
-                }`}
-                style={{ animationDelay: `${index * 0.03}s` }}
-                src={wallpaper}
-                alt=""
-              />
-            ))}
+            .map((_value, row) =>
+              Array(cols)
+                .fill(1)
+                .map((_value, col) => {
+                  let index = row * col;
+                  let delay = row * col;
+
+                  return (
+                    <img
+                      key={`tile-${index}`}
+                      id={index}
+                      className={`tile animate-fadein ${
+                        !blur &&
+                        index != 0 &&
+                        "hover:rounded-sm hover:shadow-xl transition ease-linear delay-100"
+                      }`}
+                      style={{ animationDelay: `${delay * 0.03}s` }}
+                      src={wallpaper}
+                      alt=""
+                    />
+                  );
+                })
+            )}
         </div>
 
         {/* Canvas */}
