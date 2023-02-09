@@ -535,6 +535,7 @@ export default function Home() {
                   type="button"
                   onClick={() => {
                     setBlur(true);
+                    setNudge(false);
                     setTimeout(() => {
                       document.getElementById("prompt").focus();
                     }, 50);
@@ -545,7 +546,7 @@ export default function Home() {
                     {prompt}
                   </span>
                   {nudge && (
-                    <span className="absolute animate-bounce -top-6 left-0 -rotate-12 text-sm">
+                    <span className="absolute px-1 rounded-md bg-gray-700 opacity-70 animate-bounce -top-6 left-0 -rotate-12 text-sm">
                       Click to edit &darr;
                     </span>
                   )}
