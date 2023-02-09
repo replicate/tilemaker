@@ -546,7 +546,7 @@ export default function Home() {
                     {prompt}
                   </span>
                   {nudge && (
-                    <span className="absolute px-1 rounded-md bg-gray-700 opacity-70 animate-bounce -top-6 left-0 -rotate-12 text-sm">
+                    <span className="absolute px-1 rounded-md bg-dark animate-bounce -top-6 left-0 -rotate-12 text-sm">
                       Click to edit &darr;
                     </span>
                   )}
