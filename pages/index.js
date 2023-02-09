@@ -339,7 +339,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="relative min-h-screen bg-black">
+      <div className="relative overflow-hidden h-screen bg-black">
         <Head>
           <title>{appName}</title>
 
