@@ -499,7 +499,7 @@ export default function Home() {
         <form
           onSubmit={(e) => handleSubmit(e, prompt)}
           onKeyDown={onKeyDown}
-          className="absolute mx-5 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          className="absolute  mx-5 top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <fieldset>
             <div className="mt-4 relative">
@@ -529,7 +529,7 @@ export default function Home() {
                       document.getElementById("prompt").focus();
                     }, 50);
                   }}
-                  className="text-left text-white text-4xl font-bold max-w-md mx-auto"
+                  className="text-left animate-drop text-white text-4xl font-bold max-w-md mx-auto"
                 >
                   <span className="inline-bg py-1 leading-loose font-extrabold">
                     {prompt}
@@ -585,13 +585,10 @@ export default function Home() {
                       onClick={() => handleInspire()}
                       className="mr-2 inline-flex bg-dark items-center hover:border-white border-transparent rounded-md border-2 text-white px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white"
                     >
-                      <LightBulbIcon className="h-4 w-4" />
+                      <LightBulbIcon className="h-4 w-4 mr-2" />
+                      Example
                     </button>
-                    <Tooltip
-                      anchorId="inspire-button"
-                      content="Example prompt"
-                      place="bottom"
-                    />
+
                     <button
                       type="submit"
                       className="bg-dark inline-flex items-center rounded-md border-transparent border-2 hover:border-white px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-1 focus:ring-offset-2"
