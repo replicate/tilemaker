@@ -352,8 +352,8 @@ export default function Home() {
             property="og:description"
             content="Make your next wallpaper with tiled stable diffusion"
           />
-          <meta property="og:image" content="/tile.png" />
-          <meta property="twitter:image" content="/tile.png" />
+          <meta property="og:image" content="/preview.png" />
+          <meta property="twitter:image" content="/preview.png" />
           <meta property="twitter:title" content={appName} />
           <meta name="twitter:card" content="summary_large_image" />
 
