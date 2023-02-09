@@ -40,20 +40,72 @@ const examples = [
   //       "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
   //   },
   {
-    prompt: "Monet, lilies, bright, oil painting",
+    prompt: "muddy ground with colorful autumn leaves,  seamless texture",
     image:
-      "https://replicate.delivery/pbxt/1b4tM1hOSi7lGl9ks94Tdr9vFj8ON7uDe1eXRzQ51LUIiAcQA/out-0.jpg",
+      "https://replicate.delivery/pbxt/EZOe7RiVzyUGJiN2q8IftvCPC5sawrDY14CkAF3y7LzhUgcQA/out-0.png",
+    predictionId: "idzgepp6mzgqxm3dvc2o3q4oby",
   },
-  //   {
-  //     prompt: "Clouds, Hokusai, etching",
-  //     image:
-  //       "https://replicate.delivery/pbxt/gQtBQDykYhrbGVr9FSEm03v9Ppmsf73EutwTPmYd1ePqbEcQA/out-0.png",
-  //   },
-  //   {
-  //     prompt: "Flowers, Otsu-e style, traditional",
-  //     image:
-  //       "https://replicate.delivery/pbxt/eHE4fVdlnokqAEHYemffxq6edjFFTTxmBepzL2XQCLAsOQCOIA/out-0.png",
-  //   },
+  {
+    prompt: "redwood tree bark",
+    image:
+      "https://replicate.delivery/pbxt/8IfaYI0KfNsR1EJJeGEHd9D5oPXhfSrJmdmZeWevQjpwaCIHE/out-0.png",
+    predictionId: "tax3cmfyyraubaaab64u6kwdq4",
+  },
+  {
+    prompt: "flamingo oil painting",
+    image:
+      "https://replicate.delivery/pbxt/8sWrbQ8IyZ5aDhdyVAsxgOWxQNe5SmeMDKjh2yPTld4zRgcQA/out-0.png",
+    predictionId: "w6fscmyubfe4rndwi6jp2u5kd4",
+  },
+  {
+    prompt:
+      "ancient carvings trim sheet texture, trending on artstation, sandstone, base color, albedo, 4k",
+    image:
+      "https://replicate.delivery/pbxt/lC656AZd7OZ5DRB1j9kuSZDELBAmbdPBZNE8klAI1fNFNQOIA/out-0.png",
+    predictionId: "ek2qlgv7gfamljinzcggjjfbpu",
+  },
+  {
+    prompt: "wall made from chocolate bars seamless texture",
+    image:
+      "https://replicate.delivery/pbxt/HtcyzMPb4NK8NFrHrfq4lnogYUd60XHruHFHec08V8hKNgcQA/out-0.png",
+    predictionId: "w56mlnnfiraxreczadybu6qr3i",
+  },
+  {
+    prompt: "ukiyo-e clouds",
+    image:
+      "https://replicate.delivery/pbxt/TlCblQultrIRGBqczlBKfezvCHO89m4cflGCItimmiiXYA5gA/out-0.png",
+    predictionId: "ligukgf4vnbitaopx6m7cos4ou",
+  },
+  {
+    prompt: "flowers, Otsu-e style, traditional",
+    image:
+      "https://replicate.delivery/pbxt/J0AkWXPlsKJFHBk1hTWLQcqnS9jT1eiCho7dGSTLY17tMQOIA/out-0.png",
+    predictionId: "sdgzkngmojh7bcrshsyts4yvle",
+  },
+  {
+    prompt: "oranges",
+    image:
+      "https://replicate.delivery/pbxt/HzheUk43MBSoNKeDMdcRtijcv5GwlF9DCY3leTsze7xTV9xBB/out-0.png",
+    predictionId: "peqkza3poffkdlw3km4s7pfqb4",
+  },
+  {
+    prompt: "the surface of mars",
+    image:
+      "https://replicate.delivery/pbxt/47xpqCioJqrXDtCQk7Q8Ok5MiDEGbWi6Jdy5rKWYG4ehAQOIA/out-0.png",
+    predictionId: "xw46kpcei5b5vgck6bbtxpkj7u",
+  },
+  {
+    prompt: "where's waldo?",
+    image:
+      "https://replicate.delivery/pbxt/tMXWRX07ajqCIBabNMdQepiXKYVcyjuND7szGZfcZPetO64gA/out-0.png",
+    predictionId: "ljx7vthlbbgjpirrbvaltqdg6u",
+  },
+  {
+    prompt: "mossy runic bricks",
+    image:
+      "https://replicate.delivery/pbxt/GkavaFZq1XbUG9Dqtx2YUaQ3ITKyfxdp6qarY9KKwNMdYOOIA/out-0.png",
+    predictionId: "sayfrouoonc3zh3alt2bzljszy",
+  },
 ];
 
 const appName = "TileMaker";
@@ -504,7 +556,7 @@ export default function Home() {
                       <div role="status" className="inline-flex">
                         <svg
                           aria-hidden="true"
-                          class="inline w-4 h-4 mr-2 text-gray-200 animate-spin fill-blue-600"
+                          className="inline w-4 h-4 mr-2 text-gray-200 animate-spin fill-blue-600"
                           viewBox="0 0 100 101"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -518,14 +570,14 @@ export default function Home() {
                             fill="currentFill"
                           />
                         </svg>
-                        <span class="sr-only">Loading...</span>
+                        <span className="sr-only">Loading...</span>
                       </div>
                       Starting up...
                     </span>
                   )}
                 </div>
               ) : (
-                <div class="flex justify-end mt-5">
+                <div className="flex justify-end mt-5">
                   <div>
                     <button
                       id="inspire-button"
@@ -623,7 +675,7 @@ export function About({ open, setOpen }) {
                 </div>
               </div>
               <div className="window-body mt-4">
-                <fieldset class="space-y-3">
+                <fieldset className="space-y-3">
                   <p>
                     This is an{" "}
                     <a
@@ -735,7 +787,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
                   >
                     Download Tiles
                   </Dialog.Title>
-                  <p class="mt-2 text-gray-500">
+                  <p className="mt-2 text-gray-500">
                     Download your tiles as a wallpaper.
                   </p>
                 </div>
