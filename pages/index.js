@@ -354,6 +354,7 @@ export default function Home() {
           />
           <meta property="og:image" content="/tile.png" />
           <meta property="twitter:image" content="/tile.png" />
+          <meta property="twitter:title" content={appName} />
 
           <meta
             name="viewport"
