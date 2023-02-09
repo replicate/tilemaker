@@ -592,7 +592,7 @@ export default function Home() {
                   )}
                 </div>
               ) : (
-                <div className="flex sm:justify-end pt-12 sm:mt-5">
+                <div className="flex sm:justify-end sm:mt-5">
                   <div>
                     <button
                       id="inspire-button"
