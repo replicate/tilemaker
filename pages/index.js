@@ -353,6 +353,7 @@ export default function Home() {
             content="Make your next wallpaper with tiled stable diffusion"
           />
           <meta property="og:image" content="/tile.png" />
+          <meta property="twitter:image" content="/tile.png" />
 
           <meta
             name="viewport"
