@@ -515,7 +515,11 @@ export default function Home() {
                 <textarea
                   required={true}
                   onFocus={() => setBlur(true)}
-                  onBlur={() => setBlur(false)}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setBlur(false);
+                    }, 50);
+                  }}
                   name="prompt"
                   id="prompt"
                   rows="3"
