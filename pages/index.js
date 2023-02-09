@@ -518,7 +518,7 @@ export default function Home() {
                   onBlur={() => {
                     setTimeout(() => {
                       setBlur(false);
-                    }, 50);
+                    }, 150);
                   }}
                   name="prompt"
                   id="prompt"
