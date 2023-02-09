@@ -436,7 +436,7 @@ export default function Home() {
         />
 
         {/* Footer */}
-        <div className="animate-rise fixed bottom-3 right-0 text-gray-300 bg-dark text-xs p-3 rounded-t-lg">
+        <div className="hidden animate-rise fixed bottom-3 right-0 text-gray-300 bg-dark text-xs p-3 rounded-l-lg">
           <p>
             Powered by{" "}
             <a
