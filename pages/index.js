@@ -597,7 +597,7 @@ export default function Home() {
                         className="-ml-0.5 mr-2 h-4 w-4"
                         aria-hidden="true"
                       />
-                      Make tile
+                      {blur ? "Make tile" : "Make your own"}
                     </button>
                   </div>
                 </div>
