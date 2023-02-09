@@ -550,7 +550,7 @@ export default function Home() {
                       document.getElementById("prompt").focus();
                     }, 50);
                   }}
-                  className="left-0 absolute text-white text-left text-2xl sm:text-4xl font-bold mx-auto"
+                  className="left-0 pr-2 absolute text-white text-left text-2xl sm:text-4xl font-bold mx-auto"
                 >
                   <span className="inline-bg py-1 leading-loose font-extrabold hover:border-white border-transparent border-2">
                     {prompt}
