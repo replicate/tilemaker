@@ -523,14 +523,13 @@ export default function Home() {
                   name="prompt"
                   id="prompt"
                   rows="3"
-                  cols="40"
                   autoFocus={true}
                   autoCorrect="false"
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Describe the tiling image you want to create"
                   style={{ resize: "none" }}
-                  className="bg-dark focus:border-white focus:ring-white rounded-md text-white font-extrabold text-4xl max-w-md mx-auto"
+                  className="bg-dark focus:border-white focus:ring-white rounded-md text-white font-extrabold text-lg sm:text-4xl max-w-md mx-auto"
                 />
               ) : (
                 <button
