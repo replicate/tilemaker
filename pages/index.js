@@ -934,7 +934,7 @@ export function Sidebar({
                           See code
                         </a>
                         <a
-                          href="https://replicate.com"
+                          href="https://replicate.com/tstramer/material-diffusion?utm_source=project&utm_campaign=tilemaker"
                           className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <span className="mr-4">🚀</span>
