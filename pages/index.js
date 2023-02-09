@@ -17,8 +17,6 @@ import useSound from "use-sound";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
-import "react-tooltip/dist/react-tooltip.css";
-import { Tooltip } from "react-tooltip";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -395,11 +393,6 @@ export default function Home() {
             >
               <ArrowDownTrayIcon className="h-4 w-4" />
             </button>
-            <Tooltip
-              anchorId="download-button"
-              content="Download tile"
-              place="top"
-            />
           </div>
 
           {id && (
@@ -416,11 +409,6 @@ export default function Home() {
               >
                 <LinkIcon className="h-4 w-4" />
               </button>
-              <Tooltip
-                anchorId="copy-button"
-                content="Copy link to tile"
-                place="top"
-              />
             </div>
           )}
         </div>
