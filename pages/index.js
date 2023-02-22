@@ -113,12 +113,12 @@ export default function Home({ prediction, baseUrl }) {
 
   //   sounds
   const [play] = useSound("/complete.wav", { volume: 0.25 });
+  const example = examples[Math.floor(Math.random() * examples.length)];
 
   useEffect(() => {
     // On page load, set the grid cols/rows based on the window size
     var cols = Math.min(Math.ceil(window.innerWidth / IMAGE_SIZE), 12);
     var rows = Math.min(Math.ceil(window.innerHeight / IMAGE_SIZE), 12) + 1;
-    const example = examples[0];
 
     resize(cols, rows);
 
@@ -135,6 +135,9 @@ export default function Home({ prediction, baseUrl }) {
       if (router.isReady) {
         setWallpaper(example.image);
         setPrompt(example.prompt);
+
+        router.query.id = example.predictionId;
+        router.push(router);
       }
     }
   }, [id]);
@@ -162,6 +165,9 @@ export default function Home({ prediction, baseUrl }) {
     let result = await response.json();
     setWallpaper(result.output[0]);
     setPrompt(result.input.prompt);
+
+    router.query.id = id;
+    router.push(router);
   };
 
   const copyToClipboard = (e) => {
@@ -309,6 +315,8 @@ export default function Home({ prediction, baseUrl }) {
     } else {
       typeWriter("", newWallpaper.prompt);
       resetWallpaper(newWallpaper.image);
+      router.query.id = newWallpaper.predictionId;
+      router.push(router);
     }
   };
 
