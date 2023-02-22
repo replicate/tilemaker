@@ -22,22 +22,6 @@ import pkg from "../package.json";
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const examples = [
-  //   {
-  //     prompt:
-  //       "Lunar surface seamless texture, trending on artstation, base color, albedo, 4k",
-  //     image:
-  //       "https://replicate.delivery/mgxm/8f75db20-72d9-4917-bc86-db4ca5d73c35/out-0.png",
-  //   },
-  //   {
-  //     prompt: "Flamingo painting",
-  //     image:
-  //       "https://replicate.delivery/pbxt/K2M3OVwEpSLxNdZDmEe8K5fIGN25TOUTQA7JnGb5n4fcsY2gA/out-0.jpg",
-  //   },
-  //   {
-  //     prompt: "A painting with oranges and lemons",
-  //     image:
-  //       "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
-  //   },
   {
     prompt: "ukiyo-e clouds",
     image:
@@ -357,8 +341,8 @@ export default function Home({ prediction, baseUrl }) {
             property="twitter:title"
             content={
               prediction
-                ? pkg.appName
-                : `"${prediction.input.prompt}" • TileMaker`
+                ? `"${prediction.input.prompt}" • TileMaker`
+                : pkg.appName
             }
           />
           <meta name="twitter:card" content="summary_large_image" />
