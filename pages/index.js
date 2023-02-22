@@ -17,6 +17,7 @@ import useSound from "use-sound";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import toast, { Toaster } from "react-hot-toast";
+import pkg from "../package.json";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -37,6 +38,12 @@ const examples = [
   //     image:
   //       "https://replicate.delivery/pbxt/N08AVoJ7ji7kBp2CeNLtl96C7kmYMwA4EbAd1BpPodzEPAOIA/out-0.jpg",
   //   },
+  {
+    prompt: "ukiyo-e clouds",
+    image:
+      "https://replicate.delivery/pbxt/TlCblQultrIRGBqczlBKfezvCHO89m4cflGCItimmiiXYA5gA/out-0.png",
+    predictionId: "ligukgf4vnbitaopx6m7cos4ou",
+  },
   {
     prompt: "muddy ground with colorful autumn leaves, seamless texture",
     image:
@@ -68,12 +75,7 @@ const examples = [
       "https://replicate.delivery/pbxt/HtcyzMPb4NK8NFrHrfq4lnogYUd60XHruHFHec08V8hKNgcQA/out-0.png",
     predictionId: "w56mlnnfiraxreczadybu6qr3i",
   },
-  {
-    prompt: "ukiyo-e clouds",
-    image:
-      "https://replicate.delivery/pbxt/TlCblQultrIRGBqczlBKfezvCHO89m4cflGCItimmiiXYA5gA/out-0.png",
-    predictionId: "ligukgf4vnbitaopx6m7cos4ou",
-  },
+
   {
     prompt: "flowers, Otsu-e style, traditional",
     image:
@@ -106,10 +108,9 @@ const examples = [
   },
 ];
 
-const appName = "TileMaker";
 const IMAGE_SIZE = 180;
 
-export default function Home() {
+export default function Home({ prediction, baseUrl }) {
   const router = useRouter();
   const { id } = router.query;
   const [prompt, setPrompt] = useState(null);
@@ -133,7 +134,7 @@ export default function Home() {
     // On page load, set the grid cols/rows based on the window size
     var cols = Math.min(Math.ceil(window.innerWidth / IMAGE_SIZE), 12);
     var rows = Math.min(Math.ceil(window.innerHeight / IMAGE_SIZE), 12) + 1;
-    const example = examples[Math.floor(Math.random() * examples.length)];
+    const example = examples[0];
 
     resize(cols, rows);
 
@@ -313,8 +314,11 @@ export default function Home() {
     }, 100);
   };
 
+  const [index, setIndex] = useState(1);
+
   const handleInspire = () => {
-    const newWallpaper = examples[Math.floor(Math.random() * examples.length)];
+    const newWallpaper = examples[index];
+    setIndex(index + 1);
 
     if (newWallpaper.prompt == prompt) {
       handleInspire();
@@ -341,21 +345,28 @@ export default function Home() {
     <>
       <div className="relative overflow-hidden h-screen bg-black">
         <Head>
-          <title>{appName}</title>
+          <title>{pkg.appName}</title>
 
           <link
             rel="icon"
             href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>"
           />
 
+          <meta property="og:description" content={pkg.appMetaDescription} />
           <meta
-            property="og:description"
-            content="Make your next wallpaper with tiled stable diffusion"
+            property="twitter:title"
+            content={
+              prediction
+                ? pkg.appName
+                : `"${prediction.input.prompt}" • TileMaker`
+            }
           />
-          <meta property="og:image" content="/preview.png" />
-          <meta property="twitter:image" content="/preview.png" />
-          <meta property="twitter:title" content={appName} />
           <meta name="twitter:card" content="summary_large_image" />
+
+          <meta
+            property="og:image"
+            content={`${baseUrl}/api/og?id=${prediction.id}`}
+          />
 
           <meta
             name="viewport"
@@ -377,7 +388,7 @@ export default function Home() {
             className="mr-2 animate-drop inline-flex items-center hover:border-white border-transparent rounded-md border-2 text-white px-2 sm:px-3 py-2 text-sm font-medium leading-4 shadow-sm focus:outline-none focus:ring-1 focus:ring-offset-2 focus:border-white bg-dark"
           >
             <Bars3Icon className="h-4 w-4 mr-2" />
-            {appName}
+            {pkg.appName}
           </button>
         </div>
 
@@ -892,7 +903,7 @@ export function Sidebar({
                     <div className="px-4 sm:px-6">
                       <div className="flex items-start justify-between">
                         <Dialog.Title className="text-lg font-medium text-white">
-                          {appName}
+                          {pkg.appName}
                         </Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <button
@@ -962,4 +973,19 @@ export function Sidebar({
       </Dialog>
     </Transition.Root>
   );
+}
+
+// Use getServerSideProps to force Next.js to render the page on the server,
+// so the OpenGraph meta tags will have the proper URL at render time.
+export async function getServerSideProps({ req }) {
+  // Hack to get the protocol and host from headers:
+  // https://github.com/vercel/next.js/discussions/44527
+  const protocol = req.headers.referer?.split("://")[0] || "http";
+  const predictionId = req.url.split("?id=")[1];
+  const baseUrl = `${protocol}://${req.headers.host}`;
+  const response = await fetch(`${baseUrl}/api/predictions/${predictionId}`, {
+    method: "GET",
+  });
+  const prediction = await response.json();
+  return { props: { baseUrl, prediction } };
 }
