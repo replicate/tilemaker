@@ -9,7 +9,7 @@ export const config = {
 export default async function handler(req) {
   const { searchParams } = req.nextUrl;
   const predictionId = searchParams.get("id");
-  let inputImageURL, outputImageURL;
+  let outputImageURL;
 
   // extract protocol and host from the request url, so we can call the local API
   const url = new URL(req.url);
