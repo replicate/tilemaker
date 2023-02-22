@@ -340,7 +340,7 @@ export default function Home({ prediction, baseUrl }) {
           <meta
             property="twitter:title"
             content={
-              prediction
+              prediction.input
                 ? `"${prediction.input.prompt}" • TileMaker`
                 : pkg.appName
             }
