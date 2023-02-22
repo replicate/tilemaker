@@ -1,6 +1,10 @@
 {
-  "name": "getting-started-web-app",
-  "version": "0.1.0",
+  "name": "tilemaker",
+  "description": "Make your next wallpaper with tiled stable diffusion",
+  "appName": "TileMaker",
+  "appSubtitle": "Make your next wallpaper with tiled stable diffusion",
+  "appMetaDescription": "Make your next wallpaper with tiled stable diffusion",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -18,6 +22,7 @@
     "eslint-config-next": "13.0.7",
     "file-saver": "^2.0.5",
     "next": "13.0.7",
+    "pkg": "^5.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
