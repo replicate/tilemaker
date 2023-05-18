@@ -1,29 +1,27 @@
+import Replicate from "replicate";
+
+const replicate = new Replicate({
+  auth: process.env.REPLICATE_API_TOKEN,
+});
+
 export default async function handler(req, res) {
-  const response = await fetch("https://api.replicate.com/v1/predictions", {
-    method: "POST",
-    headers: {
-      Authorization: `Token ${process.env.REPLICATE_API_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      // Pinned to a specific version of Material Diffusion
-      // See https://replicate.com/tstramer/material-diffusion/versions
-      version:
-        "a42692c54c0f407f803a0a8a9066160976baedb77c91171a01730f9b0d7beeff",
+  const output = await replicate.deployments.run(
+    "replicate/material-diffusion",
+    {
+      input: {
+        prompt: req.body.prompt,
+      },
+    }
+  );
 
-      // This is the text prompt that will be submitted by a form on the frontend
-      input: { prompt: req.body.prompt },
-    }),
-  });
+  console.log(output);
 
-  if (response.status !== 201) {
-    let error = await response.json();
+  if (output?.error) {
     res.statusCode = 500;
-    res.end(JSON.stringify({ detail: error.detail }));
+    res.end(JSON.stringify({ detail: output.error }));
     return;
   }
 
-  const prediction = await response.json();
   res.statusCode = 201;
-  res.end(JSON.stringify(prediction));
+  res.end(JSON.stringify(output));
 }

@@ -162,6 +162,7 @@ export default function Home({ prediction, baseUrl }) {
 
   const getPrediction = async (id) => {
     const response = await fetch(`/api/predictions/${id}`, { method: "GET" });
+    console.log(response);
     let result = await response.json();
     setWallpaper(result.output[0]);
     setPrompt(result.input.prompt);

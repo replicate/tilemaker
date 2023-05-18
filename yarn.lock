@@ -2424,6 +2424,11 @@
   "resolved" "https://registry.npmjs.org/regexpp/-/regexpp-3.2.0.tgz"
   "version" "3.2.0"
 
+"replicate@^0.12.1":
+  "integrity" "sha512-Y95yeJte+kkPVkLrdEkHJUj3qwqhGHUf32YOn6Vc+7pVYAVAvY6Pd1MQgHatHjqNo+lStQzypta7zPiF2D0b4g=="
+  "resolved" "https://registry.npmjs.org/replicate/-/replicate-0.12.1.tgz"
+  "version" "0.12.1"
+
 "require-directory@^2.1.1":
   "integrity" "sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q=="
   "resolved" "https://registry.npmjs.org/require-directory/-/require-directory-2.1.1.tgz"
