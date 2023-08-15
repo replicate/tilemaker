@@ -436,7 +436,7 @@ export default function Home({ prediction, baseUrl }) {
             Powered by{" "}
             <a
               className="hover:underline text-white"
-              href="https://replicate.com/tstramer/material-diffusion?utm_source=project&utm_campaign=tilemaker"
+              href="https://replicate.com/pwntus/material-diffusion-sdxl?utm_source=project&utm_campaign=tilemaker"
             >
               Material Diffusion
             </a>
@@ -718,7 +718,7 @@ export function About({ open, setOpen }) {
                     It works by using{" "}
                     <a
                       className="font-semibold hover:text-blue-800"
-                      href="https://replicate.com/tstramer/material-diffusion"
+                      href="https://replicate.com/pwntus/material-diffusion-sdxl"
                     >
                       material stable diffusion,
                     </a>{" "}
@@ -947,7 +947,7 @@ export function Sidebar({
                           See code
                         </a>
                         <a
-                          href="https://replicate.com/tstramer/material-diffusion?utm_source=project&utm_campaign=tilemaker"
+                          href="https://replicate.com/pwntus/material-diffusion-sdxl?utm_source=project&utm_campaign=tilemaker"
                           className="text-white hover:bg-gray-50 hover:text-gray-900 group flex items-center px-4 py-2 text-sm font-medium rounded-md"
                         >
                           <span className="mr-4">🚀</span>
