@@ -10,7 +10,7 @@ This app is powered by:
 
 🚀 [Replicate](https://replicate.com/?utm_source=project&utm_campaign=tilemaker), a platform for running machine learning models in the cloud.
 
-🎨 [Material Diffusion SDXL](https://replicate.com/pwntus/material-diffusion-sdxl?utm_source=project&utm_campaign=tilemaker), an open-source machine learning model that generates tiling images using Stable Diffusion.
+🎨 [Material Diffusion](https://replicate.com/tstramer/material-diffusion?utm_source=project&utm_campaign=tilemaker), an open-source machine learning model that generates tiling images using Stable Diffusion.
 
 ▲ [Vercel](https://vercel.com/), a platform for running web apps.
 

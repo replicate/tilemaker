@@ -7,9 +7,9 @@ export default async function handler(req, res) {
     },
     body: JSON.stringify({
       // Pinned to a specific version of Material Diffusion
-      // See https://replicate.com/pwntus/material-diffusion-sdxl
+      // See https://replicate.com/tstramer/material-diffusion/versions
       version:
-        "ce888cbe17a7c04d4b9c4cbd2b576715d480c55b2ba8f9f3d33f2ad70a26cd99",
+        "a42692c54c0f407f803a0a8a9066160976baedb77c91171a01730f9b0d7beeff",
 
       // This is the text prompt that will be submitted by a form on the frontend
       input: { prompt: req.body.prompt },
