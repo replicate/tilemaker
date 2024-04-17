@@ -25,69 +25,69 @@ const examples = [
   {
     prompt: "ukiyo-e clouds",
     image:
-      "https://replicate.delivery/pbxt/TlCblQultrIRGBqczlBKfezvCHO89m4cflGCItimmiiXYA5gA/out-0.png",
+      "examples/ligukgf4vnbitaopx6m7cos4ou.png",
     predictionId: "ligukgf4vnbitaopx6m7cos4ou",
   },
   {
     prompt: "muddy ground with colorful autumn leaves, seamless texture",
     image:
-      "https://replicate.delivery/pbxt/EZOe7RiVzyUGJiN2q8IftvCPC5sawrDY14CkAF3y7LzhUgcQA/out-0.png",
+      "examples/idzgepp6mzgqxm3dvc2o3q4oby.png",
     predictionId: "idzgepp6mzgqxm3dvc2o3q4oby",
   },
   {
     prompt: "redwood tree bark",
     image:
-      "https://replicate.delivery/pbxt/8IfaYI0KfNsR1EJJeGEHd9D5oPXhfSrJmdmZeWevQjpwaCIHE/out-0.png",
+      "examples/tax3cmfyyraubaaab64u6kwdq4.png",
     predictionId: "tax3cmfyyraubaaab64u6kwdq4",
   },
   {
     prompt: "flamingo oil painting",
     image:
-      "https://replicate.delivery/pbxt/8sWrbQ8IyZ5aDhdyVAsxgOWxQNe5SmeMDKjh2yPTld4zRgcQA/out-0.png",
+      "examples/w6fscmyubfe4rndwi6jp2u5kd4.png",
     predictionId: "w6fscmyubfe4rndwi6jp2u5kd4",
   },
   {
     prompt:
       "ancient carvings trim sheet texture, trending on artstation, sandstone, 4k",
     image:
-      "https://replicate.delivery/pbxt/lC656AZd7OZ5DRB1j9kuSZDELBAmbdPBZNE8klAI1fNFNQOIA/out-0.png",
+      "examples/ek2qlgv7gfamljinzcggjjfbpu.png",
     predictionId: "ek2qlgv7gfamljinzcggjjfbpu",
   },
   {
     prompt: "wall made from chocolate bars seamless texture",
     image:
-      "https://replicate.delivery/pbxt/HtcyzMPb4NK8NFrHrfq4lnogYUd60XHruHFHec08V8hKNgcQA/out-0.png",
+      "examples/w56mlnnfiraxreczadybu6qr3i.png",
     predictionId: "w56mlnnfiraxreczadybu6qr3i",
   },
 
   {
     prompt: "flowers, Otsu-e style, traditional",
     image:
-      "https://replicate.delivery/pbxt/J0AkWXPlsKJFHBk1hTWLQcqnS9jT1eiCho7dGSTLY17tMQOIA/out-0.png",
+      "examples/sdgzkngmojh7bcrshsyts4yvle.png",
     predictionId: "sdgzkngmojh7bcrshsyts4yvle",
   },
   {
     prompt: "oranges",
     image:
-      "https://replicate.delivery/pbxt/HzheUk43MBSoNKeDMdcRtijcv5GwlF9DCY3leTsze7xTV9xBB/out-0.png",
+      "examples/peqkza3poffkdlw3km4s7pfqb4.png",
     predictionId: "peqkza3poffkdlw3km4s7pfqb4",
   },
   {
     prompt: "the surface of mars",
     image:
-      "https://replicate.delivery/pbxt/47xpqCioJqrXDtCQk7Q8Ok5MiDEGbWi6Jdy5rKWYG4ehAQOIA/out-0.png",
+      "examples/xw46kpcei5b5vgck6bbtxpkj7u.png",
     predictionId: "xw46kpcei5b5vgck6bbtxpkj7u",
   },
   {
     prompt: "where's waldo?",
     image:
-      "https://replicate.delivery/pbxt/tMXWRX07ajqCIBabNMdQepiXKYVcyjuND7szGZfcZPetO64gA/out-0.png",
+      "examples/ljx7vthlbbgjpirrbvaltqdg6u.png",
     predictionId: "ljx7vthlbbgjpirrbvaltqdg6u",
   },
   {
     prompt: "mossy runic bricks",
     image:
-      "https://replicate.delivery/pbxt/GkavaFZq1XbUG9Dqtx2YUaQ3ITKyfxdp6qarY9KKwNMdYOOIA/out-0.png",
+      "examples/sayfrouoonc3zh3alt2bzljszy.png",
     predictionId: "sayfrouoonc3zh3alt2bzljszy",
   },
 ];
