@@ -249,7 +249,7 @@ export default function Home({ prediction, baseUrl }) {
     }, 10);
   };
 
-  const stitchImages = async (imageUrl, screenWidth, screenHeight) => {
+  const stitchImages = async (imageUrl, screenWidth, screenHeight, tileSize) => {
     /**
      * Given a url for an image (which comes from replicate),
      * stitch it into a canvas and return the canvas so we can download it.
@@ -269,25 +269,25 @@ export default function Home({ prediction, baseUrl }) {
     var img = new Image();
     img.src = imageURL;
 
-    var x = 0;
-    var y = 0;
-
     img.addEventListener("load", (e) => {
-      while (y < screenHeight) {
-        while (x < screenWidth) {
-          ctx.drawImage(img, x, y);
-          x += 512;
+      const srcW = img.naturalWidth || 512;
+      const srcH = img.naturalHeight || 512;
+      const drawW = tileSize || srcW;
+      const drawH = tileSize || srcH;
+
+      for (let y = 0; y < screenHeight; y += drawH) {
+        for (let x = 0; x < screenWidth; x += drawW) {
+          // Draw full source tile scaled to desired draw size
+          ctx.drawImage(img, 0, 0, srcW, srcH, x, y, drawW, drawH);
         }
-        x = 0;
-        y += 512;
       }
     });
 
     return myCanvas.toDataURL("image/png");
   };
 
-  const download = async (image, width, height) => {
-    stitchImages(image, width, height);
+  const download = async (image, width, height, tileSize) => {
+    stitchImages(image, width, height, tileSize);
 
     const idStr = id ? `(${id})` : "";
     // I couldn't figure out the async/await version of this
@@ -851,7 +851,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
                   <div className="mt-2">
                     <button
                       className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      onClick={() => download(wallpaper, 256, 256)}
+                      onClick={() => download(wallpaper, 256, 256, 256)}
                     >
                       Download
                     </button>
