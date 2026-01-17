@@ -851,7 +851,7 @@ export function Save({ open, setOpen, wallpaper, download }) {
                   <div className="mt-2">
                     <button
                       className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      onClick={() => download(wallpaper, 256, 256, 256)}
+                      onClick={() => download(wallpaper, 512, 512, 512)}
                     >
                       Download
                     </button>
